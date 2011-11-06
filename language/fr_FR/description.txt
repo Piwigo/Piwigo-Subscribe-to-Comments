@@ -1,0 +1,1 @@
+Ce plugin permet aux visiteurs de recevoir par mail les nouveaux commentaires sur une image.
