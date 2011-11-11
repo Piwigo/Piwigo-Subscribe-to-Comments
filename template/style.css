@@ -8,24 +8,26 @@
 }
 
 .subscriptions_list TD {
-	padding: 0 5px;
+	padding:5px 5px 2px 5px;
+  vertical-align:center;
 }
 
 .subscriptions_list TR {
 	text-align: left;
 }
 
-.subscriptions_list TH { 
-  padding:7px 5px;
-}
+.row2 { background-color:#222; }
+.row1 { background-color:#333; }
 
-.row2 { background-color: #222; }
-.throw, .row1 { background-color:#111;  }
-
-p {
+.stc p {
   text-align:center;
 }
 
-label {
+.stc label {
   display:block;
+}
+
+img.thumbnail {
+  max-width:120px;
+  max-height:90px;
 }

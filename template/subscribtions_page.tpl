@@ -4,7 +4,7 @@
 
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 
-<div id="content" class="content">
+<div id="content" class="content stc">
   <div class="titrePage">
     <ul class="categoryActions">
       {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
@@ -57,15 +57,11 @@
   {if !empty($subscriptions) and $subscriptions != 'none'}
   <form action="{$MANAGE_LINK}" method="post">
   <fieldset>
-    <legend>{'Manage my subscriptions'|@translate}</legend>
+    <legend>{'Manage my subscriptions to comments'|@translate}</legend>
     <table class="subscriptions_list">
-      <tr class="throw">
-        <th>{'Item'|@translate}</th>
-        <th>{'Date'|@translate}</th>
-        <th>{'Unsubscribe'|@translate}</th>
-      </tr>
       {foreach from=$subscriptions item=sub name=subs_loop}
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if}">
+        <td><img src="{$sub.infos.thumbnail}" alt="{$sub.infos.name}" class="thumbnail"></td>
         <td>
           {if $sub.type == 'image'}
           <img src="{$SUBSCRIBE_TO_PATH}template/picture.png" alt="(P)">
@@ -73,8 +69,8 @@
           <img src="{$SUBSCRIBE_TO_PATH}template/folder_picture.png" alt="(A)">
           {/if} 
           <a href="{$sub.infos.url}">{$sub.infos.name}</a>
+          <br>{$sub.registration_date}
         </td>
-        <td>{$sub.registration_date}</td>
         <td><a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a></td>
       </tr>
       {/foreach}

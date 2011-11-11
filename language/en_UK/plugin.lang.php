@@ -16,9 +16,10 @@ $lang['Subscriptions of'] = 'Subscriptions of';
 $lang['Unsubscribe from email notification'] = 'Unsubscribe from email notification';
 $lang['Only unsubscribe notifications for comments from:'] = 'Only unsubscribe notifications for comments from:';
 $lang['Unsubscribe from all email notifications'] = 'Unsubscribe from all email notifications';
-$lang['Manage my subscriptions'] = 'Manage my subscriptions';
+$lang['Manage my subscriptions to comments'] = 'Manage my subscriptions to comments';
 $lang['Item'] = 'Item';
 $lang['Date'] = 'Date';
 $lang['You are not subscribed to any comment.'] = 'You are not subscribed to any comment.';
+$lang['Return to item page'] = 'Return to item page';
 
 ?>

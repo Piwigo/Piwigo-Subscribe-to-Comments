@@ -12,13 +12,14 @@ $lang['Subscribe to new comments'] = 'S\'inscrire aux nouveaux commentaires';
 $lang['Invalid email adress.'] = 'Adress email invalide.';
 $lang['Your subscribtion has been validated, thanks you.'] = 'Votre inscription a été validée, merci.';
 $lang['Nothing to validate.'] = 'Rien à valider.';
-$lang['Subscriptions of'] = 'Subscriptions of';
+$lang['Subscriptions of'] = 'Abonnements de';
 $lang['Unsubscribe from email notification'] = 'Se désinscrire de la notification par mail';
 $lang['Only unsubscribe notifications for comments from:'] = 'Uniquement se désinscrire de :';
 $lang['Unsubscribe from all email notifications'] = 'Ne plus recevoir aucune notification';
-$lang['Manage my subscriptions'] = 'Gérer mes abonnements';
+$lang['Manage my subscriptions to comments'] = 'Gérer mes abonnements aux commentaires';
 $lang['Item'] = 'Objet';
 $lang['Date'] = 'Date';
 $lang['You are not subscribed to any comment.'] = 'Vous n\'êtes inscrit à aucun commentaire.';
+$lang['Return to item page'] = 'Retourner à la page de l\'élément';
 
 ?>

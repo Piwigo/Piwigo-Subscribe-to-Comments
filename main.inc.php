@@ -33,7 +33,7 @@ add_event_handler('loc_begin_index', 'stc_on_album');
 add_event_handler('loc_end_section_init', 'stc_detect_section');
 add_event_handler('loc_end_index', 'stc_load_section');
 
-// menu link
-add_event_handler('blockmanager_apply', 'stc_menubar_apply');
+// profile link
+add_event_handler('loc_begin_profile', 'stc_profile_link');
 
 ?>

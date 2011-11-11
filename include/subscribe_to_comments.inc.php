@@ -172,16 +172,10 @@ function stc_on_picture()
 
 function stc_on_picture_prefilter($template, &$smarty)
 {
-  global $user, $picture;  
-  
-  ## subscribe at any moment ##
-  $search[1] = '{if isset($comment_add)}';
-  
-  $replace[1] = $search[1].'
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>';
+  global $user, $picture;
   
   // if registered user we check if already subscribed
+  $subscribed = false;
   if (!is_a_guest())
   {
     $query = '
@@ -194,14 +188,24 @@ SELECT id
 ;';
     if (pwg_db_num_rows(pwg_query($query)))
     {
-      $replace[1].= '
-    {\'You are currently subscribed to comments of this picture.\'|@translate}
-    <a href="'.add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
-      $no_form = true;
+      $subscribed = true;
     }
   }
   
-  if (!isset($no_form))
+  ## subscribe at any moment ##
+  $search[1] = '{if isset($comment_add)}';
+  
+  $replace[1] = $search[1].'
+<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
+  <fieldset>';
+  
+  if ($subscribed)
+  {
+    $replace[1].= '
+    {\'You are currently subscribed to comments of this picture.\'|@translate}
+    <a href="'.add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
+  }
+  else
   {
     $replace[1].= '
     <label><a href="#" id="stc_check_stdl">{\'Subscribe to new comments\'|@translate}</a> <input type="checkbox" name="stc_check_stdl" value="1" style="display:none;"></label>';
@@ -211,7 +215,7 @@ SELECT id
     {
       $replace[1].= ' 
       <label style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label style="display:none;"><input type="submit" value="{\'Submit\'|@translate}"></label>
+      <label style="display:none;"><input type="submit" id="stc_submit" value="{\'Submit\'|@translate}"></label>
     {footer_script require="jquery"}{literal}
     jQuery(document).ready(function() {
       $("a#stc_check_stdl").click(function() {
@@ -247,7 +251,7 @@ SELECT id
   $search[0] = '<input type="submit" value="{\'Submit\'|@translate}">';
   $replace[0] = null;
   
-  if (!isset($no_form))
+  if (!$subscribed)
   {
     $replace[0].= '
 <label>{\'Subscribe to new comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
@@ -334,16 +338,10 @@ function stc_on_album()
 
 function stc_on_album_prefilter($template, &$smarty)
 {
-  global $user, $page;  
-  
-  ## subscribe at any moment ##
-  $search[1] = '{if isset($comment_add)}';
-  
-  $replace[1] = $search[1].'
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>';
+  global $user, $page;
   
   // if registered user we check if already subscribed
+  $subscribed = false;
   if (!is_a_guest())
   {
     $query = '
@@ -356,19 +354,30 @@ SELECT id
 ;';
     if (pwg_db_num_rows(pwg_query($query)))
     {
-      $url_params['section'] = 'categories';
-      $url_params['category'] = $page['category'];
-      
-      $element_url = make_index_url($url_params);
-    
-      $replace[1].= '
-    {\'You are currently subscribed to comments of this album.\'|@translate}
-    <a href="'.add_url_params($element_url, array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
-      $no_form = true;
+      $subscribed = true;
     }
   }
   
-  if (!isset($no_form))
+  ## subscribe at any moment ##
+  $search[1] = '{if isset($comment_add)}';
+  
+  $replace[1] = $search[1].'
+<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
+  <fieldset>';
+  
+  // if registered user we check if already subscribed
+  if ($subscribed)
+  {
+    $url_params['section'] = 'categories';
+    $url_params['category'] = $page['category'];
+    
+    $element_url = make_index_url($url_params);
+  
+    $replace[1].= '
+    {\'You are currently subscribed to comments of this album.\'|@translate}
+    <a href="'.add_url_params($element_url, array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
+  }
+  else
   {
     $replace[1].= '
     <label><a href="#" id="stc_check_stdl">{\'Subscribe to new comments\'|@translate}</a> <input type="checkbox" name="stc_check_stdl" value="1" style="display:none;"></label>';
@@ -378,7 +387,7 @@ SELECT id
     {
       $replace[1].= ' 
       <label style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label style="display:none;"><input type="submit" value="{\'Submit\'|@translate}"></label>
+      <label style="display:none;"><input type="submit" id="stc_submit" value="{\'Submit\'|@translate}"></label>
     {footer_script require="jquery"}{literal}
     jQuery(document).ready(function() {
       $("a#stc_check_stdl").click(function() {
@@ -414,7 +423,7 @@ SELECT id
   $search[0] = '<input type="submit" value="{\'Submit\'|@translate}">';
   $replace[0] = null;
   
-  if (!isset($no_form))
+  if (!$subscribed)
   {
     $replace[0].= '
 <label>{\'Subscribe to new comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
@@ -441,23 +450,20 @@ jQuery(document).ready(function() {
 /**
  * add link to management page for registered users
  */
-function stc_menubar_apply($menu_ref_arr)
+function stc_profile_link()
 {
   global $template;
-  $menu = &$menu_ref_arr[0];
   
-  if ( !is_a_guest() and ($block = $menu->get_block('mbIdentification')) != null )
-  {
-    $template->set_prefilter('menubar', 'stc_menubar_apply_prefilter'); 
-  }
+  $template->set_prefilter('profile_content', 'stc_profile_link_prefilter'); 
 }
 
-function stc_menubar_apply_prefilter($content, &$smarty)
+function stc_profile_link_prefilter($content, &$smarty)
 {
   global $user;
   
-  $search = '{if isset($U_REGISTER)}';
-  $replace = '<li><a href="'.make_stc_url('manage', $user['email']).'" title="{\'Manage my subscriptions\'|@translate}" rel="nofollow">{\'Manage my subscriptions\'|@translate}</a></li>';
-  return str_replace($search, $replace.$search, $content);
+  $search = '<p class="bottomButtons">';
+  $replace = '<a href="'.make_stc_url('manage', $user['email']).'" title="{\'Manage my subscriptions to comments\'|@translate}" rel="nofollow">{\'Manage my subscriptions to comments\'|@translate}</a><br>';
+  
+  return str_replace($search, $search.$replace, $content);
 }
 ?>

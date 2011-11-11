@@ -57,6 +57,8 @@ SELECT
     );
     
   $generic_content = '
+<a href="'.$element['url'].'"><img src="'.$element['thumbnail'].'" alt="'.$element['name'].'"></a>
+<br>
 <b>.'.trigger_event('render_comment_author', $comm['author']).'</b> wrote :
 
 <blockquote>'.trigger_event('render_comment_content', $comm['content']).'</blockquote>
@@ -78,7 +80,7 @@ SELECT
 }
 
 
-/*
+/**
  * add an email to subscribers list
  * @param int (image|category)_id
  * @param string email
@@ -154,7 +156,8 @@ If you did not request this action please disregard this message.
   }
 }
 
-/*
+
+/**
  * remove an email from subscribers list
  * @param int (image|category)_id
  * @param string email
@@ -204,7 +207,8 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   return false;
 }
 
-/*
+
+/**
  * validate a subscription
  * @param int (image|category)_id
  * @param string email
@@ -241,6 +245,7 @@ UPDATE '.SUBSCRIBE_TO_TABLE.'
   
   return false;
 }
+
 
 /**
  * create absolute url to subscriptions section
@@ -283,6 +288,7 @@ function make_stc_url($action, $email)
   return $url;
 }
 
+
 /**
  * get name and url of a picture
  * @param int image_id
@@ -296,7 +302,9 @@ function get_picture_infos($image_id, $absolute=false)
 SELECT
     id,
     name,
-    file
+    file,
+    path, 
+    tn_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
@@ -315,6 +323,8 @@ SELECT
   }
   $element['url'] = make_picture_url($url_params);
   
+  $element['thumbnail'] = get_thumbnail_url($element);
+  
   return $element;
 }
 
@@ -325,22 +335,39 @@ SELECT
  */
 function get_category_infos($cat_id)
 {
+  global $conf;
+  
   $query = '
 SELECT
-    id,
-    name,
-    permalink
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$cat_id.'
+    cat.id,
+    cat.name,
+    cat.permalink,
+    img.id AS image_id,
+    img.path,
+    img.tn_ext
+  FROM '.CATEGORIES_TABLE.' AS cat
+    LEFT JOIN '.USER_CACHE_CATEGORIES_TABLE.' AS ucc 
+      ON ucc.cat_id = cat.id AND ucc.user_id = '.$conf['guest_id'].'
+    LEFT JOIN '.IMAGES_TABLE.' AS img
+      ON img.id = ucc.user_representative_picture_id
+  WHERE cat.id = '.$cat_id.'
 ;';
   $element = pwg_db_fetch_assoc(pwg_query($query));
+  // we use guest_id for user_cache beacause we don't know the status of recipient
   
   $url_params['section'] = 'categories';
   $url_params['category'] = $element;
   $element['url'] = make_index_url($url_params);
   
+  $element['thumbnail'] = get_thumbnail_url(array(
+    'id' => $element['image_id'],
+    'path' => $element['path'],
+    'tn_ext' => $element['tn_ext'],
+    ));
+  
   return $element;
 }
+
 
 /**
  * crypt a string using mcrypt extension or a binary method
