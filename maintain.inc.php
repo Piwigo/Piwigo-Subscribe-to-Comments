@@ -8,12 +8,13 @@ function plugin_install()
   /* create table to store subscribtions */
 	pwg_query('
 CREATE TABLE IF NOT EXISTS `' . $prefixeTable . 'subscribe_to_comments` (
-  `email` varchar(255) NOT NULL,
-  `image_id` mediumint(8) NOT NULL DEFAULT 0,
-  `category_id` smallint(5) NOT NULL DEFAULT 0,
-  `registration_date` datetime NOT NULL,
-  `validated` enum("true", "false") NOT NULL DEFAULT "false",
-  UNIQUE KEY `UNIQUE` (`mail`, `image_id`, `category_id`)
+  `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `email` VARCHAR( 255 ) NOT NULL ,
+  `image_id` MEDIUMINT( 8 ) UNSIGNED NOT NULL DEFAULT "0",
+  `category_id` SMALLINT( 5 ) UNSIGNED NOT NULL DEFAULT "0",
+  `registration_date` DATETIME NOT NULL,
+  `validated` ENUM( "true", "false" ) NOT NULL DEFAULT "false",
+  UNIQUE KEY `UNIQUE` (`email`, `image_id`, `category_id`)
 ) DEFAULT CHARSET=utf8
 ;');
       
@@ -34,7 +35,7 @@ function plugin_uninstall()
 	global $prefixeTable;
   
   /* delete table and config */
-  // pwg_query('DROP TABLE `' . $prefixeTable . 'subscribe_to_comments`;');
-  pwg_query('DELETE FROM `' . CONFIG_TABLE . '` WHERE param = "Subscribe_to_Comments";');
+  pwg_query('DROP TABLE `' . $prefixeTable . 'subscribe_to_comments`;');
+  // pwg_query('DELETE FROM `' . CONFIG_TABLE . '` WHERE param = "Subscribe_to_Comments";');
 }
 ?>

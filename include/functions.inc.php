@@ -9,6 +9,12 @@ function send_comment_to_subscribers($comm)
 {
   global $conf, $page, $user;
   
+  if ( empty($comm) or !is_array($comm) )
+  {
+    trigger_error('send_comment_to_subscribers: undefinided comm', E_USER_WARNING);
+    return false;
+  }
+  
   $type= isset($comm['category_id']) ? 'category' : 'image';
   
   // exclude current user
@@ -31,48 +37,11 @@ SELECT
   set_make_full_url();
   if ($type == 'image')
   {
-    // get image infos
-    $query = '
-SELECT
-    id,
-    name,
-    file
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$comm['image_id'].'
-;';
-    $element = pwg_db_fetch_assoc(pwg_query($query));
-      
-    if (empty($element['name']))
-    {
-      $element['name'] = get_name_from_file($element['file']);
-    }
-    
-    $url_params = array('image_id' => $element['id']);
-    if (!empty($page['category']))
-    {
-      $url_params['section'] = 'categories';
-      $url_params['category'] = $page['category'];
-    }
-
-    $element['url'] = make_picture_url($url_params);
+    $element = get_picture_infos($comm['image_id']);
   }
   else if ($type == 'category')
   {
-    // get category infos
-    $query = '
-SELECT
-    id,
-    name,
-    permalink
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$comm['category_id'].'
-;';
-    $element = pwg_db_fetch_assoc(pwg_query($query));
-    
-    $url_params['section'] = 'categories';
-    $url_params['category'] = $element;
-    
-    $element['url'] = make_index_url($url_params);
+    $element = get_category_infos($comm['category_id']);
   }
   
   // get author name
@@ -100,10 +69,8 @@ SELECT
   foreach ($emails as $email)
   {
     $mail_args['content'] = $generic_content.'
-<a href="'.make_stc_url('unsubscribe-'.$type, $email, $element['id']).'">Stop receiving notifications for this picture</a><br>
-<a href="'.make_stc_url('unsubscribe-all', $email).'">Stop receiving all notifications</a><br>
-';
-//<a href="'.make_stc_url('manage', $email).'">Manage my subscribtions</a>
+<a href="'.make_stc_url('unsubscribe-'.$type, $email, $element['id']).'">Stop receiving notifications</a><br>
+<a href="'.make_stc_url('manage', $email).'">Manage my subscribtions</a>';
     pwg_mail($email, $mail_args);
   }
   
@@ -119,20 +86,18 @@ SELECT
  */
 function subscribe_to_comments($element_id, $email, $type='image')
 {
-  global $page, $user, $conf, $template, $picture;
+  global $page, $conf, $user, $template, $picture;
   
-  $infos = $errors = array();
+  if ( empty($element_id) or empty($type) )
+  {
+    trigger_error('subscribe_to_comment: missing element_id and/or type', E_USER_WARNING);
+    return false;
+  }
+  
+  // check email
   if ( is_a_guest() and empty($email) )
   {
-    array_push($errors, l10n('Invalid email adress, your are not subscribed to comments.'));
-    
-    $orig = $template->get_template_vars('errors');
-    if (empty($orig)) $orig = array();
-    $template->assign('errors', array_merge($orig, $errors));
-    
-    if ($type == 'category') $template->set_prefilter('index', 'coa_messages'); // here we use a prefilter existing in COA
-    
-    return;
+    return false;
   }
   else if (!is_a_guest())
   {
@@ -141,7 +106,7 @@ function subscribe_to_comments($element_id, $email, $type='image')
   
   // don't care if already registered
   $query = '
-INSERT IGNORE INTO '.SUBSCRIBE_TO_TABLE.'(
+INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
     email,
     '.$type.'_id,
     registration_date,
@@ -153,11 +118,14 @@ INSERT IGNORE INTO '.SUBSCRIBE_TO_TABLE.'(
     NOW(),
     "'.(is_a_guest() ? "false" : "true").'"
   )
+  ON DUPLICATE KEY UPDATE
+    registration_date = IF(validated="true", registration_date, NOW()),
+    validated = IF(validated="true", validated, "'.(is_a_guest() ? "false" : "true").'")
 ;';
   pwg_query($query);
   
   // send validation mail
-  if (is_a_guest() and pwg_db_insert_id() != 0)
+  if ( is_a_guest() and pwg_db_changes(null) != 0 )
   {
     $element_name = ($type == 'image') ? $picture['current']['name'] : $page['category']['name'];
     
@@ -177,25 +145,102 @@ If you did not request this action please disregard this message.
 ';
 
     pwg_mail($email, $mail_args);
-    array_push($infos, l10n('Please check your email inbox to confirm your subscription.'));
+    return 'confirm_mail';
   }
-  // just displat confirmation message
-  else if (pwg_db_insert_id() != 0)
+  // just display confirmation message
+  else if (pwg_db_changes(null) != 0)
   {
-    array_push($infos, l10n('You have been added to the list of subscribers for this '.($type=='image' ? 'picture' : 'album').'.'));
-  }
-  
-  
-  if (!empty($infos))
-  {
-    $orig = $template->get_template_vars('infos');
-    if (empty($orig)) $orig = array();
-    $template->assign('infos', array_merge($orig, $infos));
-    
-    if ($type == 'category') $template->set_prefilter('index', 'coa_messages');
+    return true;
   }
 }
 
+/*
+ * remove an email from subscribers list
+ * @param int (image|category)_id
+ * @param string email
+ * @param string type (image|category)
+ */
+function un_subscribe_to_comments($element_id, $email, $type='image')
+{
+  global $template, $user;
+  
+  if ( empty($element_id) or empty($type) )
+  {
+    trigger_error('un_subscribe_to_comment: missing element_id and/or type', E_USER_WARNING);
+    return false;
+  }
+  
+  // check email
+  if ( is_a_guest() and empty($email) )
+  {
+    return false;
+  }
+  else if (!is_a_guest())
+  {
+    $email = $user['email'];
+  }
+  
+  // delete subscription
+  switch ($type)
+  {
+    case 'image' :
+    case 'category' :
+      $where_clause = $type.'_id = '.pwg_db_real_escape_string($element_id);
+    case 'all' :
+    {
+      $query = '
+DELETE FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE 
+    email = "'.pwg_db_real_escape_string($email).'"
+    '.(!empty($where_clause) ? 'AND '.$where_clause : null).'
+;';
+      pwg_query($query);
+      
+      return true;
+      break;
+    }
+  }
+  
+  return false;
+}
+
+/*
+ * validate a subscription
+ * @param int (image|category)_id
+ * @param string email
+ * @param string type (image|category)
+ */
+function validate_subscriptions($element_id, $email, $type='image')
+{
+  if ( empty($element_id) or empty($email) or empty($type) )
+  {
+    trigger_error('validate_subscriptions: missing element_id and/or email and/or type', E_USER_WARNING);
+    return false;
+  }
+  
+  switch ($type)
+  {
+    case 'image' :
+    case 'category':
+      $where_clause = $type.'_id = '.pwg_db_real_escape_string($element_id);
+    case 'all' :
+    {
+       $query = '
+UPDATE '.SUBSCRIBE_TO_TABLE.'
+  SET validated = "true"
+  WHERE 
+    email = "'.pwg_db_real_escape_string($email).'"
+    '.(!empty($where_clause) ? 'AND '.$where_clause : null).'
+;';
+      pwg_query($query);
+      
+      if (pwg_db_changes(null) != 0) return true;
+      break;
+    }
+  }
+  
+  return false;
+}
 
 /**
  * create absolute url to subscriptions section
@@ -207,7 +252,7 @@ function make_stc_url($action, $email)
 {
   if ( empty($action) or empty($email) )
   {
-    trigger_error('make_stc_url missing action and/or mail', E_USER_WARNING);
+    trigger_error('make_stc_url: missing action and/or mail', E_USER_WARNING);
     return null;
   }
   
@@ -217,13 +262,17 @@ function make_stc_url($action, $email)
   $url_params = array(
     'action' => $action,
     'email' => $email,
-    'key' => crypt_value($action.$email, $conf['secret_key']),
     );
   
   if (func_num_args() > 2)
   {
-    $url_params['param'] = func_get_arg(2);
+    $url_params['id'] = func_get_arg(2);
   }
+  
+  $url_params['key'] = crypt_value(
+    $action.$email.(isset($url_params['id'])?$url_params['id']:null), 
+    $conf['secret_key']
+    );
   
   $url = add_url_params(
     make_index_url( array('section' => 'subscriptions') ),
@@ -234,6 +283,64 @@ function make_stc_url($action, $email)
   return $url;
 }
 
+/**
+ * get name and url of a picture
+ * @param int image_id
+ * @return array
+ */
+function get_picture_infos($image_id, $absolute=false)
+{
+  global $page;
+  
+  $query = '
+SELECT
+    id,
+    name,
+    file
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $element = pwg_db_fetch_assoc(pwg_query($query));
+    
+  if (empty($element['name']))
+  {
+    $element['name'] = get_name_from_file($element['file']);
+  }
+  
+  $url_params = array('image_id' => $element['id']);
+  if ( !empty($page['category']) and !$absolute )
+  {
+    $url_params['section'] = 'categories';
+    $url_params['category'] = $page['category'];
+  }
+  $element['url'] = make_picture_url($url_params);
+  
+  return $element;
+}
+
+/**
+ * get name and url of a category
+ * @param int cat_id
+ * @return array
+ */
+function get_category_infos($cat_id)
+{
+  $query = '
+SELECT
+    id,
+    name,
+    permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$cat_id.'
+;';
+  $element = pwg_db_fetch_assoc(pwg_query($query));
+  
+  $url_params['section'] = 'categories';
+  $url_params['category'] = $element;
+  $element['url'] = make_index_url($url_params);
+  
+  return $element;
+}
 
 /**
  * crypt a string using mcrypt extension or a binary method

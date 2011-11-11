@@ -1,0 +1,31 @@
+.subscriptions_list {
+  width:600px;
+	border: 1px solid #111;
+	margin: 1em auto;
+	padding: 0;
+  background-color:#222;
+  border-collapse:collapse;
+}
+
+.subscriptions_list TD {
+	padding: 0 5px;
+}
+
+.subscriptions_list TR {
+	text-align: left;
+}
+
+.subscriptions_list TH { 
+  padding:7px 5px;
+}
+
+.row2 { background-color: #222; }
+.throw, .row1 { background-color:#111;  }
+
+p {
+  text-align:center;
+}
+
+label {
+  display:block;
+}
