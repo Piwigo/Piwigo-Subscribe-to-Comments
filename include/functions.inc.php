@@ -97,7 +97,7 @@ function subscribe_to_comments($element_id, $email, $type='image')
   }
   
   // check email
-  if ( is_a_guest() and empty($email) )
+  if ( ( is_a_guest() or empty($user['email']) ) and empty($email) )
   {
     return false;
   }
@@ -174,7 +174,7 @@ function un_subscribe_to_comments($element_id, $email, $type='image')
   }
   
   // check email
-  if ( is_a_guest() and empty($email) )
+  if ( ( is_a_guest() or empty($user['email']) ) and empty($email) )
   {
     return false;
   }

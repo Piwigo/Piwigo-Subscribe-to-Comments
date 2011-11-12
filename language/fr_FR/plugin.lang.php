@@ -8,7 +8,9 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['You are currently subscribed to comments of this picture.'] = 'Vous êtes actuellement inscrit aux commentaires de cette photo.';
 $lang['You are currently subscribed to comments of this album.'] = 'Vous êtes actuellement inscrit aux commentaires de cet album.';
 $lang['Unsubscribe'] = 'Se désinscrire';
-$lang['Subscribe to new comments'] = 'S\'inscrire aux nouveaux commentaires';
+$lang['Subscribe'] = 'S\'inscrire';
+$lang['Subscribe without commenting'] = 'S\'inscrire sans commenter';
+$lang['Notify me of followup comments'] = 'Me notifier des nouveaux commentaires';
 $lang['Invalid email adress.'] = 'Adress email invalide.';
 $lang['Your subscribtion has been validated, thanks you.'] = 'Votre inscription a été validée, merci.';
 $lang['Nothing to validate.'] = 'Rien à valider.';

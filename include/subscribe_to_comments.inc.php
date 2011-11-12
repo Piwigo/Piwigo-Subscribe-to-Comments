@@ -129,7 +129,7 @@ function stc_on_picture()
   
   $infos = $array = array();
   
-  if (isset($_POST['stc_check_stdl']))
+  if (isset($_POST['stc_submit']))
   {
     $return = subscribe_to_comments($picture['current']['id'], @$_POST['stc_mail_stdl'], 'image');
     if ($return === 'confirm_mail')
@@ -170,13 +170,13 @@ function stc_on_picture()
   $template->set_prefilter('picture', 'stc_on_picture_prefilter');
 }
 
-function stc_on_picture_prefilter($template, &$smarty)
+function stc_on_picture_prefilter($content, &$smarty)
 {
   global $user, $picture;
   
-  // if registered user we check if already subscribed
+  // if registered user with mail we check if already subscribed
   $subscribed = false;
-  if (!is_a_guest())
+  if ( !is_a_guest() and !empty($user['email']) )
   {
     $query = '
 SELECT id
@@ -193,85 +193,71 @@ SELECT id
   }
   
   ## subscribe at any moment ##
-  $search[1] = '{if isset($comment_add)}';
+  $search = '#\<\/div\>(.{0,5})\{\/if\}(.{0,5})\{\*comments\*\}#is';
   
-  $replace[1] = $search[1].'
+  $replace = '
 <form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
   <fieldset>';
   
   if ($subscribed)
   {
-    $replace[1].= '
+    $replace.= '
     {\'You are currently subscribed to comments of this picture.\'|@translate}
     <a href="'.add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
   }
   else
   {
-    $replace[1].= '
-    <label><a href="#" id="stc_check_stdl">{\'Subscribe to new comments\'|@translate}</a> <input type="checkbox" name="stc_check_stdl" value="1" style="display:none;"></label>';
-    
-    // form for guests
-    if (is_a_guest())
+    $replace.= '
+    <legend>{\'Subscribe without commenting\'|@translate}</legend>';
+    if ( is_a_guest() or empty($user['email']) ) // email input for guest or users without mail
     {
-      $replace[1].= ' 
-      <label style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label style="display:none;"><input type="submit" id="stc_submit" value="{\'Submit\'|@translate}"></label>
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("a#stc_check_stdl").click(function() {
-        $("input[name=stc_check_stdl]").prop("checked", true);
-        $("#stc_standalone label").toggle();
-        return false;
-      });
-    });
-    {/literal}{/footer_script}';
+      $replace.= '
+      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
+      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>';
     }
-    // simple link for registered users
     else
     {
-      $replace[1].= '
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("a#stc_check_stdl").click(function() {
-        $("input[name=stc_check_stdl]").prop("checked", true);
-        $(this).parents("form#stc_standalone").submit();
-        return false;
-      });
-    });
-    {/literal}{/footer_script}';
+      $replace.= '
+      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>';
     }
   }
       
-  $replace[1].= '
+  $replace.= '
   </fieldset>
-</form>';
+</form>
+</div>
+{/if}{*comments*}';
+
+  $content = preg_replace($search, $replace, $content);
 
 
   ## subscribe while add a comment ##
-  $search[0] = '<input type="submit" value="{\'Submit\'|@translate}">';
-  $replace[0] = null;
+  $search = '<input type="submit" value="{\'Submit\'|@translate}">';
+  $replace = null;
   
   if (!$subscribed)
   {
-    $replace[0].= '
-<label>{\'Subscribe to new comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
+    $replace.= '
+    <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
   }
-  if (is_a_guest())
+  if ( is_a_guest() or empty($user['email']) )
   {
-    $replace[0].= ' 
-<label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
-{footer_script require="jquery"}{literal}
-jQuery(document).ready(function() {
-  $("input[name=stc_check]").change(function() {
-    if ($(this).is(":checked")) $("#stc_mail").css("display", "");
-    else $("#stc_mail").css("display", "none");
-  });
-});
-{/literal}{/footer_script}';
+    $replace.= ' 
+    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
+    {footer_script require="jquery"}{literal}
+    jQuery(document).ready(function() {
+      $("input[name=stc_check]").change(function() {
+        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
+        else $("#stc_mail").css("display", "none");
+      });
+    });
+    {/literal}{/footer_script}';
   }
-  $replace[0].= $search[0];
+  $replace.= $search;
   
-  return str_replace($search, $replace, $template);
+  $content = str_replace($search, $replace, $content);
+  
+  return $content;
 }
 
 
@@ -293,7 +279,7 @@ function stc_on_album()
     return;
   }
   
-  if (isset($_POST['stc_check_stdl']))
+  if (isset($_POST['stc_submit']))
   {
     $return = subscribe_to_comments($page['category']['id'], @$_POST['stc_mail_stdl'], 'category');
     if ($return === 'confirm_mail')
@@ -336,13 +322,13 @@ function stc_on_album()
   $template->set_prefilter('comments_on_albums', 'stc_on_album_prefilter');
 }
 
-function stc_on_album_prefilter($template, &$smarty)
+function stc_on_album_prefilter($content, &$smarty)
 {
   global $user, $page;
   
   // if registered user we check if already subscribed
   $subscribed = false;
-  if (!is_a_guest())
+  if ( !is_a_guest() and !empty($user['email']) )
   {
     $query = '
 SELECT id
@@ -359,13 +345,12 @@ SELECT id
   }
   
   ## subscribe at any moment ##
-  $search[1] = '{if isset($comment_add)}';
+  $search = '#\<\/div\>(.{0,5})\{\/if\}(.{0,5})\{\*comments\*\}#is';
   
-  $replace[1] = $search[1].'
+  $replace = '
 <form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
   <fieldset>';
   
-  // if registered user we check if already subscribed
   if ($subscribed)
   {
     $url_params['section'] = 'categories';
@@ -373,77 +358,63 @@ SELECT id
     
     $element_url = make_index_url($url_params);
   
-    $replace[1].= '
+    $replace.= '
     {\'You are currently subscribed to comments of this album.\'|@translate}
     <a href="'.add_url_params($element_url, array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
   }
   else
   {
-    $replace[1].= '
-    <label><a href="#" id="stc_check_stdl">{\'Subscribe to new comments\'|@translate}</a> <input type="checkbox" name="stc_check_stdl" value="1" style="display:none;"></label>';
-    
-    // form for guests
-    if (is_a_guest())
+    $replace.= '
+    <legend>{\'Subscribe without commenting\'|@translate}</legend>';
+    if ( is_a_guest() or empty($user['email']) ) // email input for guest or users without mail
     {
-      $replace[1].= ' 
-      <label style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label style="display:none;"><input type="submit" id="stc_submit" value="{\'Submit\'|@translate}"></label>
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("a#stc_check_stdl").click(function() {
-        $("input[name=stc_check_stdl]").prop("checked", true);
-        $("#stc_standalone label").toggle();
-        return false;
-      });
-    });
-    {/literal}{/footer_script}';
+      $replace.= '
+      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
+      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>';
     }
-    // simple link for registered users
     else
     {
-      $replace[1].= '
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("a#stc_check_stdl").click(function() {
-        $("input[name=stc_check_stdl]").prop("checked", true);
-        $(this).parents("form#stc_standalone").submit();
-        return false;
-      });
-    });
-    {/literal}{/footer_script}';
+      $replace.= '
+      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>';
     }
   }
       
-  $replace[1].= '
+  $replace.= '
   </fieldset>
-</form>';
+</form>
+</div>
+{/if}{*comments*}';
+
+  $content = preg_replace($search, $replace, $content);
 
 
   ## subscribe while add a comment ##
-  $search[0] = '<input type="submit" value="{\'Submit\'|@translate}">';
-  $replace[0] = null;
+  $search = '<input type="submit" value="{\'Submit\'|@translate}">';
+  $replace = null;
   
   if (!$subscribed)
   {
-    $replace[0].= '
-<label>{\'Subscribe to new comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
+    $replace.= '
+    <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
   }
-  if (is_a_guest())
+  if ( is_a_guest() or empty($user['email']) )
   {
-    $replace[0].= ' 
-<label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
-{footer_script require="jquery"}{literal}
-jQuery(document).ready(function() {
-  $("input[name=stc_check]").change(function() {
-    if ($(this).is(":checked")) $("#stc_mail").css("display", "");
-    else $("#stc_mail").css("display", "none");
-  });
-});
-{/literal}{/footer_script}';
+    $replace.= ' 
+    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
+    {footer_script require="jquery"}{literal}
+    jQuery(document).ready(function() {
+      $("input[name=stc_check]").change(function() {
+        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
+        else $("#stc_mail").css("display", "none");
+      });
+    });
+    {/literal}{/footer_script}';
   }
-  $replace[0].= $search[0];
+  $replace.= $search;
 
-  return str_replace($search, $replace, $template);
+  $content = str_replace($search, $replace, $content);
+  
+  return $content;
 }
 
 
@@ -452,9 +423,12 @@ jQuery(document).ready(function() {
  */
 function stc_profile_link()
 {
-  global $template;
+  global $template, $user;
   
-  $template->set_prefilter('profile_content', 'stc_profile_link_prefilter'); 
+  if (!empty($user['email']))
+  {
+    $template->set_prefilter('profile_content', 'stc_profile_link_prefilter');
+  }
 }
 
 function stc_profile_link_prefilter($content, &$smarty)
