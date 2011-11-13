@@ -370,7 +370,8 @@ SELECT
 
 
 /**
- * crypt a string using mcrypt extension or a binary method
+ * crypt a string using mcrypt extension or
+ * http://stackoverflow.com/questions/800922/how-to-encrypt-string-without-mcrypt-library-in-php/802957#802957
  * @param string value to crypt
  * @param string key
  * @return string
@@ -381,15 +382,22 @@ function crypt_value($value, $key)
   {
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
     $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    $value = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $value, MCRYPT_MODE_ECB, $iv);
+    $result = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $value, MCRYPT_MODE_ECB, $iv);
   }
   else
   {
-    $value = $value ^ $key; // binary XOR operation
+    $result = null;
+    for($i = 0; $i < strlen($value); $i++)
+    {
+      $char = substr($value, $i, 1);
+      $keychar = substr($key, ($i % strlen($key))-1, 1);
+      $char = chr(ord($char) + ord($keychar));
+      $result .= $char;
+    }
   }
   
-  $value = base64url_encode($value);
-  return trim($value); 
+  $result = base64url_encode($result);
+  return trim($result); 
 }
 
 /**
@@ -406,16 +414,22 @@ function decrypt_value($value, $key)
   {
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
     $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    $value = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $value, MCRYPT_MODE_ECB, $iv);
+    $result = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $value, MCRYPT_MODE_ECB, $iv);
   }
   else
   {
-    $value = $value ^ $key; // binary XOR operation
+    $result = null;
+    for($i = 0; $i < strlen($value); $i++)
+    {
+      $char = substr($value, $i, 1);
+      $keychar = substr($key, ($i % strlen($key))-1, 1);
+      $char = chr(ord($char) - ord($keychar));
+      $result .= $char;
+    }
   }
   
-  return trim($value);
+  return trim($result);
 }
-
 
 /**
  * variant of base64 functions usable into url

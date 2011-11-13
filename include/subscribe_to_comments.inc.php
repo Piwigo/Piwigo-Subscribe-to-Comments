@@ -232,8 +232,8 @@ SELECT id
 
 
   ## subscribe while add a comment ##
-  $search = '<input type="submit" value="{\'Submit\'|@translate}">';
-  $replace = null;
+  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
+  $replace = '<input type="hidden" name="key" value="{$comment_add.KEY}"$1>';
   
   if (!$subscribed)
   {
@@ -253,9 +253,8 @@ SELECT id
     });
     {/literal}{/footer_script}';
   }
-  $replace.= $search;
   
-  $content = str_replace($search, $replace, $content);
+  $content = preg_replace($search, $replace, $content);
   
   return $content;
 }
@@ -389,8 +388,8 @@ SELECT id
 
 
   ## subscribe while add a comment ##
-  $search = '<input type="submit" value="{\'Submit\'|@translate}">';
-  $replace = null;
+  $search = '<input type="hidden" name="key" value="{$comment_add.KEY}">';
+  $replace = $search;
   
   if (!$subscribed)
   {
@@ -410,7 +409,6 @@ SELECT id
     });
     {/literal}{/footer_script}';
   }
-  $replace.= $search;
 
   $content = str_replace($search, $replace, $content);
   
