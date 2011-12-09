@@ -266,12 +266,12 @@ function stc_main_prefilter($content, &$smarty)
   $replace = '
 <form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
   <fieldset>
-  {if $SUBSCRIBED == true}
+  {if $SUBSCRIBED}
     {\'You are currently subscribed to comments of this picture.\'|@translate}
     <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
   {else}
     <legend>{\'Subscribe without commenting\'|@translate}</legend>
-    {if $ASK_MAIL == true}
+    {if $ASK_MAIL}
       <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
       <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
     {else}
@@ -289,10 +289,10 @@ function stc_main_prefilter($content, &$smarty)
   
   $replace = '
 <input type="hidden" name="key" value="{$comment_add.KEY}"$1>
-{if $SUBSCRIBED != true}
+{if !$SUBSCRIBED}
   <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
 
-  {if $ASK_MAIL == true}
+  {if $ASK_MAIL}
     <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
     {footer_script require="jquery"}{literal}
     jQuery(document).ready(function() {
@@ -321,12 +321,12 @@ function stc_simple_prefilter($content, &$smarty)
   $replace = '
 <form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
   <fieldset>
-  {if $SUBSRIBED == true}
+  {if $SUBSCRIBED}
     {\'You are currently subscribed to comments of this album.\'|@translate}
     <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
   {else}
     <legend>{\'Subscribe without commenting\'|@translate}</legend>
-    {if $ASK_MAIL == true}
+    {if $ASK_MAIL}
       <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
       <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
     {else}
@@ -344,10 +344,10 @@ function stc_simple_prefilter($content, &$smarty)
   
   $replace = '
 <input type="hidden" name="key" value="{$comment_add.KEY}"$1>
-{if $SUBSCRIBED != true}
+{if !$SUBSCRIBED}
   <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
 
-  {if $ASK_MAIL == true}
+  {if $ASK_MAIL}
     <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
     {footer_script require="jquery"}{literal}
     jQuery(document).ready(function() {
