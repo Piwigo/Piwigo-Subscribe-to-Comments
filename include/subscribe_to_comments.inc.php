@@ -4,7 +4,8 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 /**
  * detect 'subscriptions' section and load page
  */
-function stc_detect_section() {
+function stc_detect_section()
+{
   global $tokens, $page;
   
   if ($tokens[0] == 'subscriptions')
@@ -13,7 +14,8 @@ function stc_detect_section() {
   }
 }
 
-function stc_load_section() {
+function stc_load_section()
+{
   global $page;
 
   if (isset($page['section']) and $page['section'] == 'subscriptions')
@@ -64,21 +66,8 @@ function stc_comment_insertion($comm)
         array_push($errors, l10n('Invalid email adress, your are not subscribed to comments.'));
       }
       
-       // messages management
-      if (!empty($errors))
-      {
-        $errors_bak = $template->get_template_vars('errors');
-        if (empty($errors_bak)) $errors_bak = array();
-        $template->assign('errors', array_merge($errors_bak, $errors));
-        $template->set_prefilter('index', 'coa_messages'); // here we use a prefilter existing in COA
-      }
-      if (!empty($infos))
-      {
-        $infos_bak = $template->get_template_vars('infos');
-        if (empty($infos_bak)) $infos_bak = array();
-        $template->assign('infos', array_merge($infos_bak, $infos));
-        $template->set_prefilter('index', 'coa_messages');
-      }
+      // messages management
+      stc_add_messages($errors, $infos, true);
     }
   }
 }
@@ -125,9 +114,9 @@ SELECT
  */
 function stc_on_picture()
 {
-  global $template, $picture, $page;
+  global $template, $picture, $page, $user;
   
-  $infos = $array = array();
+  $infos = $errors = array();
   
   if (isset($_POST['stc_submit']))
   {
@@ -154,28 +143,9 @@ function stc_on_picture()
   }
   
   // messages management
-  if (!empty($errors))
-  {
-    $errors_bak = $template->get_template_vars('errors');
-    if (empty($errors_bak)) $errors_bak = array();
-    $template->assign('errors', array_merge($errors_bak, $errors));
-  }
-  if (!empty($infos))
-  {
-    $infos_bak = $template->get_template_vars('infos');
-    if (empty($infos_bak)) $infos_bak = array();
-    $template->assign('infos', array_merge($infos_bak, $infos));
-  }
-  
-  $template->set_prefilter('picture', 'stc_on_picture_prefilter');
-}
-
-function stc_on_picture_prefilter($content, &$smarty)
-{
-  global $user, $picture;
+  stc_add_messages($errors, $infos);
   
   // if registered user with mail we check if already subscribed
-  $subscribed = false;
   if ( !is_a_guest() and !empty($user['email']) )
   {
     $query = '
@@ -188,84 +158,29 @@ SELECT id
 ;';
     if (pwg_db_num_rows(pwg_query($query)))
     {
-      $subscribed = true;
+      $template->assign(array(
+        'SUBSCRIBED' => true,
+        'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')),
+        ));
     }
-  }
-  
-  ## subscribe at any moment ##
-  $search = '#\<\/div\>(.{0,5})\{\/if\}(.{0,5})\{\*comments\*\}#is';
-  
-  $replace = '
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>';
-  
-  if ($subscribed)
-  {
-    $replace.= '
-    {\'You are currently subscribed to comments of this picture.\'|@translate}
-    <a href="'.add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
   }
   else
   {
-    $replace.= '
-    <legend>{\'Subscribe without commenting\'|@translate}</legend>';
-    if ( is_a_guest() or empty($user['email']) ) // email input for guest or users without mail
-    {
-      $replace.= '
-      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>';
-    }
-    else
-    {
-      $replace.= '
-      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>';
-    }
-  }
-      
-  $replace.= '
-  </fieldset>
-</form>
-</div>
-{/if}{*comments*}';
-
-  $content = preg_replace($search, $replace, $content);
-
-
-  ## subscribe while add a comment ##
-  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
-  $replace = '<input type="hidden" name="key" value="{$comment_add.KEY}"$1>';
-  
-  if (!$subscribed)
-  {
-    $replace.= '
-    <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
-  }
-  if ( is_a_guest() or empty($user['email']) )
-  {
-    $replace.= ' 
-    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("input[name=stc_check]").change(function() {
-        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
-        else $("#stc_mail").css("display", "none");
-      });
-    });
-    {/literal}{/footer_script}';
+    $template->assign('ASK_MAIL', true);
   }
   
-  $content = preg_replace($search, $replace, $content);
-  
-  return $content;
+  if ( $is_simple = strstr($user['theme'], 'simple') !== false or strstr($user['theme'], 'stripped') !== false )
+    $template->set_prefilter('picture', 'stc_simple_prefilter');
+  else
+    $template->set_prefilter('picture', 'stc_main_prefilter');
 }
-
 
 /**
  * add field and on album page
  */
 function stc_on_album()
 {
-  global $page, $template, $pwg_loaded_plugins;
+  global $page, $template, $pwg_loaded_plugins, $user;
   
   $infos = $errors = array();
   
@@ -303,30 +218,9 @@ function stc_on_album()
   }
   
   // messages management
-  if (!empty($errors))
-  {
-    $errors_bak = $template->get_template_vars('errors');
-    if (empty($errors_bak)) $errors_bak = array();
-    $template->assign('errors', array_merge($errors_bak, $errors));
-    $template->set_prefilter('index', 'coa_messages'); // here we use a prefilter existing in COA
-  }
-  if (!empty($infos))
-  {
-    $infos_bak = $template->get_template_vars('infos');
-    if (empty($infos_bak)) $infos_bak = array();
-    $template->assign('infos', array_merge($infos_bak, $infos));
-    $template->set_prefilter('index', 'coa_messages');
-  }
-  
-  $template->set_prefilter('comments_on_albums', 'stc_on_album_prefilter');
-}
-
-function stc_on_album_prefilter($content, &$smarty)
-{
-  global $user, $page;
+  stc_add_messages($errors, $infos, true);
   
   // if registered user we check if already subscribed
-  $subscribed = false;
   if ( !is_a_guest() and !empty($user['email']) )
   {
     $query = '
@@ -339,67 +233,67 @@ SELECT id
 ;';
     if (pwg_db_num_rows(pwg_query($query)))
     {
-      $subscribed = true;
+      $url_params['section'] = 'categories';
+      $url_params['category'] = $page['category'];
+      $element_url = make_index_url($url_params);
+      
+      $template->assign(array(
+        'SUBSCRIBED' => true,
+        'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>'1')),
+        ));
     }
-  }
-  
-  ## subscribe at any moment ##
-  $search = '#\<\/div\>(.{0,5})\{\/if\}(.{0,5})\{\*comments\*\}#is';
-  
-  $replace = '
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>';
-  
-  if ($subscribed)
-  {
-    $url_params['section'] = 'categories';
-    $url_params['category'] = $page['category'];
-    
-    $element_url = make_index_url($url_params);
-  
-    $replace.= '
-    {\'You are currently subscribed to comments of this album.\'|@translate}
-    <a href="'.add_url_params($element_url, array('stc_unsubscribe'=>'1')).'">{\'Unsubscribe\'|@translate}';
   }
   else
   {
-    $replace.= '
-    <legend>{\'Subscribe without commenting\'|@translate}</legend>';
-    if ( is_a_guest() or empty($user['email']) ) // email input for guest or users without mail
-    {
-      $replace.= '
-      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>';
-    }
-    else
-    {
-      $replace.= '
-      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>';
-    }
+    $template->assign('ASK_MAIL', true);
   }
-      
-  $replace.= '
+  
+  if ( $is_simple = strstr($user['theme'], 'simple') !== false or strstr($user['theme'], 'stripped') !== false )
+    $template->set_prefilter('comments_on_albums', 'stc_simple_prefilter');
+  else
+    $template->set_prefilter('comments_on_albums', 'stc_main_prefilter');
+}
+
+
+/**
+ * prefilter for common themes
+ */
+function stc_main_prefilter($content, &$smarty)
+{  
+  ## subscribe at any moment ##
+  $search = '#\<\/div\>(.{0,10})\{\/if\}(.{0,10})\{\*comments\*\}#is';
+  
+  $replace = '
+<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
+  <fieldset>
+  {if $SUBSCRIBED == true}
+    {\'You are currently subscribed to comments of this picture.\'|@translate}
+    <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
+  {else}
+    <legend>{\'Subscribe without commenting\'|@translate}</legend>
+    {if $ASK_MAIL == true}
+      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
+      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
+    {else}
+      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>
+    {/if}
+  {/if}
   </fieldset>
 </form>
-</div>
-{/if}{*comments*}';
+</div>$1{/if}$2{*comments*}';
 
   $content = preg_replace($search, $replace, $content);
-
-
-  ## subscribe while add a comment ##
-  $search = '<input type="hidden" name="key" value="{$comment_add.KEY}">';
-  $replace = $search;
   
-  if (!$subscribed)
-  {
-    $replace.= '
-    <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label>';
-  }
-  if ( is_a_guest() or empty($user['email']) )
-  {
-    $replace.= ' 
-    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label>
+  ## subscribe while add a comment ##
+  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
+  
+  $replace = '
+<input type="hidden" name="key" value="{$comment_add.KEY}"$1>
+{if $SUBSCRIBED != true}
+  <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
+
+  {if $ASK_MAIL == true}
+    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
     {footer_script require="jquery"}{literal}
     jQuery(document).ready(function() {
       $("input[name=stc_check]").change(function() {
@@ -407,14 +301,69 @@ SELECT id
         else $("#stc_mail").css("display", "none");
       });
     });
-    {/literal}{/footer_script}';
-  }
-
-  $content = str_replace($search, $replace, $content);
+    {/literal}{/footer_script}
+  {/if}
+{/if}';
+  
+  $content = preg_replace($search, $replace, $content);
   
   return $content;
 }
 
+/**
+ * prefilter for simple/stripped themes
+ */
+function stc_simple_prefilter($content, &$smarty)
+{  
+  ## subscribe at any moment ##
+  $search = '#\<\/div\>(.{0,10})\{\/if\}(.{0,10})\{if \!empty\(\$navbar\) \}\{include file\=\'navigation_bar.tpl\'\|\@get_extent:\'navbar\'\}\{\/if\}#is';
+  
+  $replace = '
+<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
+  <fieldset>
+  {if $SUBSRIBED == true}
+    {\'You are currently subscribed to comments of this album.\'|@translate}
+    <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
+  {else}
+    <legend>{\'Subscribe without commenting\'|@translate}</legend>
+    {if $ASK_MAIL == true}
+      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
+      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
+    {else}
+      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>
+    {/if}
+  {/if}
+  </fieldset>
+</form>
+</div>$1{/if}$2{if !empty($navbar) }{include file=\'navigation_bar.tpl\'|@get_extent:\'navbar\'}{/if}';
+
+  $content = preg_replace($search, $replace, $content);
+  
+  ## subscribe while add a comment ##
+  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
+  
+  $replace = '
+<input type="hidden" name="key" value="{$comment_add.KEY}"$1>
+{if $SUBSCRIBED != true}
+  <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
+
+  {if $ASK_MAIL == true}
+    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
+    {footer_script require="jquery"}{literal}
+    jQuery(document).ready(function() {
+      $("input[name=stc_check]").change(function() {
+        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
+        else $("#stc_mail").css("display", "none");
+      });
+    });
+    {/literal}{/footer_script}
+  {/if}
+{/if}';
+  
+  $content = preg_replace($search, $replace, $content);
+  
+  return $content;
+}
 
 /**
  * add link to management page for registered users
@@ -437,5 +386,28 @@ function stc_profile_link_prefilter($content, &$smarty)
   $replace = '<a href="'.make_stc_url('manage', $user['email']).'" title="{\'Manage my subscriptions to comments\'|@translate}" rel="nofollow">{\'Manage my subscriptions to comments\'|@translate}</a><br>';
   
   return str_replace($search, $search.$replace, $content);
+}
+
+/**
+ * must overload messages because Piwigo is weird
+ */
+function stc_add_messages($errors, $infos, $prefilter=false)
+{
+  global $template;
+  
+  if (!empty($errors))
+  {
+    $errors_bak = $template->get_template_vars('errors');
+    if (empty($errors_bak)) $errors_bak = array();
+    $template->assign('errors', array_merge($errors_bak, $errors));
+    if ($prefilter) $template->set_prefilter('index', 'coa_messages'); // here we use a prefilter existing in COA
+  }
+  if (!empty($infos))
+  {
+    $infos_bak = $template->get_template_vars('infos');
+    if (empty($infos_bak)) $infos_bak = array();
+    $template->assign('infos', array_merge($infos_bak, $infos));
+    if ($prefilter) $template->set_prefilter('index', 'coa_messages');
+  }
 }
 ?>
