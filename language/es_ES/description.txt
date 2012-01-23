@@ -1,0 +1,1 @@
+Este plugin permite que los usuarios se suscriban por email a los comentarios.
