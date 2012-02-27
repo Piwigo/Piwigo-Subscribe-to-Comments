@@ -1,0 +1,1 @@
+Questo plugin permette la sottoscrizione via mail ai commenti
