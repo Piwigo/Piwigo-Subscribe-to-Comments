@@ -1,0 +1,1 @@
+Tento plugin umožňuje odběr komentářů na email.
