@@ -1,5 +1,5 @@
 <?php
-$lang['Please check your email inbox to confirm your subscription.'] = 'Please check your email inbox to confirm your subscription.';
+$lang['Please check your email inbox to confirm your subscription.'] = 'Prosím nyní zkontrolujte vaši email schránku a odsouhlaste vaše přihlášení k odběru.';
 $lang['You have been added to the list of subscribers for this album.'] = 'Byl jste přidán do seznamu účastníků diskuze pro toto album.';
 $lang['You have been added to the list of subscribers for this picture.'] = 'Byl jste přidán do seznamu účastníků diskuze pro tento obrázek.';
 $lang['Invalid email adress, your are not subscribed to comments.'] = 'Byla zadána neplatná email adresa, nebyl jste zařazen k odběru komentářů.';
