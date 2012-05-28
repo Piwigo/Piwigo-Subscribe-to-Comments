@@ -1,0 +1,1 @@
+Aquest complement permet que els usuaris s'inscriguin als comentaris per correu electrònic.
