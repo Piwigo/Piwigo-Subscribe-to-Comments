@@ -50,7 +50,7 @@
   
   {if !empty($subscriptions)}
   <fieldset>
-    <legend>{'Manage my subscriptions to comments'|@translate}</legend>
+    <legend>{'Manage my subscriptions'|@translate}</legend>
     <table class="subscriptions_list">
       <tr class="header">
         <th class="chkb"><input type="checkbox" id="check_all"></th>

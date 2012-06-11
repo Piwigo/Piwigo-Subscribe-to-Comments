@@ -29,11 +29,11 @@ $lang['Allow users to subscribe to global notifications'] = 'Allow users to subs
 $lang['Subscribe to mail notifications'] = 'Subscribe to mail notifications';
 $lang['Notify me of followup comments'] = 'Notify me of followup comments';
 $lang['You are currently subscribed to comments on'] =  'You are currently subscribed to comments on';
-$lang['on this picture'] = 'on this picture';
-$lang['on all pictures of this album'] = 'on all pictures of this album';
-$lang['on all pictures of the gallery'] = 'on all pictures of the gallery';
-$lang['on this album'] = 'on this album';
-$lang['on all albums of the gallery'] = 'on all albums of the gallery';
+$lang['this picture'] = 'this picture';
+$lang['all pictures of this album'] = 'all pictures of this album';
+$lang['all pictures of the gallery'] = 'all pictures of the gallery';
+$lang['this album'] = 'this album';
+$lang['all albums of the gallery'] = 'all albums of the gallery';
 
 /* buttons */
 $lang['Manage my subscribtions'] = 'Manage my subscribtions';
@@ -53,7 +53,6 @@ $lang['New comment on'] = 'New comment on';
 /* manage page */
 $lang['Subscriptions of'] = 'Subscriptions of';
 $lang['Return to item page'] = 'Return to item page';
-$lang['Manage my subscriptions to comments'] = 'Manage my subscriptions to comments';
 $lang['Subject'] = 'Subject';
 $lang['Followed on'] = 'Followed on';
 $lang['Unsubscribe from all email notifications'] = 'Unsubscribe from all email notifications';
