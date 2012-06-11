@@ -16,9 +16,7 @@ $lang['You have been added to the list of subscribers.'] = 'You have been added 
 /* sprintf */
 $lang['the picture <a href="%s">%s</a>'] = 'the picture <a href="%s">%s</a>';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'all pictures of the album <a href="%s">%s</a>';
-$lang['all pictures of the gallery'] = 'all pictures of the gallery';
 $lang['the album <a href="%s">%s</a>'] = 'the album <a href="%s">%s</a>';
-$lang['all albums of the gallery'] = 'all albums of the gallery';
 $lang['%s has subscribed to comments on'] = '%s has subscribed to comments on';
 
 /* config */
