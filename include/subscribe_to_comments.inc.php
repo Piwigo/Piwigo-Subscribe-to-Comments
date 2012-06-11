@@ -2,7 +2,7 @@
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 /**
- * detect 'subscriptions' section and load page
+ * detect 'subscriptions' section and load the page
  */
 function stc_detect_section()
 {
@@ -11,6 +11,7 @@ function stc_detect_section()
   if ($tokens[0] == 'subscriptions')
   {
     $page['section'] = 'subscriptions';
+    $page['title'] = l10n('Comments notifications');
   }
 }
 
@@ -26,84 +27,97 @@ function stc_load_section()
 
 
 /**
- * send notifications and/or add subscriber
+ * send notifications and/or add subscriber on comment insertion
+ * @param: array comment
  */
 function stc_comment_insertion($comm)
 {
   global $page, $template;
-  
-  $infos = $errors = array();
   
   if ($comm['action'] == 'validate')
   {
     send_comment_to_subscribers($comm);
   }
   
-  if ( !empty($_POST['stc_check']) and ( $comm['action'] == 'validate' or $comm['action'] == 'moderate' ) )
+  if ( !empty($_POST['stc_mode']) and $_POST['stc_mode'] != -1 )
   {
-    if (isset($comm['image_id']))
+    if ($comm['action'] != 'reject')
     {
-      $return = subscribe_to_comments($comm['image_id'], @$_POST['stc_mail'], 'image');
+      if (isset($comm['image_id']))
+      {
+        switch ($_POST['stc_mode'])
+        {
+          case 'all-images':
+            subscribe_to_comments(@$_POST['stc_mail'], 'all-images');
+            break;
+          case 'album-images':
+            if (empty($page['category']['id'])) break;
+            subscribe_to_comments(@$_POST['stc_mail'], 'album-images', $page['category']['id']);
+            break;
+          case 'image':
+            subscribe_to_comments(@$_POST['stc_mail'], 'image', $comm['image_id']);
+            break;
+        }
+      }
+      else if (isset($comm['category_id']))
+      {
+        switch ($_POST['stc_mode'])
+        {
+          case 'all-albums':
+            subscribe_to_comments(@$_POST['stc_mail'], 'all-albums');
+            break;
+          case 'album':
+            subscribe_to_comments(@$_POST['stc_mail'], 'album', $comm['category_id']);
+            break;
+        }
+      }
     }
-    else if (isset($comm['category_id']))
+    else
     {
-      $return = subscribe_to_comments($comm['category_id'], @$_POST['stc_mail'], 'category');
-      
-    }
-    
-    if (isset($return))
-    {
-      if ($return === 'confirm_mail')
-      {
-        array_push($infos, l10n('Please check your email inbox to confirm your subscription.'));
-      }
-      else if ($return === true)
-      {
-        array_push($infos, l10n('You have been added to the list of subscribers for this '.(isset($comm['image_id'])?'picture':'album').'.'));
-      }
-      else
-      {
-        array_push($errors, l10n('Invalid email adress, your are not subscribed to comments.'));
-      }
-      
-      // messages management
-      stc_add_messages($errors, $infos, true);
+      $template->assign('STC_MODE', $_POST['stc_mode']);
+      $template->assign('STC_MAIL', @$_POST['stc_mail']);
     }
   }
 }
 
+
+/**
+ * send notifications on comment validation
+ * @param: array|int comment_id
+ * @param: string type (image|category)
+ */
 function stc_comment_validation($comm_ids, $type='image')
 {
   if (!is_array($comm_ids)) $comm_ids = array($comm_ids);
   
-  foreach($comm_ids as $comm_id)
+  if ($type == 'image')
   {
-    if ($type == 'image')
-    {
-      $query = '
+    $query = '
 SELECT
     id,
     image_id,
     author,
     content
   FROM '.COMMENTS_TABLE.'
-  WHERE id = '.$comm_id.'
+  WHERE id IN('.implode(',', $comm_ids).')
 ;';
-    }
-    else if ($type == 'category')
-    {
-      $query = '
+  }
+  else if ($type == 'category')
+  {
+    $query = '
 SELECT
     id,
     category_id,
     author,
     content
   FROM '.COA_TABLE.'
-  WHERE id = '.$comm_id.'
+  WHERE id IN('.implode(',', $comm_ids).')
 ;';
-    }
-    
-    $comm = pwg_db_fetch_assoc(pwg_query($query));
+  }
+  
+  $comms = hash_from_query($query, 'id');
+  foreach ($comms as $comm)
+  {
     send_comment_to_subscribers($comm);
   }
 }
@@ -114,75 +128,130 @@ SELECT
  */
 function stc_on_picture()
 {
-  global $template, $picture, $page, $user;
+  global $template, $picture, $page, $user, $conf;
   
-  $infos = $errors = array();
-  
+  // standalone subscription
   if (isset($_POST['stc_submit']))
   {
-    $return = subscribe_to_comments($picture['current']['id'], @$_POST['stc_mail_stdl'], 'image');
-    if ($return === 'confirm_mail')
+    switch ($_POST['stc_mode'])
     {
-      array_push($infos, l10n('Please check your email inbox to confirm your subscription.'));
-    }
-    else if ($return === true)
-    {
-      array_push($infos, l10n('You have been added to the list of subscribers for this picture.'));
-    }
-    else
-    {
-      array_push($errors, l10n('Invalid email adress, your are not subscribed to comments.'));
+      case 'all-images':
+        subscribe_to_comments(@$_POST['stc_mail'], 'all-images');
+        break;
+      case 'album-images':
+        if (empty($page['category']['id'])) break;
+        subscribe_to_comments(@$_POST['stc_mail'], 'album-images', $page['category']['id']);
+        break;
+      case 'image':
+        subscribe_to_comments(@$_POST['stc_mail'], 'image', $picture['current']['id']);
+        break;
     }
   }
   else if (isset($_GET['stc_unsubscribe']))
-  {
-    if (un_subscribe_to_comments($picture['current']['id'], null, 'image'))
+  {    
+    if (un_subscribe_to_comments(null, $_GET['stc_unsubscribe']))
     {
-      array_push($infos, l10n('Successfully unsubscribed your email address from receiving notifications.'));
+      array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
     }
   }
-  
-  // messages management
-  stc_add_messages($errors, $infos);
   
   // if registered user with mail we check if already subscribed
   if ( !is_a_guest() and !empty($user['email']) )
   {
-    $query = '
+    $subscribed = false;
+    
+    // registered to all pictures
+    if (!$subscribed)
+    {
+      $query = '
 SELECT id
   FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE
     email = "'.$user['email'].'"
-    AND image_id = '.$picture['current']['id'].'
+    AND type = "all-images"
     AND validated = "true"
 ;';
-    if (pwg_db_num_rows(pwg_query($query)))
+      $result = pwg_query($query);
+      
+      if (pwg_db_num_rows($result))
+      {
+        $template->assign(array(
+          'SUBSCRIBED_ALL_IMAGES' => true,
+          'MANAGE_LINK' => make_stc_url('manage', $user['email']),
+          ));
+        $subscribed = true;
+      }
+    }
+
+    // registered to pictures in this album
+    if ( !$subscribed and !empty($page['category']['id']) )
     {
-      $template->assign(array(
-        'SUBSCRIBED' => true,
-        'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>'1')),
-        ));
+      $query = '
+SELECT id
+  FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE
+    email = "'.$user['email'].'"
+    AND element_id = '.$page['category']['id'].'
+    AND type = "album-images"
+    AND validated = "true"
+;';
+      $result = pwg_query($query);
+      
+      if (pwg_db_num_rows($result))
+      {
+        list($stc_id) = pwg_db_fetch_row($result);
+        $template->assign(array(
+          'SUBSCRIBED_ALBUM_IMAGES' => true,
+          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
+          ));
+        $subscribed = true;
+      }
+    }
+    
+    // registered to this picture
+    if (!$subscribed)
+    {
+      $query = '
+SELECT id
+  FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE
+    email = "'.$user['email'].'"
+    AND element_id = '.$picture['current']['id'].'
+    AND type = "image"
+    AND validated = "true"
+;';
+      $result = pwg_query($query);
+      
+      if (pwg_db_num_rows($result))
+      {
+        list($stc_id) = pwg_db_fetch_row($result);
+        $template->assign(array(
+          'SUBSCRIBED_IMAGE' => true,
+          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
+          ));
+        $subscribed = true;
+      }
     }
   }
   else
   {
-    $template->assign('ASK_MAIL', true);
+    $template->assign('STC_ASK_MAIL', true);
   }
   
-  if ( $is_simple = strstr($user['theme'], 'simple') !== false or strstr($user['theme'], 'stripped') !== false )
-    $template->set_prefilter('picture', 'stc_simple_prefilter');
-  else
-    $template->set_prefilter('picture', 'stc_main_prefilter');
+  $template->assign('STC_ON_PICTURE', true);
+  if ( !empty($page['category']['id']) ) $template->assign('STC_ALLOW_ALBUM_IMAGES', true);
+  if ( $conf['Subscribe_to_Comments']['allow_global_subscriptions'] or is_admin() ) $template->assign('STC_ALLOW_GLOBAL', true);
+  
+  $template->set_prefilter('picture', 'stc_main_prefilter');
 }
 
+
 /**
- * add field and on album page
+ * add field and link on album page
  */
 function stc_on_album()
 {
-  global $page, $template, $pwg_loaded_plugins, $user;
-  
-  $infos = $errors = array();
+  global $page, $template, $pwg_loaded_plugins, $user, $conf;
   
   if (
       script_basename() != 'index' or !isset($page['section']) or
@@ -195,175 +264,112 @@ function stc_on_album()
   
   if (isset($_POST['stc_submit']))
   {
-    $return = subscribe_to_comments($page['category']['id'], @$_POST['stc_mail_stdl'], 'category');
-    if ($return === 'confirm_mail')
+    switch ($_POST['stc_mode'])
     {
-      array_push($infos, l10n('Please check your email inbox to confirm your subscription.'));
-    }
-    else if ($return === true)
-    {
-      array_push($infos, l10n('You have been added to the list of subscribers for this album.'));
-    }
-    else
-    {
-      array_push($errors, l10n('Invalid email adress, your are not subscribed to comments.'));
+      case 'all-albums':
+        subscribe_to_comments(@$_POST['stc_mail'], 'all-albums');
+        break;
+      case 'album':
+        subscribe_to_comments(@$_POST['stc_mail'], 'album', $page['category']['id']);
+        break;
     }
   }
   else if (isset($_GET['stc_unsubscribe']))
   {
-    if (un_subscribe_to_comments($page['category']['id'], null, 'category'))
+    if (un_subscribe_to_comments(null, $_GET['stc_unsubscribe']))
     {
-      array_push($infos, l10n('Successfully unsubscribed your email address from receiving notifications.'));
+      array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
     }
   }
-  
-  // messages management
-  stc_add_messages($errors, $infos, true);
   
   // if registered user we check if already subscribed
   if ( !is_a_guest() and !empty($user['email']) )
   {
-    $query = '
+    $subscribed = false;
+    
+    // registered to all albums
+    if (!$subscribed)
+    {
+      $query = '
 SELECT id
   FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE
     email = "'.$user['email'].'"
-    AND category_id = '.$page['category']['id'].'
+    AND type = "all-albums"
     AND validated = "true"
 ;';
-    if (pwg_db_num_rows(pwg_query($query)))
-    {
-      $url_params['section'] = 'categories';
-      $url_params['category'] = $page['category'];
-      $element_url = make_index_url($url_params);
+      $result = pwg_query($query);
       
-      $template->assign(array(
-        'SUBSCRIBED' => true,
-        'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>'1')),
-        ));
+      if (pwg_db_num_rows($result))
+      {
+        $template->assign(array(
+          'SUBSCRIBED_ALL_ALBUMS' => true,
+          'MANAGE_LINK' => make_stc_url('manage', $user['email']),
+          ));
+        $subscribed = true;
+      }
+    }
+    
+    // registered to this album
+    if (!$subscribed)
+    {
+      $query = '
+SELECT id
+  FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE
+    email = "'.$user['email'].'"
+    AND element_id = '.$page['category']['id'].'
+    AND type = "album"
+    AND validated = "true"
+;';
+      $result = pwg_query($query);
+      
+      if (pwg_db_num_rows($result))
+      {
+        list($stc_id) = pwg_db_fetch_row($result);
+        $element_url = make_index_url(array(
+          'section' => 'categories',
+          'category' => $page['category'],
+          ));
+        
+        $template->assign(array(
+          'SUBSCRIBED_ALBUM' => true,
+          'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
+          ));
+        $subscribed = true;
+      }
     }
   }
   else
   {
-    $template->assign('ASK_MAIL', true);
+    $template->assign('STC_ASK_MAIL', true);
   }
   
-  if ( $is_simple = strstr($user['theme'], 'simple') !== false or strstr($user['theme'], 'stripped') !== false )
-    $template->set_prefilter('comments_on_albums', 'stc_simple_prefilter');
-  else
-    $template->set_prefilter('comments_on_albums', 'stc_main_prefilter');
+  $template->assign('STC_ON_ALBUM', true);
+  if ( $conf['Subscribe_to_Comments']['allow_global_subscriptions'] or is_admin() ) $template->assign('STC_ALLOW_GLOBAL', true);
+
+  $template->set_prefilter('comments_on_albums', 'stc_main_prefilter');
 }
 
 
 /**
- * prefilter for common themes
+ * main prefilter
  */
 function stc_main_prefilter($content, &$smarty)
-{  
+{
   ## subscribe at any moment ##
-  $search = '#\<\/div\>(.{0,10})\{\/if\}(.{0,10})\{\*comments\*\}#is';
-  
-  $replace = '
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>
-  {if $SUBSCRIBED}
-    {\'You are currently subscribed to comments of this picture.\'|@translate}
-    <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
-  {else}
-    <legend>{\'Subscribe without commenting\'|@translate}</legend>
-    {if $ASK_MAIL}
-      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
-    {else}
-      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>
-    {/if}
-  {/if}
-  </fieldset>
-</form>
-</div>$1{/if}$2{*comments*}';
-
-  $content = preg_replace($search, $replace, $content);
+  $search = '{if isset($comments)}';
+  $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_standalone.tpl');
+  $content = str_replace($search, $replace.$search, $content);
   
   ## subscribe while add a comment ##
-  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
-  
-  $replace = '
-<input type="hidden" name="key" value="{$comment_add.KEY}"$1>
-{if !$SUBSCRIBED}
-  <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
-
-  {if $ASK_MAIL}
-    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("input[name=stc_check]").change(function() {
-        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
-        else $("#stc_mail").css("display", "none");
-      });
-    });
-    {/literal}{/footer_script}
-  {/if}
-{/if}';
-  
-  $content = preg_replace($search, $replace, $content);
+  $search = '<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>';
+  $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_comment.tpl');
+  $content = str_replace($search, $search.$replace, $content);
   
   return $content;
 }
 
-/**
- * prefilter for simple/stripped themes
- */
-function stc_simple_prefilter($content, &$smarty)
-{  
-  ## subscribe at any moment ##
-  $search = '#\<\/div\>(.{0,10})\{\/if\}(.{0,10})\{if \!empty\(\$navbar\) \}\{include file\=\'navigation_bar.tpl\'\|\@get_extent:\'navbar\'\}\{\/if\}#is';
-  
-  $replace = '
-<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="stc_standalone">
-  <fieldset>
-  {if $SUBSCRIBED}
-    {\'You are currently subscribed to comments of this album.\'|@translate}
-    <a href="{$UNSUB_LINK}">{\'Unsubscribe\'|@translate}
-  {else}
-    <legend>{\'Subscribe without commenting\'|@translate}</legend>
-    {if $ASK_MAIL}
-      <label>{\'Email address\'|@translate} <input type="text" name="stc_mail_stdl"></label>
-      <label><input type="submit" name="stc_submit" value="{\'Submit\'|@translate}"></label>
-    {else}
-      <label><input type="submit" name="stc_submit" value="{\'Subscribe\'|@translate}"></label>
-    {/if}
-  {/if}
-  </fieldset>
-</form>
-</div>$1{/if}$2{if !empty($navbar) }{include file=\'navigation_bar.tpl\'|@get_extent:\'navbar\'}{/if}';
-
-  $content = preg_replace($search, $replace, $content);
-  
-  ## subscribe while add a comment ##
-  $search = '#<input type="hidden" name="key" value="{\$comment_add\.KEY}"([ /]*)>#';
-  
-  $replace = '
-<input type="hidden" name="key" value="{$comment_add.KEY}"$1>
-{if !$SUBSCRIBED}
-  <label>{\'Notify me of followup comments\'|@translate} <input type="checkbox" name="stc_check" value="1"></label><br>
-
-  {if $ASK_MAIL}
-    <label id="stc_mail" style="display:none;">{\'Email address\'|@translate} <input type="text" name="stc_mail"></label><br>
-    {footer_script require="jquery"}{literal}
-    jQuery(document).ready(function() {
-      $("input[name=stc_check]").change(function() {
-        if ($(this).is(":checked")) $("#stc_mail").css("display", "");
-        else $("#stc_mail").css("display", "none");
-      });
-    });
-    {/literal}{/footer_script}
-  {/if}
-{/if}';
-  
-  $content = preg_replace($search, $replace, $content);
-  
-  return $content;
-}
 
 /**
  * add link to management page for registered users
@@ -374,40 +380,16 @@ function stc_profile_link()
   
   if (!empty($user['email']))
   {
+    $template->assign('MANAGE_LINK', make_stc_url('manage', $user['email']) );
     $template->set_prefilter('profile_content', 'stc_profile_link_prefilter');
   }
 }
-
 function stc_profile_link_prefilter($content, &$smarty)
 {
-  global $user;
-  
   $search = '<p class="bottomButtons">';
-  $replace = '<a href="'.make_stc_url('manage', $user['email']).'" title="{\'Manage my subscriptions to comments\'|@translate}" rel="nofollow">{\'Manage my subscriptions to comments\'|@translate}</a><br>';
+  $replace = '<p style="font-size:1.1em;text-decoration:underline;"><a href="{$MANAGE_LINK}" rel="nofollow">{\'Manage my subscriptions to comments\'|@translate}</a></p>';
   
-  return str_replace($search, $search.$replace, $content);
+  return str_replace($search, $replace.$search, $content);
 }
 
-/**
- * must overload messages because Piwigo is weird
- */
-function stc_add_messages($errors, $infos, $prefilter=false)
-{
-  global $template;
-  
-  if (!empty($errors))
-  {
-    $errors_bak = $template->get_template_vars('errors');
-    if (empty($errors_bak)) $errors_bak = array();
-    $template->assign('errors', array_merge($errors_bak, $errors));
-    if ($prefilter) $template->set_prefilter('index', 'coa_messages'); // here we use a prefilter existing in COA
-  }
-  if (!empty($infos))
-  {
-    $infos_bak = $template->get_template_vars('infos');
-    if (empty($infos_bak)) $infos_bak = array();
-    $template->assign('infos', array_merge($infos_bak, $infos));
-    if ($prefilter) $template->set_prefilter('index', 'coa_messages');
-  }
-}
 ?>
