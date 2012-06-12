@@ -16,7 +16,7 @@
 
 <p>
   <a href="{$STC.UNSUB_URL}">{'Stop receiving notifications'|@translate}</a><br>
-  <a href="{$STC.MANAGE_URL}">{'Manage my subscribtions'|@translate}</a>
+  <a href="{$STC.MANAGE_URL}">{'Manage my subscriptions'|@translate}</a>
 </p>
 
 </div>

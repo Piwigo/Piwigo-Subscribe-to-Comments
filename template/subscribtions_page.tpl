@@ -17,7 +17,7 @@
 {if $IN_VALIDATE or $IN_UNSUBSCRIBE}
 <p>
   {if !empty($element)}<a href="{$element.url}" title="{$element.name}">{'Return to item page'|@translate}</a><br>{/if}
-  <a href="{$MANAGE_LINK}">{'Manage my subscriptions to comments'|@translate}</a>
+  <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a>
 </p>
 {/if}
   

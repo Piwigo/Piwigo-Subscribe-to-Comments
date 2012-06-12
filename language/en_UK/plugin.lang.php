@@ -34,7 +34,7 @@ $lang['this album'] = 'this album';
 $lang['all albums of the gallery'] = 'all albums of the gallery';
 
 /* buttons */
-$lang['Manage my subscribtions'] = 'Manage my subscribtions';
+$lang['Manage my subscriptions'] = 'Manage my subscriptions';
 $lang['Subscribe'] = 'Subscribe';
 $lang['Unsubscribe'] = 'Unsubscribe';
 $lang['Validate'] = 'Validate';

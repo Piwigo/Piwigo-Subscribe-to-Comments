@@ -4,7 +4,7 @@
   <fieldset>
   {if $SUBSCRIBED_ALL_IMAGES}
     {'You are currently subscribed to comments on'|@translate} {'all pictures of the gallery'|@translate}.
-    <a href="{$MANAGE_LINK}">{'Manage my subscribtions'|@translate}</a> 
+    <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a> 
     
   {elseif $SUBSCRIBED_ALBUM_IMAGES}
     {'You are currently subscribed to comments on'|@translate} {'all pictures of this album'|@translate}.
@@ -16,7 +16,7 @@
     
   {elseif $SUBSCRIBED_ALL_ALBUMS}
     {'You are currently subscribed to comments on'|@translate} {'all albums of the gallery'|@translate}.
-    <a href="{$MANAGE_LINK}">{'Manage my subscribtions'|@translate}</a>
+    <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a>
     
   {elseif $SUBSCRIBED_ALBUM}
     {'You are currently subscribed to comments on'|@translate} {'this album'|@translate}.

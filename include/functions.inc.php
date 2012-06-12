@@ -156,6 +156,11 @@ function subscribe_to_comments($email, $type, $element_id='NULL')
   global $page, $conf, $user, $template, $picture;
   
   // check email
+  if ( !empty($email) and !is_valid_email($email) )
+  {
+    array_push($page['errors'], l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)'));
+    return false;
+  }
   if ( ( is_a_guest() or empty($user['email']) ) and empty($email) )
   {
     array_push($page['errors'], l10n('Invalid email adress, your are not subscribed to comments.'));
@@ -673,6 +678,29 @@ function user_can_view_element($user_id, $element_id, $type)
   else
   {
     return false;
+  }
+}
+
+
+/**
+ * check if mail adress is valid
+ * @param: string email
+ * @return: bool
+ */
+function is_valid_email($mail_address)
+{
+  if (version_compare(PHP_VERSION, '5.2.0') >= 0)
+  {
+    return filter_var($mail_address, FILTER_VALIDATE_EMAIL)!==false;
+  }
+  else
+  {
+    $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
+    $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name
+    $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
+
+    if (!preg_match($regex, $mail_address)) return false;
+    return true;
   }
 }
 

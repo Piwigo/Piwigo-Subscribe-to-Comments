@@ -14,6 +14,6 @@
 
 <p><a href="{$STC.VALIDATE_URL}" class="button">{'Confirm subscription'|@translate}</a></p>
 
-<p>{'Want to edit your notifications options?'|@translate} <a href="{$STC.MANAGE_URL}">{'Manage my subscribtions'|@translate}</a>.</p>
+<p>{'Want to edit your notifications options?'|@translate} <a href="{$STC.MANAGE_URL}">{'Manage my subscriptions'|@translate}</a>.</p>
 
 </div>
