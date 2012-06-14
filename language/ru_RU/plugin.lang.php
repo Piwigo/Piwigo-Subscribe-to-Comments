@@ -31,4 +31,8 @@ $lang['Unsubscribe from all email notifications'] = 'Отказаться от �
 $lang['Unsubscribe'] = 'Отказаться от подписки';
 $lang['You are not subscribed to any comment.'] = 'Вы не подписаны на комментарии.';
 $lang['Your subscribtion has been validated, thanks you.'] = 'Ваша подписка была подтверждена, спасибо.';
+$lang['%s has subscribed to comments on'] = '%s подписан на комментарии';
+$lang['Allow users to subscribe to global notifications'] = 'Разрешить пользователям подписываться на все комментарии';
+$lang['Already validated.'] = 'Уже проверен.';
+$lang['Comments notifications'] = 'Уведомления о комментариях';
 ?>
