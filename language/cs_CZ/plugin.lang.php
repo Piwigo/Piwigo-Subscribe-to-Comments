@@ -38,4 +38,8 @@ $lang['the album <a href="%s">%s</a>'] = 'album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'obrázek <a href="%s">%s</a>';
 $lang['this album'] = 'toto album';
 $lang['this picture'] = 'tento obrázek';
+$lang['Notify administrators when a user take a new subscription'] = 'Oznam administrátorům nové předplatné uživatele';
+$lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'K aktivaci zmáčkni potvrzovací tlačítko. Pokud se domníváš, že se jedná o omyl, tak tento vzkaz ignoruj.';
+$lang['You are currently subscribed to comments on'] = 'Současně jsi přihlášen ke komentování';
+$lang['You requested to subscribe by email to comments on'] = 'Požádal jste o odebírání mailem komentářů o';
 ?>
