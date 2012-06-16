@@ -1,1 +1,1 @@
-Esta extens&atilde;o permite-lhe subscrever a novos coment&aacute;rios por email.
+Esta extenção permite-lhe subscrever novos comentários por email.
