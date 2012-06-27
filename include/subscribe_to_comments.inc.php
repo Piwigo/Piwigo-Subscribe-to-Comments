@@ -372,6 +372,19 @@ function stc_main_prefilter($content, &$smarty)
 
 
 /**
+ * delete subscriptions to deleted images or categories
+ */
+function stc_delete_elements($ids)
+{
+  $query = '
+DELETE FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE element_id IN ('.implode(',', $ids).')
+';
+  pwg_query($query);
+}
+
+
+/**
  * add link to management page for registered users
  */
 function stc_profile_link()
