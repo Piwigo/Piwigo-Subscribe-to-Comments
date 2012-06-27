@@ -378,7 +378,19 @@ function stc_delete_elements($ids)
 {
   $query = '
 DELETE FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE element_id IN ('.implode(',', $ids).')
+  WHERE 
+    element_id IN ('.implode(',', $ids).')
+    AND type = "image"
+';
+  pwg_query($query);
+}
+function stc_delete_categories($ids)
+{
+  $query = '
+DELETE FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE 
+    element_id IN ('.implode(',', $ids).')
+    AND (type = "album" OR type = "album-images")
 ';
   pwg_query($query);
 }

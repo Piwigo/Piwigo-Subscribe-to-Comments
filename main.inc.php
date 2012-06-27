@@ -44,7 +44,7 @@ function stc_init()
   
   // items deletion
   add_event_handler('begin_delete_elements', 'stc_delete_elements');
-  add_event_handler('delete_categories', 'stc_delete_elements');
+  add_event_handler('delete_categories', 'stc_delete_categories');
 
   // profile link
   add_event_handler('loc_begin_profile', 'stc_profile_link');
