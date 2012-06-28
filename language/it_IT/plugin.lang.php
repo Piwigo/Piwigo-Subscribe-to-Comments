@@ -31,4 +31,6 @@ $lang['Unsubscribe'] = 'Non sottoscrivere';
 $lang['Unsubscribe from all email notifications'] = 'Rimuovi la sottoscrizione da tutte le notifiche mail';
 $lang['You are not subscribed to any comment.'] = 'Non hai sottoscritto alcun commento';
 $lang['Your subscribtion has been validated, thanks you.'] = 'La tua sottoscrizione è stata confermata, grazie.';
+$lang['Allow users to subscribe to global notifications'] = 'Consenti agli utenti di iscriversi in forma aggregata';
+$lang['Already validated.'] = 'Già convalidato.';
 ?>
