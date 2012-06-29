@@ -33,4 +33,12 @@ $lang['You are not subscribed to any comment.'] = 'Non hai sottoscritto alcun co
 $lang['Your subscribtion has been validated, thanks you.'] = 'La tua sottoscrizione è stata confermata, grazie.';
 $lang['Allow users to subscribe to global notifications'] = 'Consenti agli utenti di iscriversi in forma aggregata';
 $lang['Already validated.'] = 'Già convalidato.';
+$lang['%s has subscribed to comments on'] = '%s si è iscritto ai commenti';
+$lang['Comments notifications'] = 'Notifiche commenti';
+$lang['Confirm subscription'] = 'Conferma l\'iscrizione';
+$lang['Confirm your subscribtion to comments'] = 'Conferma la tua iscrizione ai commenti';
+$lang['Followed on'] = 'Iscritto dal';
+$lang['Manage my subscriptions'] = 'Gestisci le mie iscrizioni';
+$lang['New comment on'] = 'Nuovo commento su';
+$lang['New subscription on'] = 'Nuova iscrizione su';
 ?>
