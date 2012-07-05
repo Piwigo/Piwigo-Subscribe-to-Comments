@@ -412,7 +412,7 @@ function stc_profile_link()
 function stc_profile_link_prefilter($content, &$smarty)
 {
   $search = '<p class="bottomButtons">';
-  $replace = '<p style="font-size:1.1em;text-decoration:underline;"><a href="{$MANAGE_LINK}" rel="nofollow">{\'Manage my subscriptions to comments\'|@translate}</a></p>';
+  $replace = '<p style="font-size:1.1em;text-decoration:underline;"><a href="{$MANAGE_LINK}" rel="nofollow">{\'Manage my subscriptions\'|@translate}</a></p>';
   
   return str_replace($search, $replace.$search, $content);
 }
