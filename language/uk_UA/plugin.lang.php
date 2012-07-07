@@ -54,13 +54,13 @@ $lang['You have been added to the list of subscribers.'] = 'Ви були дод
 $lang['You requested to subscribe by email to comments on'] = 'Ви запросили підписку на коментарі по електронній пошті';
 $lang['all albums of the gallery'] = 'всі альбоми в галереї';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'всі зображення з цього альбому <a href="%s">%s</a>';
-$lang['all pictures of the gallery'] = 'всі зображення в галереї';
-$lang['all pictures of this album'] = 'всі зображення з цього альбому';
+$lang['all pictures of the gallery'] = 'всіх зображень в галереї';
+$lang['all pictures of this album'] = 'всіх зображень з цього альбому';
 $lang['comments on a picture'] = 'коментарі до зображень';
 $lang['comments on all pictures of an album'] = 'коментарі до всіх зображень з альбому';
 $lang['comments on an album'] = 'коментарі до альбому';
 $lang['the album <a href="%s">%s</a>'] = 'альбом <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'зображення <a href="%s">%s</a>';
 $lang['this album'] = 'цей альбом';
-$lang['this picture'] = 'це зображення';
+$lang['this picture'] = 'цього зображення';
 ?>
