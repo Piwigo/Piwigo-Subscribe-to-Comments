@@ -41,4 +41,6 @@ $lang['Followed on'] = 'Iscritto dal';
 $lang['Manage my subscriptions'] = 'Gestisci le mie iscrizioni';
 $lang['New comment on'] = 'Nuovo commento su';
 $lang['New subscription on'] = 'Nuova iscrizione su';
+$lang['Not found.'] = 'Non trovato';
+$lang['Subject'] = 'Argomento';
 ?>
