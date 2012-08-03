@@ -363,7 +363,7 @@ function stc_main_prefilter($content, &$smarty)
   $content = str_replace($search, $replace.$search, $content);
   
   ## subscribe while add a comment ##
-  $search = '<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>';
+  $search = '{$comment_add.CONTENT}</textarea></p>';
   $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_comment.tpl');
   $content = str_replace($search, $search.$replace, $content);
   

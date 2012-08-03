@@ -503,7 +503,8 @@ function stc_send_mail($to, $content, $subject)
   $headers = 'From: '.$args['from']."\n";  
   $headers.= 'MIME-Version: 1.0'."\n";
   $headers.= 'X-Mailer: Piwigo Mailer'."\n";
-  $headers.= 'Content-Transfer-Encoding: Quoted-Printable'."\n";
+  // $headers.= 'Content-Transfer-Encoding: Quoted-Printable'."\n";
+  $headers.= 'Content-Transfer-Encoding: 8bit'."\n";
   $headers.= 'Content-Type: text/html; charset="'.get_pwg_charset().'";'."\n";
   
   // template
@@ -521,7 +522,7 @@ function stc_send_mail($to, $content, $subject)
   
   $content = $template->parse('stc_mail_header', true) . $content . $template->parse('stc_mail_footer', true);
   
-  $content = quoted_printable_encode($content);
+  // $content = quoted_printable_encode($content);
   $content = wordwrap($content, 70, "\n", true);
 
   unset_make_full_url();
