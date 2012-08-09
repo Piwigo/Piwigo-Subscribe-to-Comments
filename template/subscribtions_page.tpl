@@ -1,18 +1,18 @@
 {combine_css path=$SUBSCRIBE_TO_PATH|@cat:'template/style.css'}
 
-{if $themeconf.name != "stripped" and $themeconf.parent != "stripped" and $themeconf.name != "simple-grey" and $themeconf.parent != "simple"}
-  {$MENUBAR}
+{* <!-- Menubar & titrePage --> *}
+{if $themeconf.name == "stripped" or $themeconf.parent == "stripped"}
+  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/stripped.tpl'}
+  {assign var="clear" value="true"}
+{elseif $themeconf.name == "simple-grey" or $themeconf.parent == "simple"}
+  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/simple.tpl'}
+  {assign var="clear" value="true"}
 {else}
-  {assign var="intern_menu" value="true"}
+  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/default.tpl'}
 {/if}
-<div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
-{if $intern_menu}{$MENUBAR}{/if}
-
-<div class="titrePage">
-  <h2>{'Subscriptions of'|@translate} <i>{$EMAIL}</i></h2>
-</div>
 
 {include file='infos_errors.tpl'}
+
  
 {if $IN_VALIDATE or $IN_UNSUBSCRIBE}
 <p>
@@ -30,9 +30,9 @@
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if}">
         <td>
           {if $sub.type == 'all-images'}
-            <img src="{$SUBSCRIBE_TO_PATH}template/image.png"> {'You are currently subscribed to comments on all pictures of the gallery.'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'You are currently subscribed to comments on all pictures of the gallery.'|@translate}
           {else $sub.type == 'all-albums'}
-            <img src="{$SUBSCRIBE_TO_PATH}template/album.png"> {'You are currently subscribed to comments on all albums of the gallery.'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'You are currently subscribed to comments on all albums of the gallery.'|@translate}
           {/if}
         </td>
         <td style="white-space:nowrap;">
@@ -63,7 +63,7 @@
         <td class="chkb"><input type="checkbox" name="selected[]" value="{$sub.id}"></td>
         <td class="thumb"><img src="{$sub.infos.thumbnail}" alt="{$sub.infos.name}" class="thumbnail"></td>
         <td class="info">
-          <img src="{$SUBSCRIBE_TO_PATH}template/{$sub.type}.png">
+          <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/{$sub.type}.png">
           <a href="{$sub.infos.url}">{$sub.infos.name}</a>
 
           <div class="actions">
@@ -89,9 +89,9 @@
     
     <p>
       <b>Legend :</b> 
-      <img src="{$SUBSCRIBE_TO_PATH}template/image.png"> {'comments on a picture'|@translate}. 
-      <img src="{$SUBSCRIBE_TO_PATH}template/album-images.png"> {'comments on all pictures of an album'|@translate}.
-      {if $COA_ACTIVATED}<img src="{$SUBSCRIBE_TO_PATH}template/album.png"> {'comments on an album'|@translate}.{/if}
+      <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'comments on a picture'|@translate}. 
+      <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album-images.png"> {'comments on all pictures of an album'|@translate}.
+      {if $COA_ACTIVATED}<img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'comments on an album'|@translate}.{/if}
     </p>
   </fieldset>
   {/if}
@@ -112,4 +112,6 @@ jQuery("#check_all").change(function() {
 });
 {/literal}{/footer_script}
 
+{if $clear}<div style="clear: both;"></div>
+</div>{/if}
 </div> <!-- content -->

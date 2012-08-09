@@ -237,8 +237,9 @@ if (isset($pwg_loaded_plugins['Comments_on_Albums']))
 }
 
 $template->assign(array(
-  'EMAIL' => $_GET['email'],
+  'TITLE' => l10n('Subscriptions of').' <i>'.$_GET['email'].'</i>',
   'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
+  'SUBSCRIBE_TO_ABS_PATH' => realpath(SUBSCRIBE_TO_PATH).'/',
   ));
 
 $template->set_filenames(array('index'=> dirname(__FILE__).'/../template/subscribtions_page.tpl'));
