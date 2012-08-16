@@ -50,4 +50,17 @@ $lang['the album <a href="%s">%s</a>'] = 'album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'zdjęcie <a href="%s">%s</a>';
 $lang['this album'] = 'ten album';
 $lang['this picture'] = 'to zdjęcie';
+$lang['Already validated.'] = 'Juz zatwierdzony.';
+$lang['Comments notifications'] = 'Powiadomienia o komentarzach';
+$lang['Confirm subscription'] = 'Potwierdź subskrypcję';
+$lang['Confirm your subscribtion to comments'] = 'Potwierdź Twoją subskrypcję dla komentarzy';
+$lang['Followed on'] = 'Podążając za';
+$lang['Notify administrators when a user take a new subscription'] = 'Powiadom administratorów gdy użytkownik się zapisuje';
+$lang['Subscribe to comments on'] = 'Subskrybuj komentarze na';
+$lang['Subscribe to mail notifications'] = 'Subskrybuj powiadomienia na maila';
+$lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'W celu aktywacji, kliknij przycisk Potwierdź. Jeżeli wierzysz, że jest to błąd, po prostu zignoruj tę wiadomość.';
+$lang['Validate'] = 'Waliduj';
+$lang['Want to edit your notifications options?'] = 'Czy chcesz edytować Twoje opcje powiadomień?';
+$lang['You are currently subscribed to comments on'] = 'Aktualnie subskrybujesz komentarze dla';
+$lang['You have been added to the list of subscribers.'] = 'Zostałe(a)ś dodany(a) do listy subskrybentów';
 ?>
