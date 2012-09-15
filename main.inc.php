@@ -12,7 +12,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 global $prefixeTable;
 
-define('SUBSCRIBE_TO_PATH' , PHPWG_PLUGINS_PATH . 'Subscribe_to_comments/');
+define('SUBSCRIBE_TO_PATH' , PHPWG_PLUGINS_PATH . 'Subscribe_to_Comments/');
 define('SUBSCRIBE_TO_TABLE', $prefixeTable . 'subscribe_to_comments');
 define('SUBSCRIBE_TO_VERSION', '2.0.3');
 
@@ -29,22 +29,22 @@ function stc_init()
   
   // apply upgrade if needed
   if (
-    $pwg_loaded_plugins['Subscribe_to_comments']['version'] == 'auto' or
-    version_compare($pwg_loaded_plugins['Subscribe_to_comments']['version'], SUBSCRIBE_TO_VERSION, '<')
+    $pwg_loaded_plugins['Subscribe_to_Comments']['version'] == 'auto' or
+    version_compare($pwg_loaded_plugins['Subscribe_to_Comments']['version'], SUBSCRIBE_TO_VERSION, '<')
   )
   {
     include_once(SUBSCRIBE_TO_PATH . 'include/install.inc.php');
     stc_install();
     
-    if ($pwg_loaded_plugins['Subscribe_to_comments']['version'] != 'auto')
+    if ($pwg_loaded_plugins['Subscribe_to_Comments']['version'] != 'auto')
     {
       $query = '
 UPDATE '. PLUGINS_TABLE .'
 SET version = "'. SUBSCRIBE_TO_VERSION .'"
-WHERE id = "Subscribe_to_comments"';
+WHERE id = "Subscribe_to_Comments"';
       pwg_query($query);
       
-      $pwg_loaded_plugins['Subscribe_to_comments']['version'] = SUBSCRIBE_TO_VERSION;
+      $pwg_loaded_plugins['Subscribe_to_Comments']['version'] = SUBSCRIBE_TO_VERSION;
       
       if (defined('IN_ADMIN'))
       {
