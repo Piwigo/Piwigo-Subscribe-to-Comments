@@ -12,24 +12,56 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 global $prefixeTable;
 
-define('SUBSCRIBE_TO_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
+define('SUBSCRIBE_TO_PATH' , PHPWG_PLUGINS_PATH . 'Subscribe_to_comments/');
 define('SUBSCRIBE_TO_TABLE', $prefixeTable . 'subscribe_to_comments');
+define('SUBSCRIBE_TO_VERSION', '2.0.3');
+
 
 add_event_handler('init', 'stc_init');
 
+
 function stc_init()
 {
-  global $conf, $user;
+  global $conf, $user, $pwg_loaded_plugins;
   
   // no comments on luciano
   if ($user['theme'] == 'luciano') return;
   
+  // apply upgrade if needed
+  if (
+    $pwg_loaded_plugins['Subscribe_to_comments']['version'] == 'auto' or
+    version_compare($pwg_loaded_plugins['Subscribe_to_comments']['version'], SUBSCRIBE_TO_VERSION, '<')
+  )
+  {
+    include_once(SUBSCRIBE_TO_PATH . 'include/install.inc.php');
+    stc_install();
+    
+    if ($pwg_loaded_plugins['Subscribe_to_comments']['version'] != 'auto')
+    {
+      $query = '
+UPDATE '. PLUGINS_TABLE .'
+SET version = "'. SUBSCRIBE_TO_VERSION .'"
+WHERE id = "Subscribe_to_comments"';
+      pwg_query($query);
+      
+      $pwg_loaded_plugins['Subscribe_to_comments']['version'] = SUBSCRIBE_TO_VERSION;
+      
+      if (defined('IN_ADMIN'))
+      {
+        $_SESSION['page_infos'][] = 'Subscribe to comments updated to version '. SUBSCRIBE_TO_VERSION;
+      }
+    }
+  }
+  
+  // load language and conf
   load_language('plugin.lang', SUBSCRIBE_TO_PATH);
   $conf['Subscribe_to_Comments'] = unserialize($conf['Subscribe_to_Comments']);
+  
   
   include_once(SUBSCRIBE_TO_PATH.'include/functions.inc.php');
   include_once(SUBSCRIBE_TO_PATH.'include/subscribe_to_comments.inc.php');
 
+  
   // send mails
   add_event_handler('user_comment_insertion', 'stc_comment_insertion');
   add_event_handler('user_comment_validation', 'stc_comment_validation', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
@@ -53,6 +85,7 @@ function stc_init()
   add_event_handler('get_admin_plugin_menu_links', 'stc_admin_menu');
 }
 
+
 function stc_admin_menu($menu) 
 {
   array_push($menu, array(
@@ -61,4 +94,5 @@ function stc_admin_menu($menu)
   ));
   return $menu;
 }
+
 ?>
