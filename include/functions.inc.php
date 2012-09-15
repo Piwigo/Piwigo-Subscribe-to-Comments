@@ -111,7 +111,7 @@ SELECT
     switch_lang_to($row['language']);
     load_language('plugin.lang', SUBSCRIBE_TO_PATH);
     
-    $comm['caption'] = sprintf('<b>%s</b> wrote on <i>%s</i>', $comm['author'], format_date(date('Y-d-m H:i:s')));
+    $comm['caption'] = sprintf('<b>%s</b> wrote on <i>%s</i>', $comm['author'], format_date(date('Y-m-d H:i:s')));
     
     $template->assign('STC', array(
       'element' => $element,
