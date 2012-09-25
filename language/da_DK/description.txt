@@ -1,0 +1,1 @@
+Plugin'en gør det muligt at modtage kommentarer via e-mail.
