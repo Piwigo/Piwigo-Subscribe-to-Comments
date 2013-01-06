@@ -41,4 +41,5 @@ $lang['Manage my subscriptions'] = 'Hallitse tilauksia';
 $lang['Confirm your subscribtion to comments'] = 'Vahvista kommenttien tilaus';
 $lang['Confirm subscription'] = 'Vahvista tilaus';
 $lang['%s has subscribed to comments on'] = '%s on tilannut kommentit kohteeseen';
+$lang['You have been added to the list of subscribers.'] = 'Sinut on lisätty tilaajiin.';
 ?>

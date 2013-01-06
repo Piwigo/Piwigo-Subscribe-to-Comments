@@ -1,0 +1,1 @@
+Tämä laajennus mahdollistaa kommenttien tilaamisen sähköpostiin.
