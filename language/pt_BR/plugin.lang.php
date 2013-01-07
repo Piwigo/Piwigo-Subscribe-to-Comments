@@ -1,0 +1,66 @@
+<?php
+// +-----------------------------------------------------------------------+
+// | Piwigo - a PHP based photo gallery                                    |
+// +-----------------------------------------------------------------------+
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
+$lang['comments on all pictures of an album'] = 'Comentar em todas as fotos de um álbum';
+$lang['comments on an album'] = 'Comentar em um álbum';
+$lang['the album <a href="%s">%s</a>'] = 'O álbum <a href="%s">%s</a>';
+$lang['the picture <a href="%s">%s</a>'] = 'A foto <a href="%s">%s</a>';
+$lang['this album'] = 'esse álbum';
+$lang['this picture'] = 'essa foto';
+$lang['Invalid email adress, your are not subscribed to comments.'] = 'endereço de correio eletrônico inválido, você não tem assinatura para comentar.';
+$lang['Manage my subscriptions'] = 'Gerencie suas assinaturas';
+$lang['New comment on'] = 'Novos comentários';
+$lang['Subscriptions of'] = 'Assinaturas';
+$lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Desfeita assinatura de comentários por correio eletrônico com sucesso.';
+$lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'Para ativar, clique o botão de confirmação. Se você acredita que isso é um engano, por favor somente ignore essa mensagem.';
+$lang['Unsubscribe'] = 'Desfazer assinatura';
+$lang['Unsubscribe from all email notifications'] = 'Desfazer todas as notificações por correio eletrônico';
+$lang['Validate'] = 'Validar';
+$lang['Want to edit your notifications options?'] = 'Quer editar suas opções de notificações?';
+$lang['You are currently subscribed to comments on'] = 'Você está com sua assinatura para notificações ativa';
+$lang['You are not subscribed to any comment.'] = 'Você não assinou para comentar.';
+$lang['You have been added to the list of subscribers.'] = 'Você foi adicionado a lista de assinantes.';
+$lang['You requested to subscribe by email to comments on'] = 'Você requisitou assinatura por e-mail para comentar';
+$lang['Your subscribtion has been validated, thanks you.'] = 'Sua assinatura foi validada, obrigado.';
+$lang['all albums of the gallery'] = 'Todos os álbuns da galeria';
+$lang['all pictures of the album <a href="%s">%s</a>'] = 'Todas as fotos dos álbuns <a href="%s">%s</a>';
+$lang['all pictures of the gallery'] = 'todas as fotos da galeria';
+$lang['all pictures of this album'] = 'Todas as fotos desse álbum';
+$lang['comments on a picture'] = 'Comente na foto';
+$lang['%s has subscribed to comments on'] = '$s assinou para comentar';
+$lang['Allow users to subscribe to global notifications'] = 'Permite usuários assinarem para notificações globais';
+$lang['Already validated.'] = 'Já validado';
+$lang['Comments notifications'] = 'Notificação de comentários';
+$lang['Confirm subscription'] = 'confirma assinatura';
+$lang['Confirm your subscribtion to comments'] = 'Confirma sua assinatura para comentários';
+$lang['Followed on'] = 'Seguido por';
+$lang['New subscription on'] = 'Nova assinatura';
+$lang['Not found.'] = 'Não encontrado';
+$lang['Notify administrators when a user take a new subscription'] = 'Notifique os adminstradores quando um usuário fizer uma nova assinatura';
+$lang['Notify me of followup comments'] = 'Notifique-me para outros comentários';
+$lang['Please check your email inbox to confirm your subscription.'] = 'Por favor verifique sua caixa de entrada de correio eletrônico para confirmar a assinatura';
+$lang['Return to item page'] = 'Retorne a página do item';
+$lang['Subject'] = 'Assunto';
+$lang['Subscribe'] = 'Assine';
+$lang['Subscribe to comments on'] = 'Assine para comentar';
+$lang['Subscribe to mail notifications'] = 'Assine para notificações por correio eletrônico';
+?>

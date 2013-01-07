@@ -1,0 +1,1 @@
+Esse plugin permite inscrição para comentar por correio eletrônico.
