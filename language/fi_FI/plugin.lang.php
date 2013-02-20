@@ -42,4 +42,10 @@ $lang['Confirm your subscribtion to comments'] = 'Vahvista kommenttien tilaus';
 $lang['Confirm subscription'] = 'Vahvista tilaus';
 $lang['%s has subscribed to comments on'] = '%s on tilannut kommentit kohteeseen';
 $lang['You have been added to the list of subscribers.'] = 'Sinut on lisätty tilaajiin.';
+$lang['Comments notifications'] = 'Ilmoitukset kommenteista';
+$lang['Invalid email adress, your are not subscribed to comments.'] = 'Virheellinen sähköpostiosoite. Kommentteja ei tilattu.';
+$lang['Subscribe'] = 'Tilaa';
+$lang['Subscribe to comments on'] = 'Tilaa kommentit kohteesta';
+$lang['Subscribe to mail notifications'] = 'Tilaa sähköposti-ilmoitukset';
+$lang['You are not subscribed to any comment.'] = 'Ei voimassaolevia tilauksia kommenteista.';
 ?>
