@@ -24,10 +24,10 @@
     vertical-align:top;
   }
     .subscriptions_list tr .actions {
-      display:none;
+      visibility:hidden;
     }
     .subscriptions_list tr:hover .actions {
-      display:block;
+      visibility:visible;
     }
   .subscriptions_list td.date {
     width:250px;
@@ -65,7 +65,6 @@
   background: linear-gradient(top,  #222222 0%,#333333 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#333333',GradientType=0 );
 }
-
 
 
 .stc p {

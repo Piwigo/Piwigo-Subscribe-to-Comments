@@ -30,14 +30,16 @@
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if}">
         <td>
           {if $sub.type == 'all-images'}
-            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'You are currently subscribed to comments on all pictures of the gallery.'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of the gallery'|@translate}
           {else $sub.type == 'all-albums'}
-            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'You are currently subscribed to comments on all albums of the gallery.'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all albums of the gallery'|@translate}
           {/if}
         </td>
         <td style="white-space:nowrap;">
-          <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a>
-          {if $sub.validated == 'false'}<br> <a href="{$MANAGE_LINK}&amp;validate={$sub.id}">{'Validate'|@translate}</a>{/if}
+          <div class="actions">
+            <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a>
+            {if $sub.validated == 'false'}<br> <a href="{$MANAGE_LINK}&amp;validate={$sub.id}">{'Validate'|@translate}</a>{/if}
+          </div>
         </td>
         <td style="white-space:nowrap;">
           <i>{$sub.registration_date}</i>
@@ -60,11 +62,11 @@
       
       {foreach from=$subscriptions item=sub name=subs_loop}
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if} {if $sub.validated == 'false'}not-validated{/if}">
-        <td class="chkb"><input type="checkbox" name="selected[]" value="{$sub.id}"></td>
-        <td class="thumb"><img src="{$sub.infos.thumbnail}" alt="{$sub.infos.name}" class="thumbnail"></td>
+        <td class="chkb"><input type="checkbox" name="selected[]" value="{$sub.id}" id="sub-{$sub.id}"></td>
+        <td class="thumb"><label for="sub-{$sub.id}"><img src="{$sub.infos.thumbnail}" alt="{$sub.infos.name}" class="thumbnail"></label></td>
         <td class="info">
           <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/{$sub.type}.png">
-          <a href="{$sub.infos.url}">{$sub.infos.name}</a>
+          <b><a href="{$sub.infos.url}">{$sub.infos.name}</a></b>
 
           <div class="actions">
             <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a>
@@ -88,7 +90,6 @@
     </table>
     
     <p>
-      <b>Legend :</b> 
       <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'comments on a picture'|@translate}. 
       <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album-images.png"> {'comments on all pictures of an album'|@translate}.
       {if $COA_ACTIVATED}<img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'comments on an album'|@translate}.{/if}
@@ -100,6 +101,7 @@
     <p>
       <label><input type="checkbox" name="unsubscribe_all_check" value="1"> {'Unsubscribe from all email notifications'|@translate}</label>
       <input type="submit" name="unsubscribe_all" value="{'Submit'|@translate}">
+    </p>
   {/if}
 </form>
 

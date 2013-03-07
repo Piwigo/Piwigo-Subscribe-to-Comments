@@ -1,25 +1,36 @@
+{combine_css path=$SUBSCRIBE_TO_PATH|@cat:'template/style_form.css'}
+
+{if $STC_ALLOW_GLOBAL}
+  {footer_script require="jquery"}{literal}
+  jQuery("#stc_submit").hide();
+  jQuery("#stc_standalone input[name='stc_mode']").change(function() {
+    jQuery("#stc_submit").show();
+  });
+  {/literal}{/footer_script}
+{/if}
+
 {if isset($comment_add)}
 <div id="pictureCommentList">
 <form method="post" action="{$comment_add.F_ACTION}" id="stc_standalone">
-  <fieldset>
+  <fieldset>{strip}
   {if $SUBSCRIBED_ALL_IMAGES}
-    {'You are currently subscribed to comments on'|@translate} {'all pictures of the gallery'|@translate}.
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of the gallery'|@translate}
     <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a> 
     
   {elseif $SUBSCRIBED_ALBUM_IMAGES}
-    {'You are currently subscribed to comments on'|@translate} {'all pictures of this album'|@translate}.
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of this album'|@translate}
     <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
     
   {elseif $SUBSCRIBED_IMAGE}
-    {'You are currently subscribed to comments on'|@translate} {'this picture'|@translate}.
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'this picture'|@translate}
     <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
     
   {elseif $SUBSCRIBED_ALL_ALBUMS}
-    {'You are currently subscribed to comments on'|@translate} {'all albums of the gallery'|@translate}.
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all albums of the gallery'|@translate}
     <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a>
     
   {elseif $SUBSCRIBED_ALBUM}
-    {'You are currently subscribed to comments on'|@translate} {'this album'|@translate}.
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'this album'|@translate}
     <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
     
   {else}
@@ -41,12 +52,14 @@
       {/if}
     {/if}
     {if $STC_ALLOW_GLOBAL and $STC_ASK_MAIL}<br>{/if}
+    <span id="stc_submit">
     {if $STC_ASK_MAIL}
-      <label>{'Email address'|@translate} <input type="text" name="stc_mail" size="30"></label>
+        <label>{'Email'|@translate} <input type="text" name="stc_mail" size="30"></label>
     {/if}
-    <label><input type="submit" name="stc_submit" value="{'Subscribe'|@translate}"></label>
+      <label><input type="submit" name="stc_submit" value="{'Subscribe'|@translate}"></label>
+    </span>
   {/if}
-  </fieldset>
+  {/strip}</fieldset>
 </form>
 </div>
 {/if}

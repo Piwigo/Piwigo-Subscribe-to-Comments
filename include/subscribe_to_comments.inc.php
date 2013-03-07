@@ -6,13 +6,22 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
  */
 function stc_detect_section()
 {
-  global $tokens, $page;
+  global $tokens, $page, $conf;
   
   if ($tokens[0] == 'subscriptions')
   {
+    add_event_handler('loc_begin_page_header', 'stc_page_header');
+    
     $page['section'] = 'subscriptions';
     $page['title'] = l10n('Comments notifications');
+    $page['section_title'] = '<a href="'.get_absolute_root_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Comments notifications');
   }
+}
+
+function stc_page_header()
+{
+  global $page;
+  $page['body_id'] = 'theSubscriptionsPage';
 }
 
 function stc_load_section()
@@ -48,14 +57,14 @@ function stc_comment_insertion($comm)
         switch ($_POST['stc_mode'])
         {
           case 'all-images':
-            subscribe_to_comments(@$_POST['stc_mail'], 'all-images');
+            subscribe_to_comments(@$_POST['email'], 'all-images');
             break;
           case 'album-images':
             if (empty($page['category']['id'])) break;
-            subscribe_to_comments(@$_POST['stc_mail'], 'album-images', $page['category']['id']);
+            subscribe_to_comments(@$_POST['email'], 'album-images', $page['category']['id']);
             break;
           case 'image':
-            subscribe_to_comments(@$_POST['stc_mail'], 'image', $comm['image_id']);
+            subscribe_to_comments(@$_POST['email'], 'image', $comm['image_id']);
             break;
         }
       }
@@ -64,10 +73,10 @@ function stc_comment_insertion($comm)
         switch ($_POST['stc_mode'])
         {
           case 'all-albums':
-            subscribe_to_comments(@$_POST['stc_mail'], 'all-albums');
+            subscribe_to_comments(@$_POST['email'], 'all-albums');
             break;
           case 'album':
-            subscribe_to_comments(@$_POST['stc_mail'], 'album', $comm['category_id']);
+            subscribe_to_comments(@$_POST['email'], 'album', $comm['category_id']);
             break;
         }
       }
@@ -75,7 +84,6 @@ function stc_comment_insertion($comm)
     else
     {
       $template->assign('STC_MODE', $_POST['stc_mode']);
-      $template->assign('STC_MAIL', @$_POST['stc_mail']);
     }
   }
 }
@@ -238,9 +246,12 @@ SELECT id
     $template->assign('STC_ASK_MAIL', true);
   }
   
-  $template->assign('STC_ON_PICTURE', true);
-  if ( !empty($page['category']['id']) ) $template->assign('STC_ALLOW_ALBUM_IMAGES', true);
-  if ( $conf['Subscribe_to_Comments']['allow_global_subscriptions'] or is_admin() ) $template->assign('STC_ALLOW_GLOBAL', true);
+  $template->assign(array(
+    'STC_ON_PICTURE' => true,
+    'STC_ALLOW_ALBUM_IMAGES' => !empty($page['category']['id']),
+    'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
+    'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
+    ));
   
   $template->set_prefilter('picture', 'stc_main_prefilter');
 }
@@ -262,6 +273,7 @@ function stc_on_album()
     return;
   }
   
+	// standalone subscription
   if (isset($_POST['stc_submit']))
   {
     switch ($_POST['stc_mode'])
@@ -345,8 +357,11 @@ SELECT id
     $template->assign('STC_ASK_MAIL', true);
   }
   
-  $template->assign('STC_ON_ALBUM', true);
-  if ( $conf['Subscribe_to_Comments']['allow_global_subscriptions'] or is_admin() ) $template->assign('STC_ALLOW_GLOBAL', true);
+  $template->assign(array(
+    'STC_ON_ALBUM' => true,
+    'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
+    'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
+    ));
 
   $template->set_prefilter('comments_on_albums', 'stc_main_prefilter');
 }

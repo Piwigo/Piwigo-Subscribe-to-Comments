@@ -4,16 +4,23 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 global $template, $conf, $page, $pwg_loaded_plugins;
 
 // check input parameters
-$_GET['verif_key'] = $_GET['action'].$_GET['email'].(isset($_GET['id'])?$_GET['id']:null);
-
-if ( 
-  empty($_GET['action']) or empty($_GET['email']) or empty($_GET['key'])
-  or decrypt_value($_GET['key'], $conf['secret_key']) !== $_GET['verif_key']
-  )
+if ( empty($_GET['action']) or empty($_GET['email']) or empty($_GET['key']) )
 {
   $_GET['action'] = null;
 }
 else
+{
+  $_GET['verif_key'] = $_GET['action'].$_GET['email'].(isset($_GET['id'])?$_GET['id']:null);
+
+  if ( decrypt_value($_GET['key'], $conf['secret_key']) !== $_GET['verif_key'] )
+  {
+    $_GET['action'] = null;
+  }
+}
+
+
+
+if ( !empty($_GET['action']) )
 {
   // unsubscribe all
   if ( isset($_POST['unsubscribe_all']) and isset($_POST['unsubscribe_all_check']) )
@@ -26,7 +33,7 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   }
   
   // bulk action
-  if (isset($_POST['apply_bulk']))
+  else if (isset($_POST['apply_bulk']))
   {
     foreach ($_POST['selected'] as $id)
     {
@@ -43,7 +50,7 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   }
   
   // unsubscribe from manage page
-  if (isset($_GET['unsubscribe']))
+  else if (isset($_GET['unsubscribe']))
   {
     if (un_subscribe_to_comments($_GET['email'], $_GET['unsubscribe']))
     {
@@ -51,12 +58,12 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
     }
     else
     {
-     array_push($page['errors'], l10n('Not found.'));
+      array_push($page['errors'], l10n('Not found.'));
     }
   }
   
   // validate from manage page
-  if (isset($_GET['validate']))
+  else if (isset($_GET['validate']))
   {
     if (validate_subscriptions($_GET['email'], $_GET['validate']))
     {
@@ -77,10 +84,9 @@ switch ($_GET['action'])
   /* validate */
   case 'validate':
   {
+    // don't need to sanitize inputs, already checked with the unique key
     $query = '
-SELECT
-    type,
-    element_id
+SELECT type, element_id
   FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE 
     email = "'.$_GET['email'].'"
@@ -237,10 +243,15 @@ if (isset($pwg_loaded_plugins['Comments_on_Albums']))
 }
 
 $template->assign(array(
-  'TITLE' => l10n('Subscriptions of').' <i>'.$_GET['email'].'</i>',
   'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
   'SUBSCRIBE_TO_ABS_PATH' => realpath(SUBSCRIBE_TO_PATH).'/',
   ));
+  
+if (!empty($_GET['email']))
+{
+  $template->assign('TITLE', '<a href="'.get_absolute_root_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].
+                              sprintf(l10n('Subscriptions of %s'), '<i>'.$_GET['email'].'</i>'));
+}
 
 $template->set_filenames(array('index'=> dirname(__FILE__).'/../template/subscribtions_page.tpl'));
 

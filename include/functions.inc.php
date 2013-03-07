@@ -156,7 +156,7 @@ function subscribe_to_comments($email, $type, $element_id='NULL')
   global $page, $conf, $user, $template, $picture;
   
   // check email
-  if ( !empty($email) and !is_valid_email($email) )
+  if ( !empty($email) and !email_check_format($email) )
   {
     array_push($page['errors'], l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)'));
     return false;
@@ -171,7 +171,7 @@ function subscribe_to_comments($email, $type, $element_id='NULL')
     $email = $user['email'];
   }
   
-  // search if already registered (can use ODKU because we want to get the id of inserted OR updated row)
+  // search if already registered (can't use ODKU because we want to get the id of inserted OR updated row)
   $query = '
 SELECT id
   FROM '.SUBSCRIBE_TO_TABLE.'
@@ -212,13 +212,13 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
   }
   
   // notify admins
-  if ( pwg_db_changes(null) != 0 and $conf['Subscribe_to_Comments']['notify_admin_on_subscribe'] )
+  if ( pwg_db_changes() != 0 and $conf['Subscribe_to_Comments']['notify_admin_on_subscribe'] )
   {
     stc_mail_notification_admins($email, $type, $element_id, $inserted_id);
   }
   
   // send validation mail
-  if ( is_a_guest() and pwg_db_changes(null) != 0 )
+  if ( is_a_guest() and pwg_db_changes() != 0 )
   {
     set_make_full_url();
     
@@ -266,7 +266,7 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
     return true;
   }
   // just display confirmation message
-  else if (pwg_db_changes(null) != 0)
+  else if (pwg_db_changes() != 0)
   {
     array_push($page['infos'], l10n('You have been added to the list of subscribers.'));
     return true;
@@ -284,9 +284,15 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
  */
 function un_subscribe_to_comments($email, $id)
 {  
-  if (empty($id))
+  if ( !empty($email) and !email_check_format($email) )
   {
-    trigger_error('un_subscribe_to_comment: missing id', E_USER_WARNING);
+    trigger_error('un_subscribe_to_comment: bad email', E_USER_WARNING);
+    return false;
+  }
+  
+  if (!preg_match('#^[0-9]+$#', $id))
+  {
+    trigger_error('un_subscribe_to_comment: bad id', E_USER_WARNING);
     return false;
   }
   
@@ -307,12 +313,11 @@ function un_subscribe_to_comments($email, $id)
 DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE 
     email = "'.pwg_db_real_escape_string($email).'"
-    AND id = "'.pwg_db_real_escape_string($id).'"
+    AND id = '.$id.'
 ;';
   pwg_query($query);
-      
-  if (pwg_db_changes(null) != 0) return true;
-  return false;
+  
+  return (pwg_db_changes() != 0);
 }
 
 
@@ -324,15 +329,15 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
  */
 function validate_subscriptions($email, $id)
 {
-  if (empty($email))
+  if (!email_check_format($email))
   {
-    trigger_error('validate_subscriptions: missing email', E_USER_WARNING);
+    trigger_error('validate_subscriptions: bad email', E_USER_WARNING);
     return false;
   }
   
-  if (empty($id))
+  if (!preg_match('#^[0-9]+$#', $id))
   {
-    trigger_error('validate_subscriptions: missing id', E_USER_WARNING);
+    trigger_error('validate_subscriptions: bad id', E_USER_WARNING);
     return false;
   }
   
@@ -341,12 +346,11 @@ UPDATE '.SUBSCRIBE_TO_TABLE.'
   SET validated = "true"
   WHERE 
     email = "'.pwg_db_real_escape_string($email).'"
-    AND id = '.pwg_db_real_escape_string($id).'
+    AND id = '.$id.'
 ;';
   pwg_query($query);
-      
-  if (pwg_db_changes(null) != 0) return true;
-  return false;
+  
+  return (pwg_db_changes() != 0);
 }
 
 
@@ -370,7 +374,7 @@ function stc_mail_notification_admins($email, $type, $element_id, $inserted_id)
   
   $template->set_filename('stc_mail', dirname(__FILE__).'/../template/mail/admin.tpl');
     
-  $subject = '['.strip_tags($conf['gallery_title']).'] '.sprintf(l10n('%s has subscribed to comments on'), is_a_guest()?$email:$user['username']);
+  $subject = '['.strip_tags($conf['gallery_title']).'] '.sprintf(l10n('%s has subscribed to comments on %s.'), is_a_guest()?$email:$user['username'], null);
     
   switch ($type)
   {
@@ -400,7 +404,7 @@ function stc_mail_notification_admins($email, $type, $element_id, $inserted_id)
   
   $template->assign('STC', array(
     'ELEMENT' => $element['on'],
-    'USER' => sprintf(l10n('%s has subscribed to comments on'), is_a_guest() ? '<b>'.$email.'</b>' : '<b>'.$user['username'].'</b> ('.$email.')'), 
+    'USER' => is_a_guest() ? '<b>'.$email.'</b>' : '<b>'.$user['username'].'</b> ('.$email.')', 
     'GALLERY_TITLE' => $conf['gallery_title'],
     'TECHNICAL' => implode('<br>', $technical_infos),
     ));
@@ -503,7 +507,6 @@ function stc_send_mail($to, $content, $subject)
   $headers = 'From: '.$args['from']."\n";  
   $headers.= 'MIME-Version: 1.0'."\n";
   $headers.= 'X-Mailer: Piwigo Mailer'."\n";
-  // $headers.= 'Content-Transfer-Encoding: Quoted-Printable'."\n";
   $headers.= 'Content-Transfer-Encoding: 8bit'."\n";
   $headers.= 'Content-Type: text/html; charset="'.get_pwg_charset().'";'."\n";
   
@@ -522,8 +525,7 @@ function stc_send_mail($to, $content, $subject)
   
   $content = $template->parse('stc_mail_header', true) . $content . $template->parse('stc_mail_footer', true);
   
-  // $content = quoted_printable_encode($content);
-  $content = wordwrap($content, 70, "\n", true);
+  $content = wordwrap($content, 70, "\n", false);
 
   unset_make_full_url();
   
@@ -681,32 +683,6 @@ function user_can_view_element($user_id, $element_id, $type)
   else
   {
     return false;
-  }
-}
-
-
-/**
- * check if mail adress is valid
- * @param: string email
- * @return: bool
- */
-if (!function_exists('is_valid_email'))
-{
-  function is_valid_email($mail_address)
-  {
-    if (version_compare(PHP_VERSION, '5.2.0') >= 0)
-    {
-      return filter_var($mail_address, FILTER_VALIDATE_EMAIL)!==false;
-    }
-    else
-    {
-      $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
-      $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name
-      $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
-
-      if (!preg_match($regex, $mail_address)) return false;
-      return true;
-    }
   }
 }
 

@@ -1,5 +1,5 @@
 <div id="the_header">
-{'New comment on'|@translate} <b>{$STC.GALLERY_TITLE}</b>
+{'New comment on %s'|@translate|sprintf:$STC.GALLERY_TITLE}</b>
 </div>
 
 <div id="the_content">
