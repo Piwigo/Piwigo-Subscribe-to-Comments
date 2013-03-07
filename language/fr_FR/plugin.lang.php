@@ -44,4 +44,13 @@ $lang['the album <a href="%s">%s</a>'] = 'l\'album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'l\'image <a href="%s">%s</a>';
 $lang['this album'] = 'cet album';
 $lang['this picture'] = 'cette image';
+$lang['New subscription on %s'] = 'Nouvelle inscription sur %s';
+$lang['%s has subscribed to comments on %s.'] = '%s s\'est inscrit aux commentaire sur %s';
+$lang['Global subscriptions'] = 'Inscriptions globales';
+$lang['New comment on %s'] = 'Nouveau commentaire sur %s';
+$lang['Stop receiving notifications'] = 'Arrêter de recevoir les notifications';
+$lang['Subscribe to comments on %s'] = 'Inscriptions aux commentaires de %s';
+$lang['Subscriptions of %s'] = 'Inscriptions de %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Vous êtes inscrits aux commentaires sur %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Vous avez demandez à vous inscrire aux commentaires sur %s.';
 ?>
