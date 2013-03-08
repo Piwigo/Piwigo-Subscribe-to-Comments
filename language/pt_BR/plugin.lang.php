@@ -63,4 +63,13 @@ $lang['Subject'] = 'Assunto';
 $lang['Subscribe'] = 'Assine';
 $lang['Subscribe to comments on'] = 'Assine para comentar';
 $lang['Subscribe to mail notifications'] = 'Assine para notificações por correio eletrônico';
+$lang['%s has subscribed to comments on %s.'] = '%s subscreveu os comentários %s.';
+$lang['Global subscriptions'] = 'Assinaturas globais';
+$lang['New comment on %s'] = 'Novo comentário sobre %s';
+$lang['New subscription on %s'] = 'Nova assinatura em %s';
+$lang['Stop receiving notifications'] = 'Parar de receber notificações';
+$lang['Subscribe to comments on %s'] = 'Assinar aos comentários sobre %s';
+$lang['Subscriptions of %s'] = 'Subscrições de %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Você está inscrito para comentários em %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Você pediu para se inscrever por e-mail aos comentários sobre %s';
 ?>
