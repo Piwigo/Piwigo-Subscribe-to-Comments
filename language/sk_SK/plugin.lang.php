@@ -63,4 +63,13 @@ $lang['the album <a href="%s">%s</a>'] = 'album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'fotka <a href="%s">%s</a>';
 $lang['this album'] = 'tento album';
 $lang['this picture'] = 'táto fotka';
+$lang['Subscriptions of %s'] = 'Odbery na %s';
+$lang['New subscription on %s'] = 'Nové odbery na %s';
+$lang['Global subscriptions'] = 'Celkové odbery';
+$lang['%s has subscribed to comments on %s.'] = '%s bolo zapísaných has subscribed to comments on %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Požiadali ste na odber komentárov mailom na %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Ste práve prihlásený na odber komentárov na %s';
+$lang['Subscribe to comments on %s'] = 'Prihlásiť sa na odber komentárov na %s';
+$lang['Stop receiving notifications'] = 'Zastaviť prijímanie upozornení';
+$lang['New comment on %s'] = 'Nový komentár na %s';
 ?>
