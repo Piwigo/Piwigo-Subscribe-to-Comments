@@ -63,4 +63,13 @@ $lang['the album <a href="%s">%s</a>'] = 'albūms <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'attēls <a href="%s">%s</a>';
 $lang['this album'] = 'šis albūms';
 $lang['this picture'] = 'šis attēls';
+$lang['%s has subscribed to comments on %s.'] = '%s ir parakstījies(usi) komentāriem uz %s.';
+$lang['You are currently subscribed to comments on %s.'] = 'Jūs patlaban esat pierakstījies(usies) komentāriem uz %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Jūs estat pieprasījis(usi) parakstīšanos(abonešanu)komentāriem uz %s pa e-pastu';
+$lang['Subscriptions of %s'] = 'Parakstīšanā no';
+$lang['New comment on %s'] = 'Jauns komentārs uz %s';
+$lang['New subscription on %s'] = 'Jauna parakstīšanās uz %s ';
+$lang['Stop receiving notifications'] = 'Pārtraukt paziņojumu saņemšanu';
+$lang['Subscribe to comments on %s'] = 'Pierakstīties komentāriem uz %s.';
+$lang['Global subscriptions'] = 'Glabālā abonēšana (parakstīšanās)';
 ?>
