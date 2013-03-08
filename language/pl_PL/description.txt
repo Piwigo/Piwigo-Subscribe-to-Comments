@@ -1,1 +1,1 @@
-Ten plugin pozwala subskrybowac komentarza na maila.
+Ten plugin pozwala subskrybować komentarze na e-mail.

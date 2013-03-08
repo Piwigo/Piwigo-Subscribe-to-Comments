@@ -63,4 +63,13 @@ $lang['Validate'] = 'Waliduj';
 $lang['Want to edit your notifications options?'] = 'Czy chcesz edytować Twoje opcje powiadomień?';
 $lang['You are currently subscribed to comments on'] = 'Aktualnie subskrybujesz komentarze dla';
 $lang['You have been added to the list of subscribers.'] = 'Zostałe(a)ś dodany(a) do listy subskrybentów';
+$lang['%s has subscribed to comments on %s.'] = '%s zasubskrybował komentarze do %s.';
+$lang['Global subscriptions'] = 'Subskrypcje globalne';
+$lang['New comment on %s'] = 'Nowy komentarz do %s';
+$lang['New subscription on %s'] = 'Nowa subskrypcja %s';
+$lang['Stop receiving notifications'] = 'Przestań odbierać powiadomienia';
+$lang['Subscribe to comments on %s'] = 'Zasubskrybuj komentarze do %s';
+$lang['Subscriptions of %s'] = 'Subskrypcje %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Już subskrybujesz komentarze do %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Zleciłeś subskrypcję komentarzy do %s';
 ?>
