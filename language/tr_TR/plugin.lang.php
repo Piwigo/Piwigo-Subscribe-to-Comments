@@ -63,4 +63,13 @@ $lang['the album <a href="%s">%s</a>'] = 'albüm <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'resim <a href="%s">%s</a>';
 $lang['this album'] = 'bu albüm';
 $lang['this picture'] = 'bu resim';
+$lang['You requested to subscribe by email to comments on %s'] = '%s \'deki yorumlara e-posta yoluyla abonelik isteği yaptınız.';
+$lang['You are currently subscribed to comments on %s.'] = '%s \'deki yorumlara abone oldunuz.';
+$lang['Subscriptions of %s'] = '%s \'deki abonelikler';
+$lang['Subscribe to comments on %s'] = '%s \'deki yorumlara abone ol';
+$lang['New comment on %s'] = '%s \'de yeni yorum';
+$lang['%s has subscribed to comments on %s.'] = '%s, %s \'deki yorumlara abone oldu.';
+$lang['Stop receiving notifications'] = 'Bilgilendirme alımını durdur';
+$lang['New subscription on %s'] = '%s \'de yeni abonelik';
+$lang['Global subscriptions'] = 'Küresel abonelikler';
 ?>
