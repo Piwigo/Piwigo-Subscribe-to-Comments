@@ -63,4 +63,13 @@ $lang['the album <a href="%s">%s</a>'] = 'το λεύκωμα <a href="%s">%s</a
 $lang['the picture <a href="%s">%s</a>'] = 'η εικάνα <a href="%s">%s</a>';
 $lang['this album'] = 'αυτό το λεύκωμα';
 $lang['this picture'] = 'αυτή η εικόνα';
+$lang['You requested to subscribe by email to comments on %s'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail για σχόλια σχετικά με το %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Αυτήν τη στιγμή είστε συνδρομητής σε σχόλια σχετικά με %s.';
+$lang['Subscriptions of %s'] = 'Συνδρομές του %s';
+$lang['Subscribe to comments on %s'] = 'Εγγραφείτε στα σχόλια σχετικά με %s';
+$lang['Stop receiving notifications'] = 'Διακοπή λήψης ειδοποιήσεων';
+$lang['New subscription on %s'] = 'Νέα συνδρομή για %s';
+$lang['New comment on %s'] = 'Νέο σχόλιο για %s';
+$lang['Global subscriptions'] = 'Παγκόσμιες συνδρομές';
+$lang['%s has subscribed to comments on %s.'] = '%s έχουν εγγραφεί για τα σχόλια σχετικά με το %s.';
 ?>
