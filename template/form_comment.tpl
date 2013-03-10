@@ -1,4 +1,4 @@
-{if !$SUBSCRIBED_ALL_IMAGES && !$SUBSCRIBED_ALL_ALBUMS && !$SUBSCRIBED_ALBUM && !$SUBSCRIBED_ALBUM_IMAGES && !$SUBSCRIBED_IMAGE}
+{if !$SUBSCRIBED}
 
 <p>
   {'Notify me of followup comments'|@translate} :<br>

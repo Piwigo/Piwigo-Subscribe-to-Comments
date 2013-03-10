@@ -13,26 +13,21 @@
 <div id="pictureCommentList">
 <form method="post" action="{$comment_add.F_ACTION}" id="stc_standalone">
   <fieldset>{strip}
-  {if $SUBSCRIBED_ALL_IMAGES}
-    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of the gallery'|@translate}
-    <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a> 
+  {if $SUBSCRIBED}
+    {if $SUBSCRIBED=='all-images'}
+      {assign var=str value='all pictures of the gallery'|@translate}
+    {elseif $SUBSCRIBED=='album-images'}
+      {assign var=str value='all pictures of this album'|@translate}
+    {elseif $SUBSCRIBED=='image'}
+      {assign var=str value='this picture'|@translate}
+    {elseif $SUBSCRIBED=='all-albums'}
+      {assign var=str value='all albums of the gallery'|@translate}
+    {elseif $SUBSCRIBED=='album'}
+      {assign var=str value='this album'|@translate}
+    {/if}
     
-  {elseif $SUBSCRIBED_ALBUM_IMAGES}
-    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of this album'|@translate}
+    {'You are currently subscribed to comments on %s.'|@translate|sprintf:$str}
     <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
-    
-  {elseif $SUBSCRIBED_IMAGE}
-    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'this picture'|@translate}
-    <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
-    
-  {elseif $SUBSCRIBED_ALL_ALBUMS}
-    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all albums of the gallery'|@translate}
-    <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a>
-    
-  {elseif $SUBSCRIBED_ALBUM}
-    {'You are currently subscribed to comments on %s.'|@translate|sprintf:'this album'|@translate}
-    <a href="{$UNSUB_LINK}">{'Unsubscribe'|@translate}</a>
-    
   {else}
     <legend>{'Subscribe to mail notifications'|@translate}</legend>
     {if $STC_ON_PICTURE}

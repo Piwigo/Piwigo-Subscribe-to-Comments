@@ -183,9 +183,10 @@ SELECT id
       
       if (pwg_db_num_rows($result))
       {
+        list($stc_id) = pwg_db_fetch_row($result);
         $template->assign(array(
-          'SUBSCRIBED_ALL_IMAGES' => true,
-          'MANAGE_LINK' => make_stc_url('manage', $user['email']),
+          'SUBSCRIBED' => 'all-images',
+          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
           ));
         $subscribed = true;
       }
@@ -209,7 +210,7 @@ SELECT id
       {
         list($stc_id) = pwg_db_fetch_row($result);
         $template->assign(array(
-          'SUBSCRIBED_ALBUM_IMAGES' => true,
+          'SUBSCRIBED' => 'album-images',
           'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
           ));
         $subscribed = true;
@@ -234,7 +235,7 @@ SELECT id
       {
         list($stc_id) = pwg_db_fetch_row($result);
         $template->assign(array(
-          'SUBSCRIBED_IMAGE' => true,
+          'SUBSCRIBED' => 'image',
           'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
           ));
         $subscribed = true;
@@ -297,6 +298,11 @@ function stc_on_album()
   // if registered user we check if already subscribed
   if ( !is_a_guest() and !empty($user['email']) )
   {
+    $element_url = make_index_url(array(
+      'section' => 'categories',
+      'category' => $page['category'],
+      ));
+          
     $subscribed = false;
     
     // registered to all albums
@@ -314,9 +320,10 @@ SELECT id
       
       if (pwg_db_num_rows($result))
       {
+        list($stc_id) = pwg_db_fetch_row($result);
         $template->assign(array(
-          'SUBSCRIBED_ALL_ALBUMS' => true,
-          'MANAGE_LINK' => make_stc_url('manage', $user['email']),
+          'SUBSCRIBED' => 'all-albums',
+          'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
           ));
         $subscribed = true;
       }
@@ -339,13 +346,8 @@ SELECT id
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $element_url = make_index_url(array(
-          'section' => 'categories',
-          'category' => $page['category'],
-          ));
-        
         $template->assign(array(
-          'SUBSCRIBED_ALBUM' => true,
+          'SUBSCRIBED' => 'album',
           'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
           ));
         $subscribed = true;

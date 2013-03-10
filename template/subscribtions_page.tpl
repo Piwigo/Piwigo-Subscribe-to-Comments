@@ -30,10 +30,13 @@
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if}">
         <td>
           {if $sub.type == 'all-images'}
-            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all pictures of the gallery'|@translate}
+            {assign var=str value='all pictures of the gallery'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> 
           {else $sub.type == 'all-albums'}
-            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'You are currently subscribed to comments on %s.'|@translate|sprintf:'all albums of the gallery'|@translate}
+            {assign var=str value='all albums of the gallery'|@translate}
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png">
           {/if}
+          {'You are currently subscribed to comments on %s.'|@translate|sprintf:$str}
         </td>
         <td style="white-space:nowrap;">
           <div class="actions">

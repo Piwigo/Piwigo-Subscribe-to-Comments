@@ -33,7 +33,7 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   }
   
   // bulk action
-  else if (isset($_POST['apply_bulk']))
+  else if (isset($_POST['apply_bulk']) and !empty($_POST['selected']))
   {
     foreach ($_POST['selected'] as $id)
     {
