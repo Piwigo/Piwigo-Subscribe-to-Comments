@@ -63,4 +63,13 @@ $lang['Return to item page'] = 'Tilbage til element';
 $lang['Subject'] = 'Emne';
 $lang['Subscribe'] = 'Tilmeld';
 $lang['Subscribe to mail notifications'] = 'Tilmeld til mailnotifikationer';
+$lang['%s has subscribed to comments on %s.'] = '%s har tegnet abonnement på kommentarer vedrørende %s.';
+$lang['Global subscriptions'] = 'Globale abonnementer';
+$lang['New comment on %s'] = 'Nye kommentarer vedrørende %s';
+$lang['New subscription on %s'] = 'Nye abonnementer vedrørende %s';
+$lang['Stop receiving notifications'] = 'Modtag ikke flere notifikationer';
+$lang['Subscribe to comments on %s'] = 'Tegn abonnement på kommentarer vedrørende %s';
+$lang['Subscriptions of %s'] = 'Abonnementer hørende til %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Du har i øjeblikket abonnement på kommentarer vedrørende %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Du har bedt om at tegne abonnement via e-mail på kommentarer vedrørende %s';
 ?>
