@@ -263,12 +263,11 @@ SELECT id
  */
 function stc_on_album()
 {
-  global $page, $template, $pwg_loaded_plugins, $user, $conf;
+  global $page, $template, $user, $conf;
   
   if (
-      script_basename() != 'index' or !isset($page['section']) or
-      !isset($pwg_loaded_plugins['Comments_on_Albums']) or 
-      $page['section'] != 'categories' or !isset($page['category'])
+      !defined('COA_ID') or script_basename() != 'index' or
+      @$page['section'] != 'categories' or !isset($page['category'])
     )
   {
     return;

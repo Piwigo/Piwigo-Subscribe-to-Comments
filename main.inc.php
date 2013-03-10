@@ -8,11 +8,17 @@ Author: Mistic
 Author URI: http://www.strangeplanet.fr
 */
 
+/*
+ * potential problem : if the permissions of a user change, he receives notifications
+ * about photos and albums he can't see anymore
+ */
+
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 global $prefixeTable;
 
-define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . 'Subscribe_to_Comments/');
+defined('SUBSCRIBE_TO_ID') or define('SUBSCRIBE_TO_ID', basename(dirname(__FILE__)));
+define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . SUBSCRIBE_TO_ID . '/');
 define('SUBSCRIBE_TO_TABLE',   $prefixeTable . 'subscribe_to_comments');
 define('SUBSCRIBE_TO_VERSION', 'auto');
 
@@ -30,22 +36,22 @@ function stc_init()
   // apply upgrade if needed
   if (
     SUBSCRIBE_TO_VERSION == 'auto' or
-    $pwg_loaded_plugins['Subscribe_to_Comments']['version'] == 'auto' or
-    version_compare($pwg_loaded_plugins['Subscribe_to_Comments']['version'], SUBSCRIBE_TO_VERSION, '<')
+    $pwg_loaded_plugins[SUBSCRIBE_TO_ID]['version'] == 'auto' or
+    version_compare($pwg_loaded_plugins[SUBSCRIBE_TO_ID]['version'], SUBSCRIBE_TO_VERSION, '<')
   )
   {
     include_once(SUBSCRIBE_TO_PATH . 'include/install.inc.php');
     stc_install();
     
-    if ( $pwg_loaded_plugins['Subscribe_to_Comments']['version'] != 'auto' and SUBSCRIBE_TO_VERSION != 'auto' )
+    if ( $pwg_loaded_plugins[SUBSCRIBE_TO_ID]['version'] != 'auto' and SUBSCRIBE_TO_VERSION != 'auto' )
     {
       $query = '
 UPDATE '. PLUGINS_TABLE .'
 SET version = "'. SUBSCRIBE_TO_VERSION .'"
-WHERE id = "Subscribe_to_Comments"';
+WHERE id = "'. SUBSCRIBE_TO_ID .'"';
       pwg_query($query);
       
-      $pwg_loaded_plugins['Subscribe_to_Comments']['version'] = SUBSCRIBE_TO_VERSION;
+      $pwg_loaded_plugins[SUBSCRIBE_TO_ID]['version'] = SUBSCRIBE_TO_VERSION;
       
       if (defined('IN_ADMIN'))
       {
@@ -91,7 +97,7 @@ function stc_admin_menu($menu)
 {
   array_push($menu, array(
     'NAME' => 'Subscribe to Comments',
-    'URL' => get_root_url().'admin.php?page=plugin-' . basename(dirname(__FILE__))
+    'URL' => get_root_url().'admin.php?page=plugin-' . SUBSCRIBE_TO_ID,
   ));
   return $menu;
 }

@@ -1,7 +1,8 @@
 <?php
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-include_once(PHPWG_PLUGINS_PATH . 'Subscribe_to_Comments/include/install.inc.php');
+defined('SUBSCRIBE_TO_ID') or define('SUBSCRIBE_TO_ID', basename(dirname(__FILE__)));
+include_once(PHPWG_PLUGINS_PATH . SUBSCRIBE_TO_ID . '/include/install.inc.php');
   
 
 function plugin_install() 

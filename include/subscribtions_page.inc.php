@@ -1,7 +1,7 @@
 <?php 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-global $template, $conf, $page, $pwg_loaded_plugins;
+global $template, $conf, $page, $user;
 
 // check input parameters
 if ( empty($_GET['action']) or empty($_GET['email']) or empty($_GET['key']) )
@@ -212,7 +212,7 @@ SELECT *
             break;
           case 'album-images':
           case 'album':
-            $subscription['infos'] = get_category_infos($subscription['element_id']);
+            $subscription['infos'] = get_category_infos($subscription['element_id'], true, $user['id']);
             break;
           default:
             $subscription['infos'] = null;
@@ -237,14 +237,11 @@ SELECT *
   }
 }
 
-if (isset($pwg_loaded_plugins['Comments_on_Albums']))
-{
-  $template->assign('COA_ACTIVATED', true);
-}
 
 $template->assign(array(
   'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
   'SUBSCRIBE_TO_ABS_PATH' => realpath(SUBSCRIBE_TO_PATH).'/',
+  'COA_ACTIVATED' => defined('COA_ID'),
   ));
   
 if (!empty($_GET['email']))

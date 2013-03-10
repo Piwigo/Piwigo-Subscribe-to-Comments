@@ -65,7 +65,9 @@ SELECT
     AND validated = true
     AND email != "'.$exclude.'"
 ';
-  $subscriptions = hash_from_query($query, 'email');
+  $subscriptions = hash_from_query($query, 'id');
+  
+  if (count($subscriptions)==0) return;
   
   set_make_full_url();
   
@@ -550,6 +552,8 @@ function stc_send_mail($to, $content, $subject)
  */
 function get_picture_infos($image_id, $with_thumb=true)
 {
+  if (empty($image_id)) return array();
+  
   $query = '
 SELECT
     id,
@@ -583,26 +587,29 @@ SELECT
  * @param: int return thumbnail
  * @return: array (id, name, url, thumbnail)
  */
-function get_category_infos($cat_id, $with_thumb=true)
+function get_category_infos($cat_id, $with_thumb=true, $user_id=null)
 {
   global $conf;
+  
+  if ($user_id===null) $user_id = $conf['guest_id'];
   
   $query = '
 SELECT
     cat.id,
     cat.name,
     cat.permalink,
+    ucc.count_images,
+    cat.uppercats,
     img.id AS image_id,
     img.path
   FROM '.CATEGORIES_TABLE.' AS cat
     LEFT JOIN '.USER_CACHE_CATEGORIES_TABLE.' AS ucc 
-      ON ucc.cat_id = cat.id AND ucc.user_id = '.$conf['guest_id'].'
+      ON ucc.cat_id = cat.id AND ucc.user_id = '.$user_id.'
     LEFT JOIN '.IMAGES_TABLE.' AS img
       ON img.id = ucc.user_representative_picture_id
   WHERE cat.id = '.$cat_id.'
 ;';
   $element = pwg_db_fetch_assoc(pwg_query($query));
-  // we use guest_id for user_cache because we don't know the status of recipient
   
   $element['url'] = make_index_url(array(
     'section'=>'categories',
@@ -611,10 +618,18 @@ SELECT
   
   if ($with_thumb)
   {
-    $element['thumbnail'] = DerivativeImage::thumb_url(array(
-      'id'=>$element['image_id'],
-      'path'=>$element['path'],
-      ));
+    if (empty($element['image_id']) and $conf['allow_random_representative'])
+    {
+      $image = get_picture_infos(get_random_image_in_category($element));
+      $element['thumbnail'] = $image['thumbnail'];
+    }
+    else
+    {
+      $element['thumbnail'] = DerivativeImage::thumb_url(array(
+        'id'=>$element['image_id'],
+        'path'=>$element['path'],
+        ));
+    }
   }
   
   return $element;
