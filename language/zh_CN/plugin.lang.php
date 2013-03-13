@@ -63,4 +63,13 @@ $lang['the picture <a href="%s">%s</a>'] = '相片 <a href="%s">%s</a>';
 $lang['this album'] = '该相册';
 $lang['this picture'] = '该相片';
 $lang['%s has subscribed to comments on'] = '%s 订阅了评论';
+$lang['%s has subscribed to comments on %s.'] = '%s 在 %s 订阅了评论';
+$lang['Global subscriptions'] = '全局订阅';
+$lang['New comment on %s'] = '在 %s 的新评论';
+$lang['New subscription on %s'] = '在 %s 的新订阅';
+$lang['Stop receiving notifications'] = '停止接收通知';
+$lang['Subscribe to comments on %s'] = '在%s订阅评论';
+$lang['Subscriptions of %s'] = '%s的订阅';
+$lang['You are currently subscribed to comments on %s.'] = '你目前在%s订阅了评论';
+$lang['You requested to subscribe by email to comments on %s'] = '你请求在%s通过电子邮件订阅评论';
 ?>
