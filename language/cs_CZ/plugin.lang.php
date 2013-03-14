@@ -42,4 +42,13 @@ $lang['Notify administrators when a user take a new subscription'] = 'Oznam admi
 $lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'K aktivaci zmáčkni potvrzovací tlačítko. Pokud se domníváš, že se jedná o omyl, tak tento vzkaz ignoruj.';
 $lang['You are currently subscribed to comments on'] = 'Současně jsi přihlášen ke komentování';
 $lang['You requested to subscribe by email to comments on'] = 'Požádal jste o odebírání mailem komentářů o';
+$lang['%s has subscribed to comments on %s.'] = '%s odběr komentářů byl přihlášen na %s.';
+$lang['You requested to subscribe by email to comments on %s'] = 'Požádal jste o odběr komentářů e-mailem na %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Jste právě prihlášen k odběru komentářů na %s';
+$lang['Global subscriptions'] = 'Celkové odběry';
+$lang['Subscriptions of %s'] = 'Odběry na %s';
+$lang['Subscribe to comments on %s'] = 'Přihlásit se k odběru komentářů na %s';
+$lang['Stop receiving notifications'] = 'Zastavit příjem upozornění';
+$lang['New subscription on %s'] = 'Nové odběry na %s';
+$lang['New comment on %s'] = 'Nový komentář na %s';
 ?>
