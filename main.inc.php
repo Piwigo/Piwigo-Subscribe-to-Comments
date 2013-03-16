@@ -8,11 +8,6 @@ Author: Mistic
 Author URI: http://www.strangeplanet.fr
 */
 
-/*
- * potential problem : if the permissions of a user change, he receives notifications
- * about photos and albums he can't see anymore
- */
-
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 global $prefixeTable;
@@ -20,6 +15,7 @@ global $prefixeTable;
 defined('SUBSCRIBE_TO_ID') or define('SUBSCRIBE_TO_ID', basename(dirname(__FILE__)));
 define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . SUBSCRIBE_TO_ID . '/');
 define('SUBSCRIBE_TO_TABLE',   $prefixeTable . 'subscribe_to_comments');
+define('SUBSCRIBE_TO_ADMIN',   get_root_url() . 'admin.php?page=plugin-' . SUBSCRIBE_TO_ID);
 define('SUBSCRIBE_TO_VERSION', 'auto');
 
 
@@ -97,7 +93,7 @@ function stc_admin_menu($menu)
 {
   array_push($menu, array(
     'NAME' => 'Subscribe to Comments',
-    'URL' => get_root_url().'admin.php?page=plugin-' . SUBSCRIBE_TO_ID,
+    'URL' => SUBSCRIBE_TO_ADMIN,
   ));
   return $menu;
 }

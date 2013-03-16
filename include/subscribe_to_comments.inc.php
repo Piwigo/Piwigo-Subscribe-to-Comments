@@ -1,5 +1,5 @@
 <?php
-if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
+if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
 
 /**
  * detect 'subscriptions' section and load the page

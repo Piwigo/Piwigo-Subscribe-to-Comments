@@ -1,5 +1,5 @@
 <?php 
-if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
+if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
 
 global $template, $conf, $page, $user;
 
@@ -250,6 +250,6 @@ if (!empty($_GET['email']))
                               sprintf(l10n('Subscriptions of %s'), '<i>'.$_GET['email'].'</i>'));
 }
 
-$template->set_filenames(array('index'=> dirname(__FILE__).'/../template/subscribtions_page.tpl'));
+$template->set_filename('index', realpath(SUBSCRIBE_TO_PATH . 'template/subscribtions_page.tpl'));
 
 ?>

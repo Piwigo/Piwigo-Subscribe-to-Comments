@@ -1,5 +1,5 @@
 <?php
-if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
+if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
 
 include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
@@ -89,7 +89,7 @@ SELECT
   // mail content
   $subject = '['.strip_tags($conf['gallery_title']).'] Re:'.$element['name'];
     
-  $template->set_filename('stc_mail', dirname(__FILE__).'/../template/mail/notification.tpl');
+  $template->set_filename('stc_mail', realpath(SUBSCRIBE_TO_PATH . 'template/mail/notification.tpl'));
 
   foreach ($subscriptions as $row)
   {
@@ -224,7 +224,7 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
   {
     set_make_full_url();
     
-    $template->set_filename('stc_mail', dirname(__FILE__).'/../template/mail/confirm.tpl');
+    $template->set_filename('stc_mail', realpath(SUBSCRIBE_TO_PATH . 'template/mail/confirm.tpl'));
     
     $subject = '['.strip_tags($conf['gallery_title']).'] '.l10n('Confirm your subscribtion to comments');
       
@@ -374,7 +374,7 @@ function stc_mail_notification_admins($email, $type, $element_id, $inserted_id)
   switch_lang_to(get_default_language());
   load_language('plugin.lang', SUBSCRIBE_TO_PATH);
   
-  $template->set_filename('stc_mail', dirname(__FILE__).'/../template/mail/admin.tpl');
+  $template->set_filename('stc_mail', realpath(SUBSCRIBE_TO_PATH . 'template/mail/admin.tpl'));
     
   $subject = '['.strip_tags($conf['gallery_title']).'] '.sprintf(l10n('%s has subscribed to comments on %s.'), is_a_guest()?$email:$user['username'], null);
     
@@ -514,10 +514,10 @@ function stc_send_mail($to, $content, $subject)
   
   // template
   $template->set_filenames(array(
-    'stc_mail_header' => dirname(__FILE__).'/../template/mail/header.tpl',
-    'stc_mail_footer' => dirname(__FILE__).'/../template/mail/footer.tpl',
+    'stc_mail_header' => realpath(SUBSCRIBE_TO_PATH . 'template/mail/header.tpl'),
+    'stc_mail_footer' => realpath(SUBSCRIBE_TO_PATH . 'template/mail/footer.tpl'),
     ));
-  $stc_mail_css = file_get_contents(dirname(__FILE__).'/../template/mail/style.css');
+  $stc_mail_css = file_get_contents(realpath(SUBSCRIBE_TO_PATH . 'template/mail/style.css'));
     
   $template->assign(array(
     'GALLERY_URL' => get_gallery_home_url(),
@@ -569,9 +569,11 @@ SELECT
   {
     $element['name'] = get_name_from_file($element['file']);
   }
+  $element['name'] = trigger_event('render_element_name', $element['name']);
   
-  $url_params = array('image_id' => $element['id']);
-  $element['url'] = make_picture_url($url_params);
+  $element['url'] = make_picture_url(array(
+    'image_id'=>$element['id']
+    ));
   
   if ($with_thumb)
   {
@@ -615,6 +617,8 @@ SELECT
     'section'=>'categories',
     'category'=>$element,
     ));
+    
+  $element['name'] = trigger_event('render_category_name', $element['name']);
   
   if ($with_thumb)
   {

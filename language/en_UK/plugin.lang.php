@@ -45,5 +45,10 @@ $lang['Unsubscribe from all email notifications'] = 'Unsubscribe from all email 
 $lang['comments on a picture'] = 'comments on a picture';
 $lang['comments on all pictures of an album'] = 'comments on all pictures of an album';
 $lang['comments on an album'] = 'comments on an album';
+$lang['First subscription'] = 'First subscription';
+$lang['Last subscription'] = 'Last subscription';
+$lang['All album photos'] = 'All album photos';
+$lang['&#9733; : registered users'] = '&#9733; : registered users';
+$lang['No result'] = 'No result';
 
 ?>

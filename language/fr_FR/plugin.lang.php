@@ -12,7 +12,6 @@ $lang['Unsubscribe from all email notifications'] = 'Ne plus recevoir aucune not
 $lang['You are not subscribed to any comment.'] = 'Vous n\'êtes inscrit à aucun commentaire.';
 $lang['Return to item page'] = 'Retourner à la page de l\'élément';
 $lang['New comment on'] = 'Nouveau commentaire sur';
-
 $lang['%s has subscribed to comments on'] = '%s s\'est inscrit aux commentaires de';
 $lang['Allow users to subscribe to global notifications'] = 'Autoriser les utilisateurs à s\'inscrire de façon globale';
 $lang['Already validated.'] = 'Déjà validé.';
@@ -53,4 +52,9 @@ $lang['Subscribe to comments on %s'] = 'Inscriptions aux commentaires de %s';
 $lang['Subscriptions of %s'] = 'Inscriptions de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Vous êtes inscrits aux commentaires sur %s.';
 $lang['You requested to subscribe by email to comments on %s'] = 'Vous avez demandez à vous inscrire aux commentaires sur %s.';
+$lang['First subscription'] = 'Premier abonnement';
+$lang['Last subscription'] = 'Dernier abonnement';
+$lang['All album photos'] = 'Toutes les images d\'un album';
+$lang['&#9733; : registered users'] = '&#9733; : utilisateurs enregistrées';
+
 ?>

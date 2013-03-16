@@ -1,0 +1,27 @@
+.table2 {
+  width:auto;
+}
+.table2 .throw {
+  font-size:100%;
+  line-height: 1em;
+}
+TABLE.table2 THEAD TD {
+  padding: 3px 5px !important;
+}
+.table2 .user {
+  min-width:230px;
+}
+.table2 .date {
+  width:230px;
+}
+.table2 .total {
+  width:100px;
+}
+
+.table2 .all {
+  text-align:center;
+  font-weight:bold;
+}
+.table2 .all:before, .table2 .all:after {
+  content:"---";
+}
