@@ -57,4 +57,5 @@ $lang['Last subscription'] = 'Dernier abonnement';
 $lang['All album photos'] = 'Toutes les images d\'un album';
 $lang['&#9733; : registered users'] = '&#9733; : utilisateurs enregistrées';
 
+$lang['No result'] = 'Aucun résultat';
 ?>
