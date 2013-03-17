@@ -72,4 +72,9 @@ $lang['Subscribe to comments on %s'] = 'Tegn abonnement på kommentarer vedrøre
 $lang['Subscriptions of %s'] = 'Abonnementer hørende til %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Du har i øjeblikket abonnement på kommentarer vedrørende %s.';
 $lang['You requested to subscribe by email to comments on %s'] = 'Du har bedt om at tegne abonnement via e-mail på kommentarer vedrørende %s';
+$lang['&#9733; : registered users'] = '&#9733;: registrerede brugere';
+$lang['All album photos'] = 'Alle albumfotografier';
+$lang['First subscription'] = 'Første abonnement';
+$lang['Last subscription'] = 'Sidste abonnement';
+$lang['No result'] = 'Ingen fundet';
 ?>
