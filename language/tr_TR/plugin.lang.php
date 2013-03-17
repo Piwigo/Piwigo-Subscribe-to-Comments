@@ -72,4 +72,9 @@ $lang['%s has subscribed to comments on %s.'] = '%s, %s \'deki yorumlara abone o
 $lang['Stop receiving notifications'] = 'Bilgilendirme alımını durdur';
 $lang['New subscription on %s'] = '%s \'de yeni abonelik';
 $lang['Global subscriptions'] = 'Küresel abonelikler';
+$lang['First subscription'] = 'İlk abonelik';
+$lang['Last subscription'] = 'Son abonelik';
+$lang['All album photos'] = 'Tüm albüm fotoğrafları';
+$lang['&#9733; : registered users'] = '&#9733; : kayıtlı kullanıcılar';
+$lang['No result'] = 'Sonuç yok';
 ?>
