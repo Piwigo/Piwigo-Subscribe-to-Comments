@@ -72,4 +72,9 @@ $lang['New subscription on %s'] = 'Nuova iscrizione su %s';
 $lang['New comment on %s'] = 'Nuovo commento su %s';
 $lang['Global subscriptions'] = 'Sottoscrizioni globali';
 $lang['%s has subscribed to comments on %s.'] = '%s si è iscritto ai commenti di %s.';
+$lang['&#9733; : registered users'] = '&#9733; : utenti registrati';
+$lang['No result'] = 'Nessun risultato';
+$lang['Last subscription'] = 'Ultima sottoscrizione';
+$lang['First subscription'] = 'Prima sottoscrizione';
+$lang['All album photos'] = 'Tutte le foto degli album';
 ?>
