@@ -72,4 +72,9 @@ $lang['Subscribe to comments on %s'] = 'Assinar aos comentários sobre %s';
 $lang['Subscriptions of %s'] = 'Subscrições de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Você está inscrito para comentários em %s.';
 $lang['You requested to subscribe by email to comments on %s'] = 'Você pediu para se inscrever por e-mail aos comentários sobre %s';
+$lang['&#9733; : registered users'] = '&#9733;: usuários registrados';
+$lang['All album photos'] = 'Todas as fotos do álbum';
+$lang['First subscription'] = 'Primeira subscrição';
+$lang['Last subscription'] = 'Última subscrição';
+$lang['No result'] = 'Nenhum resultado';
 ?>
