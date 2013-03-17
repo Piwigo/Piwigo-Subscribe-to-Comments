@@ -63,4 +63,18 @@ $lang['the album <a href="%s">%s</a>'] = 'het album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'de afbeelding <a href="%s">%s</a>';
 $lang['this album'] = 'Met betrekking tot dit album';
 $lang['this picture'] = 'Mbt deze afbeelding';
+$lang['%s has subscribed to comments on %s.'] = '%s heeft zich ingeschreven om opmerkingen te geven op %s ';
+$lang['&#9733; : registered users'] = '&#9733; :geregistreerde gebruikers';
+$lang['All album photos'] = 'Alle albumfoto\'s';
+$lang['First subscription'] = 'Eerste omschrijving';
+$lang['Global subscriptions'] = 'Algemene omschrijvingen';
+$lang['Last subscription'] = 'Laatste omschrijving';
+$lang['New comment on %s'] = 'Nieuwe opmerking op %s';
+$lang['New subscription on %s'] = 'Nieuwe omschrijving op %s';
+$lang['No result'] = 'Geen resultaat';
+$lang['Stop receiving notifications'] = 'Stop het ontvangen van meldingen';
+$lang['Subscribe to comments on %s'] = 'Registreer voor opmerkingen op %s ';
+$lang['Subscriptions of %s'] = 'Registreren van %s';
+$lang['You are currently subscribed to comments on %s.'] = 'U bent geregistreerd om opmerkingen te geven op %s';
+$lang['You requested to subscribe by email to comments on %s'] = 'U heeft zich via email geregistreerd om opmerkingen te geven op %s';
 ?>
