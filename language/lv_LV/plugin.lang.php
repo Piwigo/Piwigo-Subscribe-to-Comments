@@ -72,4 +72,9 @@ $lang['New subscription on %s'] = 'Jauna parakstīšanās uz %s ';
 $lang['Stop receiving notifications'] = 'Pārtraukt paziņojumu saņemšanu';
 $lang['Subscribe to comments on %s'] = 'Pierakstīties komentāriem uz %s.';
 $lang['Global subscriptions'] = 'Glabālā abonēšana (parakstīšanās)';
+$lang['&#9733; : registered users'] = '&#9733; : reģistrētie lietotāji';
+$lang['All album photos'] = 'Visas albūma fotogrāfijas';
+$lang['First subscription'] = 'Pirmā parakstīšanās';
+$lang['Last subscription'] = 'Pēdējā parakstīšanās';
+$lang['No result'] = 'Nav rezultātu';
 ?>
