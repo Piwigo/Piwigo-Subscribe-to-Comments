@@ -53,4 +53,9 @@ $lang['Subscribe to comments on %s'] = 'Für Kommentare auf %s einschreiben. ';
 $lang['Subscriptions of %s'] = 'Einschreibungen auf %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Du bist eingeschrieben für Kommentare auf %s';
 $lang['You requested to subscribe by email to comments on %s'] = 'Du hast eine Einschreibung via E-mail für Kommentare auf %s angefragt. ';
+$lang['&#9733; : registered users'] = '#9733; : registrierte Benutzer';
+$lang['All album photos'] = 'Alle Album Fotos';
+$lang['First subscription'] = 'Erstes Abonnement';
+$lang['Last subscription'] = 'Letztes Abonnement';
+$lang['No result'] = 'kein Ergebnis';
 ?>
