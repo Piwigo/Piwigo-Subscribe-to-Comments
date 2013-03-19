@@ -72,4 +72,9 @@ $lang['Subscriptions of %s'] = 'Підписки %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Зараз Ви підписані на коментарі на %s';
 $lang['You requested to subscribe by email to comments on %s'] = 'Ви просили підписатись по електронній пошті на повідомленя на %s';
 $lang['New comment on %s'] = 'Новий коментар на %s';
+$lang['&#9733; : registered users'] = '&#9733; : зареєстрованых користувачів';
+$lang['All album photos'] = 'Усі зображення алюбому';
+$lang['First subscription'] = 'Перша підписка';
+$lang['Last subscription'] = 'Остання підписка';
+$lang['No result'] = 'Немає результату';
 ?>
