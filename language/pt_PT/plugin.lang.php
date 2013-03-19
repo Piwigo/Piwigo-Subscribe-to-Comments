@@ -20,8 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Endereço de correio electrónico inválido, não foi subscrito aos comentários.';
-$lang['Notify me of followup comments'] = 'Notifique-me de futuros comentários';
+$lang['Invalid email adress, your are not subscribed to comments.'] = 'Endereço de correio electrónico inválido, não é subscritor dos comentários.';
+$lang['Notify me of followup comments'] = 'Notificar-me de comentários subsequentes';
 $lang['Please check your email inbox to confirm your subscription.'] = 'Por favor consulte a sua caixa de correio electrónico para confirmar a sua subscrição.';
 $lang['Return to item page'] = 'Regressar à página do item';
 $lang['Subscribe'] = 'Subscrever';
@@ -72,4 +72,9 @@ $lang['Subscribe to comments on %s'] = 'Subscrever a comentários em %s';
 $lang['Subscriptions of %s'] = 'Subscrições de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Está actualmente subscrito aos comentários em %s.';
 $lang['You requested to subscribe by email to comments on %s'] = 'Solicitou a subscrição por e-mail aos comentários em %s';
+$lang['All album photos'] = 'Todos os albuns fotográficos';
+$lang['&#9733; : registered users'] = 'Utilizadores registados:&#9733;';
+$lang['First subscription'] = 'Primeira subscrição';
+$lang['Last subscription'] = 'Última subscrição';
+$lang['No result'] = 'Sem resultado';
 ?>
