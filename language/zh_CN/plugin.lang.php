@@ -72,4 +72,9 @@ $lang['Subscribe to comments on %s'] = '在%s订阅评论';
 $lang['Subscriptions of %s'] = '%s的订阅';
 $lang['You are currently subscribed to comments on %s.'] = '你目前在%s订阅了评论';
 $lang['You requested to subscribe by email to comments on %s'] = '你请求在%s通过电子邮件订阅评论';
+$lang['&#9733; : registered users'] = '&#9733; : 注册用户';
+$lang['All album photos'] = '所有相册照片';
+$lang['First subscription'] = '第一个订阅';
+$lang['Last subscription'] = '最后一个订阅';
+$lang['No result'] = '没有结果';
 ?>
