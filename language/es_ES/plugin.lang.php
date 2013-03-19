@@ -72,4 +72,9 @@ $lang['Subscriptions of %s'] = 'Inscripciones de %s';
 $lang['Stop receiving notifications'] = 'Dejar de recibir notificaciones';
 $lang['New comment on %s'] = 'Nuevo comentario en %s';
 $lang['Global subscriptions'] = 'Inscripciones globales';
+$lang['&#9733; : registered users'] = '&#9733; : usuarios registrados';
+$lang['All album photos'] = 'Todas las imágenes de un álbum';
+$lang['First subscription'] = 'Primera suscripción';
+$lang['Last subscription'] = 'Ultima suscripción';
+$lang['No result'] = 'Ningún resultado';
 ?>
