@@ -72,4 +72,9 @@ $lang['New subscription on %s'] = 'Νέα συνδρομή για %s';
 $lang['New comment on %s'] = 'Νέο σχόλιο για %s';
 $lang['Global subscriptions'] = 'Παγκόσμιες συνδρομές';
 $lang['%s has subscribed to comments on %s.'] = '%s έχουν εγγραφεί για τα σχόλια σχετικά με το %s.';
+$lang['No result'] = 'Κανένα αποτέλεσμα';
+$lang['Last subscription'] = 'Τελευταία εγγραφή';
+$lang['First subscription'] = 'Πρώτη εγγραφή';
+$lang['All album photos'] = 'Όλες οι φωτογραφίες του λευκώματος';
+$lang['&#9733; : registered users'] = '&#9733; : εγγεγραμμένοι χρήστες';
 ?>
