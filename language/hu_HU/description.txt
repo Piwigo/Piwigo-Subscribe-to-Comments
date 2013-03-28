@@ -1,0 +1,1 @@
+Ez a beépülő modul lehetővé teszi a feliratkozást hozzászólásokra, amelyekről email értesítést küld a rendszer.
