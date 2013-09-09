@@ -51,4 +51,9 @@ $lang['Subscribe to comments on %s'] = 'Přihlásit se k odběru komentářů na
 $lang['Stop receiving notifications'] = 'Zastavit příjem upozornění';
 $lang['New subscription on %s'] = 'Nové odběry na %s';
 $lang['New comment on %s'] = 'Nový komentář na %s';
+$lang['&#9733; : registered users'] = '&#9733; : registrovaných uživatelů';
+$lang['All album photos'] = 'Fotografie ze všech alb';
+$lang['First subscription'] = 'První přihlášení';
+$lang['Last subscription'] = 'Poslední přihlášení';
+$lang['No result'] = 'Žádný výsledek';
 ?>
