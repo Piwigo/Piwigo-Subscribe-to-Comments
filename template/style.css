@@ -34,7 +34,7 @@
     padding-top:2em;
     vertical-align:top;
   }
-  
+
 .subscriptions_list tr.row2 { background-color:#222; }
 .subscriptions_list tr.row1 { background-color:#333; }
 
@@ -45,10 +45,9 @@
   height:30px;
 }
 .subscriptions_list tr.header th, .subscriptions_list tr.footer.row1 td {
-  
+
   background: #333333;
   background: -moz-linear-gradient(top,  #333333 0%, #222222 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#222222));
   background: -webkit-linear-gradient(top,  #333333 0%,#222222 100%);
   background: -o-linear-gradient(top,  #333333 0%,#222222 100%);
   background: -ms-linear-gradient(top,  #333333 0%,#222222 100%);
@@ -58,7 +57,6 @@
 .subscriptions_list tr.footer.row2 td {
   background: #222222;
   background: -moz-linear-gradient(top,  #222222 0%, #333333 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#222222), color-stop(100%,#333333));
   background: -webkit-linear-gradient(top,  #222222 0%,#333333 100%);
   background: -o-linear-gradient(top,  #222222 0%,#333333 100%);
   background: -ms-linear-gradient(top,  #222222 0%,#333333 100%);
@@ -66,17 +64,14 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#333333',GradientType=0 );
 }
 
-
-.stc p {
-  text-align:center;
-}
-
-.stc label {
-  display:block;
-}
-
-img.thumbnail {
+.subscriptions_list img.thumbnail {
   max-width:120px;
   max-height:90px;
 }
 
+.subscriptions_list a.unsub  {
+  color:#f66;
+}
+.subscriptions_list a.unsub:hover {
+  color:#f11;
+}

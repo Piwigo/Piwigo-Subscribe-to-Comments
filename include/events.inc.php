@@ -1,5 +1,5 @@
 <?php
-if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
+defined('SUBSCRIBE_TO_PATH') or die('Hacking attempt!');
 
 /**
  * detect 'subscriptions' section and load the page
@@ -7,21 +7,16 @@ if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
 function stc_detect_section()
 {
   global $tokens, $page, $conf;
-  
+
   if ($tokens[0] == 'subscriptions')
   {
-    add_event_handler('loc_begin_page_header', 'stc_page_header');
-    
     $page['section'] = 'subscriptions';
-    $page['title'] = l10n('Comments notifications');
-    $page['section_title'] = '<a href="'.get_absolute_root_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Comments notifications');
-  }
-}
+    $page['body_id'] = 'theSubscriptionsPage';
+    $page['is_homepage'] = false;
+    $page['is_external'] = true;
 
-function stc_page_header()
-{
-  global $page;
-  $page['body_id'] = 'theSubscriptionsPage';
+    $page['title'] = l10n('Comments notifications');
+  }
 }
 
 function stc_load_section()
@@ -30,7 +25,7 @@ function stc_load_section()
 
   if (isset($page['section']) and $page['section'] == 'subscriptions')
   {
-    include(SUBSCRIBE_TO_PATH.'include/subscribtions_page.inc.php');
+    include(SUBSCRIBE_TO_PATH.'include/subscriptions_page.inc.php');
   }
 }
 
@@ -42,13 +37,13 @@ function stc_load_section()
 function stc_comment_insertion($comm)
 {
   global $page, $template;
-  
+
   if ($comm['action'] == 'validate')
   {
     send_comment_to_subscribers($comm);
   }
-  
-  if ( !empty($_POST['stc_mode']) and $_POST['stc_mode'] != -1 )
+
+  if (!empty($_POST['stc_mode']) and $_POST['stc_mode'] != -1)
   {
     if ($comm['action'] != 'reject')
     {
@@ -60,8 +55,10 @@ function stc_comment_insertion($comm)
             subscribe_to_comments(@$_POST['email'], 'all-images');
             break;
           case 'album-images':
-            if (empty($page['category']['id'])) break;
-            subscribe_to_comments(@$_POST['email'], 'album-images', $page['category']['id']);
+            if (!empty($page['category']['id']))
+            {
+              subscribe_to_comments(@$_POST['email'], 'album-images', $page['category']['id']);
+            }
             break;
           case 'image':
             subscribe_to_comments(@$_POST['email'], 'image', $comm['image_id']);
@@ -96,8 +93,11 @@ function stc_comment_insertion($comm)
  */
 function stc_comment_validation($comm_ids, $type='image')
 {
-  if (!is_array($comm_ids)) $comm_ids = array($comm_ids);
-  
+  if (!is_array($comm_ids))
+  {
+    $comm_ids = array($comm_ids);
+  }
+
   if ($type == 'image')
   {
     $query = '
@@ -110,7 +110,7 @@ SELECT
   WHERE id IN('.implode(',', $comm_ids).')
 ;';
   }
-  else if ($type == 'category')
+  else if ($type == 'album' && defined('COA_TABLE'))
   {
     $query = '
 SELECT
@@ -122,11 +122,14 @@ SELECT
   WHERE id IN('.implode(',', $comm_ids).')
 ;';
   }
-  
-  $comms = hash_from_query($query, 'id');
-  foreach ($comms as $comm)
+
+  if (isset($query))
   {
-    send_comment_to_subscribers($comm);
+    $comms = query2array($query);
+    foreach ($comms as $comm)
+    {
+      send_comment_to_subscribers($comm);
+    }
   }
 }
 
@@ -137,7 +140,7 @@ SELECT
 function stc_on_picture()
 {
   global $template, $picture, $page, $user, $conf;
-  
+
   // standalone subscription
   if (isset($_POST['stc_submit']))
   {
@@ -147,8 +150,10 @@ function stc_on_picture()
         subscribe_to_comments(@$_POST['stc_mail'], 'all-images');
         break;
       case 'album-images':
-        if (empty($page['category']['id'])) break;
-        subscribe_to_comments(@$_POST['stc_mail'], 'album-images', $page['category']['id']);
+        if (!empty($page['category']['id']))
+        {
+          subscribe_to_comments(@$_POST['stc_mail'], 'album-images', $page['category']['id']);
+        }
         break;
       case 'image':
         subscribe_to_comments(@$_POST['stc_mail'], 'image', $picture['current']['id']);
@@ -156,104 +161,82 @@ function stc_on_picture()
     }
   }
   else if (isset($_GET['stc_unsubscribe']))
-  {    
+  {
     if (un_subscribe_to_comments(null, $_GET['stc_unsubscribe']))
     {
-      array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
+      $page['infos'][] = l10n('Successfully unsubscribed your email address from receiving notifications.');
     }
   }
-  
+
   // if registered user with mail we check if already subscribed
-  if ( !is_a_guest() and !empty($user['email']) )
+  if (!is_a_guest() and !empty($user['email']))
   {
     $subscribed = false;
-    
-    // registered to all pictures
-    if (!$subscribed)
-    {
-      $query = '
+
+    $base_query = '
 SELECT id
   FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE
     email = "'.$user['email'].'"
-    AND type = "all-images"
     AND validated = "true"
-;';
-      $result = pwg_query($query);
-      
+';
+
+    // registered to all pictures
+    if (!$subscribed)
+    {
+      $result = pwg_query($base_query . 'AND type = "all-images";');
+
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $template->assign(array(
-          'SUBSCRIBED' => 'all-images',
-          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
-          ));
-        $subscribed = true;
+        $subscribed = 'all-images';
       }
     }
 
     // registered to pictures in this album
-    if ( !$subscribed and !empty($page['category']['id']) )
+    if (!$subscribed and !empty($page['category']['id']))
     {
-      $query = '
-SELECT id
-  FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE
-    email = "'.$user['email'].'"
-    AND element_id = '.$page['category']['id'].'
-    AND type = "album-images"
-    AND validated = "true"
-;';
-      $result = pwg_query($query);
-      
+      $result = pwg_query($base_query . 'AND type = "album-images" AND element_id = '.$page['category']['id'].';');
+
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $template->assign(array(
-          'SUBSCRIBED' => 'album-images',
-          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
-          ));
-        $subscribed = true;
+        $subscribed = 'album-images';
       }
     }
-    
+
     // registered to this picture
     if (!$subscribed)
     {
-      $query = '
-SELECT id
-  FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE
-    email = "'.$user['email'].'"
-    AND element_id = '.$picture['current']['id'].'
-    AND type = "image"
-    AND validated = "true"
-;';
-      $result = pwg_query($query);
-      
+      $result = pwg_query($base_query . 'AND type = "image" AND element_id = '.$picture['current']['id'].';');
+
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $template->assign(array(
-          'SUBSCRIBED' => 'image',
-          'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
-          ));
-        $subscribed = true;
+        $subscribed = 'image';
       }
+    }
+
+    if ($subscribed)
+    {
+      $template->assign(array(
+        'SUBSCRIBED' => $subscribed,
+        'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
+        ));
     }
   }
   else
   {
     $template->assign('STC_ASK_MAIL', true);
   }
-  
+
   $template->assign(array(
     'STC_ON_PICTURE' => true,
     'STC_ALLOW_ALBUM_IMAGES' => !empty($page['category']['id']),
     'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
     'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
     ));
-  
+
   $template->set_prefilter('picture', 'stc_main_prefilter');
 }
 
@@ -264,7 +247,7 @@ SELECT id
 function stc_on_album()
 {
   global $page, $template, $user, $conf;
-  
+
   if (
       !defined('COA_ID') or script_basename() != 'index' or
       @$page['section'] != 'categories' or !isset($page['category'])
@@ -272,7 +255,7 @@ function stc_on_album()
   {
     return;
   }
-  
+
 	// standalone subscription
   if (isset($_POST['stc_submit']))
   {
@@ -290,10 +273,10 @@ function stc_on_album()
   {
     if (un_subscribe_to_comments(null, $_GET['stc_unsubscribe']))
     {
-      array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
+      $page['infos'][] = l10n('Successfully unsubscribed your email address from receiving notifications.');
     }
   }
-  
+
   // if registered user we check if already subscribed
   if ( !is_a_guest() and !empty($user['email']) )
   {
@@ -301,63 +284,54 @@ function stc_on_album()
       'section' => 'categories',
       'category' => $page['category'],
       ));
-          
+
     $subscribed = false;
-    
+
+    $base_query = '
+SELECT id
+  FROM '.SUBSCRIBE_TO_TABLE.'
+  WHERE
+    email = "'.$user['email'].'"
+    AND validated = "true"
+';
+
     // registered to all albums
     if (!$subscribed)
     {
-      $query = '
-SELECT id
-  FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE
-    email = "'.$user['email'].'"
-    AND type = "all-albums"
-    AND validated = "true"
-;';
-      $result = pwg_query($query);
-      
+      $result = pwg_query($base_query . 'AND type = "all-albums"');
+
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $template->assign(array(
-          'SUBSCRIBED' => 'all-albums',
-          'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
-          ));
-        $subscribed = true;
+        $subscribed = 'all-albums';
       }
     }
-    
+
     // registered to this album
     if (!$subscribed)
     {
-      $query = '
-SELECT id
-  FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE
-    email = "'.$user['email'].'"
-    AND element_id = '.$page['category']['id'].'
-    AND type = "album"
-    AND validated = "true"
-;';
-      $result = pwg_query($query);
-      
+      $result = pwg_query($base_query . 'AND type = "album" AND element_id = '.$page['category']['id'].';');
+
       if (pwg_db_num_rows($result))
       {
         list($stc_id) = pwg_db_fetch_row($result);
-        $template->assign(array(
-          'SUBSCRIBED' => 'album',
-          'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
-          ));
-        $subscribed = true;
+        $subscribed = 'album';
       }
+    }
+
+    if ($subscribed)
+    {
+      $template->assign(array(
+        'SUBSCRIBED' => $subscribed,
+        'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
+        ));
     }
   }
   else
   {
     $template->assign('STC_ASK_MAIL', true);
   }
-  
+
   $template->assign(array(
     'STC_ON_ALBUM' => true,
     'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
@@ -377,12 +351,12 @@ function stc_main_prefilter($content, &$smarty)
   $search = '{if isset($comments)}';
   $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_standalone.tpl');
   $content = str_replace($search, $replace.$search, $content);
-  
+
   ## subscribe while add a comment ##
   $search = '{$comment_add.CONTENT}</textarea></p>';
   $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_comment.tpl');
   $content = str_replace($search, $search.$replace, $content);
-  
+
   return $content;
 }
 
@@ -394,7 +368,7 @@ function stc_delete_elements($ids)
 {
   $query = '
 DELETE FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE 
+  WHERE
     element_id IN ('.implode(',', $ids).')
     AND type = "image"
 ';
@@ -404,7 +378,7 @@ function stc_delete_categories($ids)
 {
   $query = '
 DELETE FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE 
+  WHERE
     element_id IN ('.implode(',', $ids).')
     AND (type = "album" OR type = "album-images")
 ';
@@ -418,7 +392,7 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
 function stc_profile_link()
 {
   global $template, $user;
-  
+
   if (!empty($user['email']))
   {
     $template->assign('MANAGE_LINK', make_stc_url('manage', $user['email']) );
@@ -429,8 +403,6 @@ function stc_profile_link_prefilter($content, &$smarty)
 {
   $search = '<p class="bottomButtons">';
   $replace = '<p style="font-size:1.1em;text-decoration:underline;"><a href="{$MANAGE_LINK}" rel="nofollow">{\'Manage my subscriptions\'|@translate}</a></p>';
-  
+
   return str_replace($search, $replace.$search, $content);
 }
-
-?>

@@ -1,26 +1,13 @@
-{combine_css path=$SUBSCRIBE_TO_PATH|@cat:'template/style.css'}
+{combine_css path=$SUBSCRIBE_TO_PATH|cat:'template/style.css'}
 
-{* <!-- Menubar & titrePage --> *}
-{if $themeconf.name == "stripped" or $themeconf.parent == "stripped"}
-  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/stripped.tpl'}
-  {assign var="clear" value="true"}
-{elseif $themeconf.name == "simple-grey" or $themeconf.parent == "simple"}
-  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/simple.tpl'}
-  {assign var="clear" value="true"}
-{else}
-  {include file=$SUBSCRIBE_TO_ABS_PATH|@cat:'template/themes/default.tpl'}
-{/if}
 
-{include file='infos_errors.tpl'}
-
- 
 {if $IN_VALIDATE or $IN_UNSUBSCRIBE}
 <p>
   {if !empty($element)}<a href="{$element.url}" title="{$element.name}">{'Return to item page'|@translate}</a><br>{/if}
   <a href="{$MANAGE_LINK}">{'Manage my subscriptions'|@translate}</a>
 </p>
-{/if}
-  
+
+{else}
 <form action="{$MANAGE_LINK}" method="post">
   {if !empty($global_subscriptions)}
   <fieldset>
@@ -31,7 +18,7 @@
         <td>
           {if $sub.type == 'all-images'}
             {assign var=str value='all pictures of the gallery'|@translate}
-            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> 
+            <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png">
           {else $sub.type == 'all-albums'}
             {assign var=str value='all albums of the gallery'|@translate}
             <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png">
@@ -40,7 +27,7 @@
         </td>
         <td style="white-space:nowrap;">
           <div class="actions">
-            <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a>
+            <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}" class="unsub">{'Unsubscribe'|@translate}</a>
             {if $sub.validated == 'false'}<br> <a href="{$MANAGE_LINK}&amp;validate={$sub.id}">{'Validate'|@translate}</a>{/if}
           </div>
         </td>
@@ -52,7 +39,7 @@
     </table>
   </fieldset>
   {/if}
-  
+
   {if !empty($subscriptions)}
   <fieldset>
     <legend>{'Manage my subscriptions'|@translate}</legend>
@@ -62,7 +49,7 @@
         <th colspan="2" class="info">{'Subject'|@translate}</th>
         <th class="date">{'Followed on'|@translate}</th>
       </tr>
-      
+
       {foreach from=$subscriptions item=sub name=subs_loop}
       <tr class="{if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if} {if $sub.validated == 'false'}not-validated{/if}">
         <td class="chkb"><input type="checkbox" name="selected[]" value="{$sub.id}" id="sub-{$sub.id}"></td>
@@ -72,7 +59,7 @@
           <b><a href="{$sub.infos.url}">{$sub.infos.name}</a></b>
 
           <div class="actions">
-            <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}">{'Unsubscribe'|@translate}</a>
+            <a href="{$MANAGE_LINK}&amp;unsubscribe={$sub.id}" class="unsub">{'Unsubscribe'|@translate}</a>
             {if $sub.validated == 'false'}| <a href="{$MANAGE_LINK}&amp;validate={$sub.id}">{'Validate'|@translate}</a>{/if}
           </div>
         </td>
@@ -81,7 +68,7 @@
         </td>
       </tr>
       {/foreach}
-      
+
       <tr class="footer {if $smarty.foreach.subs_loop.index is odd}row1{else}row2{/if}"><td colspan="4">
         <select name="action">
           <option value="-1">{'Choose an action'|@translate}</option>
@@ -91,15 +78,15 @@
         <input type="submit" name="apply_bulk" value="{'Apply action'|@translate}">
       </td></tr>
     </table>
-    
+
     <p>
-      <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'comments on a picture'|@translate}. 
+      <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/image.png"> {'comments on a picture'|@translate}.
       <img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album-images.png"> {'comments on all pictures of an album'|@translate}.
       {if $COA_ACTIVATED}<img src="{$ROOT_URL}{$SUBSCRIBE_TO_PATH}template/album.png"> {'comments on an album'|@translate}.{/if}
     </p>
   </fieldset>
   {/if}
-  
+
   {if !empty($global_subscriptions) or !empty($subscriptions)}
     <p>
       <label><input type="checkbox" name="unsubscribe_all_check" value="1"> {'Unsubscribe from all email notifications'|@translate}</label>
@@ -108,15 +95,15 @@
   {/if}
 </form>
 
-{footer_script require="jquery"}{literal}
+{footer_script require="jquery"}
 jQuery("#check_all").change(function() {
-  if ($(this).is(":checked"))
-    $("input[name^='selected']").attr('checked', 'checked');
-  else
-    $("input[name^='selected']").removeAttr('checked');
+  if (jQuery(this).is(":checked")) {
+    jQuery("input[name^='selected']").attr('checked', 'checked');
+  }
+  else {
+    jQuery("input[name^='selected']").removeAttr('checked');
+  }
 });
-{/literal}{/footer_script}
+{/footer_script}
 
-{if $clear}<div style="clear: both;"></div>
-</div>{/if}
-</div> <!-- content -->
+{/if}

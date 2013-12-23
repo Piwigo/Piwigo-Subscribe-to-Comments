@@ -1,5 +1,5 @@
 <?php
-if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
+defined('SUBSCRIBE_TO_PATH') or die('Hacking attempt!');
 
 if (isset($_GET['delete']))
 {
@@ -63,7 +63,7 @@ while ($row = pwg_db_fetch_assoc($result))
         ),
       );
   }
-  
+
   $row['type'] = str_replace('-', '_', $row['type']); // fields are accessed in Smarty, incompatible with keys containing a '-'
   $users[ $row['email'] ]['subs'][ $row['type'] ]++;
 }
@@ -75,7 +75,7 @@ if (count($users))
   if (isset($_POST['filter']))
   {
     uasort($users, 'stc_sort_'.$_POST['order_by']);
-    
+
     if ($_POST['direction'] == 'DESC')
     {
       $users = array_reverse($users);
@@ -155,5 +155,3 @@ function stc_sort_user($a, $b)
 {
   return strcasecmp($a['username'].$a['email'], $b['username'].$b['email']);
 }
-
-?>

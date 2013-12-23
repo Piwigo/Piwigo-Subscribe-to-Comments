@@ -1,18 +1,18 @@
-<?php 
-if (!defined('SUBSCRIBE_TO_PATH')) die('Hacking attempt!');
+<?php
+defined('SUBSCRIBE_TO_PATH') or die('Hacking attempt!');
 
 global $template, $conf, $page, $user;
 
 // check input parameters
-if ( empty($_GET['action']) or empty($_GET['email']) or empty($_GET['key']) )
+if (empty($_GET['action']) or empty($_GET['email']) or empty($_GET['key']))
 {
   $_GET['action'] = null;
 }
 else
 {
-  $_GET['verif_key'] = $_GET['action'].$_GET['email'].(isset($_GET['id'])?$_GET['id']:null);
+  $verif_key = $_GET['action'].$_GET['email'].(isset($_GET['id'])?$_GET['id']:null);
 
-  if ( decrypt_value($_GET['key'], $conf['secret_key']) !== $_GET['verif_key'] )
+  if (decrypt_value($_GET['key'], $conf['secret_key']) !== $verif_key)
   {
     $_GET['action'] = null;
   }
@@ -20,10 +20,10 @@ else
 
 
 
-if ( !empty($_GET['action']) )
+if (!empty($_GET['action']))
 {
   // unsubscribe all
-  if ( isset($_POST['unsubscribe_all']) and isset($_POST['unsubscribe_all_check']) )
+  if (isset($_POST['unsubscribe_all']) and isset($_POST['unsubscribe_all_check']))
   {
     $query = '
 DELETE FROM '.SUBSCRIBE_TO_TABLE.'
@@ -31,50 +31,47 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
 ;';
     pwg_query($query);
   }
-  
+
   // bulk action
   else if (isset($_POST['apply_bulk']) and !empty($_POST['selected']))
   {
-    foreach ($_POST['selected'] as $id)
+    switch ($_POST['action'])
     {
-      switch ($_POST['action'])
-      {
-        case 'unsubscribe':
-          un_subscribe_to_comments($_GET['email'], $id);
-          break;
-        case 'validate':
-          validate_subscriptions($_GET['email'], $id);
-          break;
-      }
+      case 'unsubscribe':
+        un_subscribe_to_comments($_GET['email'], $_POST['selected']);
+        break;
+      case 'validate':
+        validate_subscriptions($_GET['email'], $_POST['selected']);
+        break;
     }
   }
-  
+
   // unsubscribe from manage page
   else if (isset($_GET['unsubscribe']))
   {
     if (un_subscribe_to_comments($_GET['email'], $_GET['unsubscribe']))
     {
-      array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
+      $page['infos'][] = l10n('Successfully unsubscribed your email address from receiving notifications.');
     }
     else
     {
-      array_push($page['errors'], l10n('Not found.'));
+      $page['errors'][] = l10n('Not found.');
     }
   }
-  
+
   // validate from manage page
   else if (isset($_GET['validate']))
   {
     if (validate_subscriptions($_GET['email'], $_GET['validate']))
     {
-      array_push($page['infos'], l10n('Your subscribtion has been validated, thanks you.'));
+      $page['infos'][] = l10n('Your subscribtion has been validated, thanks you.');
     }
     else
     {
-      array_push($page['infos'], l10n('Already validated.'));
+      $page['infos'][] = l10n('Already validated.');
     }
   }
-  
+
   $template->assign('MANAGE_LINK', make_stc_url('manage', $_GET['email']));
 }
 
@@ -88,29 +85,29 @@ switch ($_GET['action'])
     $query = '
 SELECT type, element_id
   FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE 
+  WHERE
     email = "'.$_GET['email'].'"
     AND id = '.$_GET['id'].'
 ;';
     $result = pwg_query($query);
-    
+
     if (!pwg_db_num_rows($result))
     {
-      array_push($page['errors'], l10n('Not found.'));
+      $page['errors'][] = l10n('Not found.');
     }
     else
     {
       if (validate_subscriptions($_GET['email'], $_GET['id']))
       {
-        array_push($page['infos'], l10n('Your subscribtion has been validated, thanks you.'));
+        $page['infos'][] = l10n('Your subscription has been validated, thanks you.');
       }
       else
       {
-        array_push($page['infos'], l10n('Already validated.'));
+        $page['infos'][] = l10n('Already validated.');
       }
-      
+
       list($type, $element_id) = pwg_db_fetch_row($result);
-      
+
       switch ($type)
       {
         case 'image':
@@ -123,17 +120,17 @@ SELECT type, element_id
         default:
           $element = null;
       }
-      
+
       $template->assign(array(
         'type' => $type,
         'element' => $element,
         ));
     }
-    
+
     $template->assign('IN_VALIDATE', true);
     break;
   }
-  
+
   /* unsubscribe */
   case 'unsubscribe':
   {
@@ -142,29 +139,29 @@ SELECT
     type,
     element_id
   FROM '.SUBSCRIBE_TO_TABLE.'
-  WHERE 
+  WHERE
     email = "'.$_GET['email'].'"
     AND id = '.$_GET['id'].'
 ;';
     $result = pwg_query($query);
-    
+
     if (!pwg_db_num_rows($result))
     {
-      array_push($page['errors'], l10n('Not found.'));
+      $page['errors'][] = l10n('Not found.');
     }
     else
     {
       if (un_subscribe_to_comments($_GET['email'], $_GET['id']))
       {
-        array_push($page['infos'], l10n('Successfully unsubscribed your email address from receiving notifications.'));
+        $page['infos'][] = l10n('Successfully unsubscribed your email address from receiving notifications.');
       }
       else
       {
-        array_push($page['errors'], l10n('Not found.'));
+        $page['errors'][] = l10n('Not found.');
       }
-      
+
       list($type, $element_id) = pwg_db_fetch_row($result);
-      
+
       switch ($type)
       {
         case 'image':
@@ -177,17 +174,17 @@ SELECT
         default:
           $element = null;
       }
-      
+
       $template->assign(array(
         'type' => $type,
         'element' => $element,
         ));
     }
-    
+
     $template->assign('IN_UNSUBSCRIBE', true);
     break;
   }
-  
+
   /* manage */
   case 'manage':
   {
@@ -198,13 +195,13 @@ SELECT *
   ORDER BY registration_date DESC
 ;';
     $result = pwg_query($query);
-    
+
     if (pwg_db_num_rows($result))
     {
       while ($subscription = pwg_db_fetch_assoc($result))
       {
         $subscription['registration_date'] = format_date($subscription['registration_date'], true);
-        
+
         switch ($subscription['type'])
         {
           case 'image':
@@ -219,21 +216,21 @@ SELECT *
             $template->append('global_subscriptions', $subscription);
             continue(2);
         }
-        
+
         $template->append('subscriptions', $subscription);
       }
     }
     else
     {
-      array_push($page['infos'], l10n('You are not subscribed to any comment.'));
+      $page['infos'][] = l10n('You are not subscribed to any comment.');
     }
     break;
   }
-  
+
   default:
   {
     set_status_header(403);
-    array_push($page['errors'], l10n('Bad query'));
+    $page['errors'][] = l10n('Bad query');
   }
 }
 
@@ -243,13 +240,11 @@ $template->assign(array(
   'SUBSCRIBE_TO_ABS_PATH' => realpath(SUBSCRIBE_TO_PATH).'/',
   'COA_ACTIVATED' => defined('COA_ID'),
   ));
-  
+
 if (!empty($_GET['email']))
 {
-  $template->assign('TITLE', '<a href="'.get_absolute_root_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].
-                              sprintf(l10n('Subscriptions of %s'), '<i>'.$_GET['email'].'</i>'));
+  $template->concat('TITLE', $conf['level_separator'] . l10n('Subscriptions of %s', '<i>'.$_GET['email'].'</i>'));
 }
 
-$template->set_filename('index', realpath(SUBSCRIBE_TO_PATH . 'template/subscribtions_page.tpl'));
-
-?>
+$template->set_filename('subscribe_to_comments', realpath(SUBSCRIBE_TO_PATH . 'template/subscriptions_page.tpl'));
+$template->assign_var_from_handle('CONTENT', 'subscribe_to_comments');
