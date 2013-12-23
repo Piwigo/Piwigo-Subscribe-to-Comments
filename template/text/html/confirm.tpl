@@ -1,5 +1,6 @@
 <style>
 .button {
+  display:inline-block;
   padding:8px 15px;
   background:#A80D24;
   color:#bbb;
@@ -10,7 +11,7 @@
 }
 </style>
 
-<p>{'You requested to subscribe by email to comments on %s'|translate:$ELEMENT.on}.</p>
+<p>{'You requested to subscribe by email to comments on %s.'|translate:$ELEMENT.on}</p>
 
 {if not empty($ELEMENT.thumbnail)}
 <p><img src="{$ELEMENT.thumbnail}" alt="{$ELEMENT.name}" class="photo"></p>

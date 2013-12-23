@@ -1,12 +1,12 @@
 <?php
 
-$lang['Please check your email inbox to confirm your subscription.'] = 'Bitte überprüfen Sie Ihren Posteingang, um Ihre Abonnementanfrage zu bestätigen.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Ungültige E-mailadresse, Sie haben Kommentare nicht abonniert.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Bitte überprüfen Sie Ihren Posteingang, um Ihre Abonnementanfrage zu bestätigen.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Ungültige E-mailadresse, Sie haben Kommentare nicht abonniert.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Ihr Abonnement wurde erfolgreich deaktiviert. Sie erhalten keine weiteren Benachrichtigungen.';
 $lang['Unsubscribe'] = 'Abmelden';
 $lang['Subscribe'] = 'Anmelden';
 $lang['Notify me of followup comments'] = 'Bei weiteren Kommentaren benachrichtigen';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Danke, ihr Abonnement wurde bestätigt.';
+$lang['Your subscription has been validated, thanks you.'] = 'Danke, ihr Abonnement wurde bestätigt.';
 $lang['Subscriptions of'] = 'Abonnements von';
 $lang['Unsubscribe from all email notifications'] = 'Alle E-mailbenachrichtigungen deaktivieren';
 $lang['You are not subscribed to any comment.'] = 'Sie haben im Moment keine Benachrichtigungen abonniert.';
@@ -17,7 +17,7 @@ $lang['Allow users to subscribe to global notifications'] = 'Benutzern erlauben,
 $lang['Already validated.'] = 'Bereits validiert';
 $lang['Comments notifications'] = 'Benachrichtigungen für Kommentare';
 $lang['Confirm subscription'] = 'Abonnement bestätigen';
-$lang['Confirm your subscribtion to comments'] = 'Bestätigen Sie Ihr Abo für Kommentare';
+$lang['Confirm your subscription to comments'] = 'Bestätigen Sie Ihr Abo für Kommentare';
 $lang['Followed on'] = 'Nachverfolgung an';
 $lang['Manage my subscriptions'] = 'Meine Abonnements verwalten';
 $lang['New comment on'] = 'Neue Kommentare an';
@@ -52,7 +52,7 @@ $lang['Stop receiving notifications'] = 'Stoppe den Erhalt von Benachrichtigunge
 $lang['Subscribe to comments on %s'] = 'Für Kommentare auf %s einschreiben. ';
 $lang['Subscriptions of %s'] = 'Einschreibungen auf %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Du bist eingeschrieben für Kommentare auf %s';
-$lang['You requested to subscribe by email to comments on %s'] = 'Du hast eine Einschreibung via E-mail für Kommentare auf %s angefragt. ';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Du hast eine Einschreibung via E-mail für Kommentare auf %s angefragt. ';
 $lang['&#9733; : registered users'] = '#9733; : registrierte Benutzer';
 $lang['All album photos'] = 'Alle Album Fotos';
 $lang['First subscription'] = 'Erstes Abonnement';

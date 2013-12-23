@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Endereço de correio electrónico inválido, não é subscritor dos comentários.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Endereço de correio electrónico inválido, não é subscritor dos comentários.';
 $lang['Notify me of followup comments'] = 'Notificar-me de comentários subsequentes';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Por favor consulte a sua caixa de correio electrónico para confirmar a sua subscrição.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Por favor consulte a sua caixa de correio electrónico para confirmar a sua subscrição.';
 $lang['Return to item page'] = 'Regressar à página do item';
 $lang['Subscribe'] = 'Subscrever';
 $lang['Subscriptions of'] = 'Subscrições de';
@@ -30,13 +30,13 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['Unsubscribe from all email notifications'] = 'Cancelar todas as notificações por correio electrónico';
 $lang['Unsubscribe'] = 'Cancelar subscrição';
 $lang['You are not subscribed to any comment.'] = 'Não está subscrito a nenhum comentário.';
-$lang['Your subscribtion has been validated, thanks you.'] = 'A sua subscrição foi validada, obrigado.';
+$lang['Your subscription has been validated, thanks you.'] = 'A sua subscrição foi validada, obrigado.';
 $lang['%s has subscribed to comments on'] = '%s subscreveram para comentários nos';
 $lang['Allow users to subscribe to global notifications'] = 'Permitir aos utilizadores subscreverem notificações globais';
 $lang['Already validated.'] = 'Já validado';
 $lang['Comments notifications'] = 'Notificações de comentários';
 $lang['Confirm subscription'] = 'Confirmar subscrição';
-$lang['Confirm your subscribtion to comments'] = 'Confirmar a sua subscrição para comentários';
+$lang['Confirm your subscription to comments'] = 'Confirmar a sua subscrição para comentários';
 $lang['Followed on'] = 'Seguido em';
 $lang['Manage my subscriptions'] = 'Administrar minhas subscrições';
 $lang['New comment on'] = 'Novo comentário em';
@@ -71,7 +71,7 @@ $lang['Stop receiving notifications'] = 'Deixar de receber notificações';
 $lang['Subscribe to comments on %s'] = 'Subscrever a comentários em %s';
 $lang['Subscriptions of %s'] = 'Subscrições de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Está actualmente subscrito aos comentários em %s.';
-$lang['You requested to subscribe by email to comments on %s'] = 'Solicitou a subscrição por e-mail aos comentários em %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Solicitou a subscrição por e-mail aos comentários em %s';
 $lang['All album photos'] = 'Todos os albuns fotográficos';
 $lang['&#9733; : registered users'] = 'Utilizadores registados:&#9733;';
 $lang['First subscription'] = 'Primeira subscrição';

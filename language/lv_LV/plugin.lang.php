@@ -20,13 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Please check your email inbox to confirm your subscription.'] = 'Lūdzu pārbaudiet savu e-pastu, lai apstiprinātu savu pierakstu.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Nekorekta e-pasta adrese, jūs neesat pierakstījies komentāriem.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Lūdzu pārbaudiet savu e-pastu, lai apstiprinātu savu pierakstu.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Nekorekta e-pasta adrese, jūs neesat pierakstījies komentāriem.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Jūsu e-pasta adrese sekmīgi izņemta no paziņojumu saņēmēju saraksta.';
 $lang['Unsubscribe'] = 'Atsacīties no pieraksta';
 $lang['Subscribe'] = 'Pierakstīties';
 $lang['Notify me of followup comments'] = 'Paziņot man par tekošajiem komentāriem';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Paldies. Jūsu pieraksts ir validēts.';
+$lang['Your subscription has been validated, thanks you.'] = 'Paldies. Jūsu pieraksts ir validēts.';
 $lang['Subscriptions of'] = 'Pierakstīšanās';
 $lang['Unsubscribe from all email notifications'] = 'Atsacīties no visiem epasta paziņojumiem';
 $lang['You are not subscribed to any comment.'] = 'Jūs neesat pierakstījies jebkādu komentāru veikšanai.';
@@ -36,7 +36,7 @@ $lang['Allow users to subscribe to global notifications'] = 'Atļaut lietotājie
 $lang['Already validated.'] = 'Jau validēts';
 $lang['Comments notifications'] = 'Paziņojums par komentāru';
 $lang['Confirm subscription'] = 'Apstiprināt parakstīšanos';
-$lang['Confirm your subscribtion to comments'] = 'Apstiprināt parakstīšanos komentāriem';
+$lang['Confirm your subscription to comments'] = 'Apstiprināt parakstīšanos komentāriem';
 $lang['Followed on'] = 'Sekot līdzi';
 $lang['Manage my subscriptions'] = 'Pārvaldīt manu parakstīšanos';
 $lang['New comment on'] = 'Jauns komentārs par';
@@ -65,7 +65,7 @@ $lang['this album'] = 'šis albūms';
 $lang['this picture'] = 'šis attēls';
 $lang['%s has subscribed to comments on %s.'] = '%s ir parakstījies(usi) komentāriem uz %s.';
 $lang['You are currently subscribed to comments on %s.'] = 'Jūs patlaban esat pierakstījies(usies) komentāriem uz %s.';
-$lang['You requested to subscribe by email to comments on %s'] = 'Jūs estat pieprasījis(usi) parakstīšanos(abonešanu)komentāriem uz %s pa e-pastu';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Jūs estat pieprasījis(usi) parakstīšanos(abonešanu)komentāriem uz %s pa e-pastu';
 $lang['Subscriptions of %s'] = 'Parakstīšanā no';
 $lang['New comment on %s'] = 'Jauns komentārs uz %s';
 $lang['New subscription on %s'] = 'Jauna parakstīšanās uz %s ';

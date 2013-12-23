@@ -20,8 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Please check your email inbox to confirm your subscription.'] = 'Пожалуйста, проверьте ваш электронный почтовый ящик, чтобы подтвердить подписку.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Неправильный электронный адрес, вы не подписаны на комментарии.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Пожалуйста, проверьте ваш электронный почтовый ящик, чтобы подтвердить подписку.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Неправильный электронный адрес, вы не подписаны на комментарии.';
 $lang['Notify me of followup comments'] = 'Сообщите мне о новых комментариях';
 $lang['Return to item page'] = 'Вернуться к списку';
 $lang['Subscribe'] = 'Подписаться';
@@ -30,13 +30,13 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['Unsubscribe from all email notifications'] = 'Отказаться от всех уведомлений по электронной почте';
 $lang['Unsubscribe'] = 'Отказаться от подписки';
 $lang['You are not subscribed to any comment.'] = 'Вы не подписаны на комментарии.';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Ваша подписка была подтверждена, спасибо.';
+$lang['Your subscription has been validated, thanks you.'] = 'Ваша подписка была подтверждена, спасибо.';
 $lang['%s has subscribed to comments on'] = '%s подписан на комментарии';
 $lang['Allow users to subscribe to global notifications'] = 'Разрешить пользователям подписываться на все комментарии';
 $lang['Already validated.'] = 'Уже проверен.';
 $lang['Comments notifications'] = 'Уведомления о комментариях';
 $lang['Confirm subscription'] = 'Подтвердить подписку';
-$lang['Confirm your subscribtion to comments'] = 'Подтвердить подписку на комментарии';
+$lang['Confirm your subscription to comments'] = 'Подтвердить подписку на комментарии';
 $lang['Followed on'] = 'Followed on';
 $lang['Manage my subscriptions'] = 'Управление подпиской';
 $lang['New comment on'] = 'Новый комментарий к';
@@ -71,7 +71,7 @@ $lang['Stop receiving notifications'] = 'Приостановить получе
 $lang['Subscribe to comments on %s'] = 'Подписаться на комментарии %s';
 $lang['Subscriptions of %s'] = 'Подписки %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Вы сейчас подписаны на комментарии %s';
-$lang['You requested to subscribe by email to comments on %s'] = 'Вы запросили подписку на комментарии %s по email';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Вы запросили подписку на комментарии %s по email';
 $lang['&#9733; : registered users'] = '&#9733;: зарегистрированных пользователей';
 $lang['All album photos'] = 'Все фото в альбомах';
 $lang['First subscription'] = 'Первая подписка';

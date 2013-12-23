@@ -122,7 +122,7 @@ SELECT
     pwg_mail(
       $row['email'],
       array(
-        'subject' => '['.strip_tags($conf['gallery_title']).'] Re:'.$element['name'],
+        'subject' => '['.strip_tags($conf['gallery_title']).'] '.l10n('New comment on %s', $element['name']),
         ),
       array(
         'filename' => 'notification',
@@ -282,19 +282,11 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
   // notify admins
   if ($conf['Subscribe_to_Comments']['notify_admin_on_subscribe'])
   {
-    $keyargs_content = array(
-      get_l10n_args('Hi administrators,'),
-      get_l10n_args(''),
-      get_l10n_args('%s has subscribed to comments on %s.', array($email, $element['on'])),
-      get_l10n_args('', ''),
-      get_l10n_args('Connected user: %s', stripslashes($user['username'])),
-      get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
-      get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT']),
-      );
-
     pwg_mail_notification_admins(
-      get_l10n_args('%s has subscribed to comments on %s.', array($email, '')),
-      $keyargs_content
+      get_l10n_args('New subscription on %s', strip_tags($element['on'])),
+      array(
+        get_l10n_args('%s has subscribed to comments on %s.', array($email, $element['on'])),
+        )
       );
   }
 

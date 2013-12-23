@@ -64,7 +64,7 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
   {
     if (validate_subscriptions($_GET['email'], $_GET['validate']))
     {
-      $page['infos'][] = l10n('Your subscribtion has been validated, thanks you.');
+      $page['infos'][] = l10n('Your subscription has been validated, thanks you.');
     }
     else
     {

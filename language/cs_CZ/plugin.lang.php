@@ -1,11 +1,11 @@
 <?php
-$lang['Please check your email inbox to confirm your subscription.'] = 'Prosím nyní zkontrolujte vaši email schránku a odsouhlaste vaše přihlášení k odběru.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Byla zadána neplatná email adresa, nebyl jste zařazen k odběru komentářů.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Prosím nyní zkontrolujte vaši email schránku a odsouhlaste vaše přihlášení k odběru.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Byla zadána neplatná email adresa, nebyl jste zařazen k odběru komentářů.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Vaše email adresa byla úspěšně odstraněna ze seznamu odběratelů pro upozorňující zprávy.';
 $lang['Unsubscribe'] = 'Odhlásit';
 $lang['Subscribe'] = 'Přihlásit';
 $lang['Notify me of followup comments'] = 'Upozorni mě na následující komentáře';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Vaše přihlášení k odběru bylo potvrzeno, děkujeme vám.';
+$lang['Your subscription has been validated, thanks you.'] = 'Vaše přihlášení k odběru bylo potvrzeno, děkujeme vám.';
 $lang['Subscriptions of'] = 'Odběr z';
 $lang['Unsubscribe from all email notifications'] = 'Odhlásit se z odběru upozornění ze všech komentářů';
 $lang['You are not subscribed to any comment.'] = 'Nejste nyní přihlášen k oběru upozornění u žádného komentáře.';
@@ -15,7 +15,7 @@ $lang['Allow users to subscribe to global notifications'] = 'Umožnit uživatel�
 $lang['Already validated.'] = 'Již validováno';
 $lang['Comments notifications'] = 'Komnetáře jsou oznámeny';
 $lang['Confirm subscription'] = 'Potvrď předplatné';
-$lang['Confirm your subscribtion to comments'] = 'Potvrď přihlášení ke komentářům';
+$lang['Confirm your subscription to comments'] = 'Potvrď přihlášení ke komentářům';
 $lang['Followed on'] = 'Následováno na';
 $lang['Manage my subscriptions'] = 'Spravovat má přihlášení ';
 $lang['New comment on'] = 'Nový komentář na';
@@ -43,7 +43,7 @@ $lang['To activate, click the confirm button. If you believe this is an error, p
 $lang['You are currently subscribed to comments on'] = 'Současně jsi přihlášen ke komentování';
 $lang['You requested to subscribe by email to comments on'] = 'Požádal jste o odebírání mailem komentářů o';
 $lang['%s has subscribed to comments on %s.'] = '%s odběr komentářů byl přihlášen na %s.';
-$lang['You requested to subscribe by email to comments on %s'] = 'Požádal jste o odběr komentářů e-mailem na %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Požádal jste o odběr komentářů e-mailem na %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Jste právě prihlášen k odběru komentářů na %s';
 $lang['Global subscriptions'] = 'Celkové odběry';
 $lang['Subscriptions of %s'] = 'Odběry na %s';

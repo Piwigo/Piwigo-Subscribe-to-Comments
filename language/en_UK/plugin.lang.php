@@ -1,14 +1,14 @@
 <?php
 
 $lang['Comments notifications'] = 'Comments notifications';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Invalid email adress, your are not subscribed to comments.';
-$lang['Confirm your subscribtion to comments'] = 'Confirm your subscribtion to comments';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Invalid email address, your are not subscribed to comments.';
+$lang['Confirm your subscription to comments'] = 'Confirm your subscription to comments';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Successfully unsubscribed your email address from receiving notifications.';
 $lang['Not found.'] = 'Not found.';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Your subscribtion has been validated, thanks you.';
+$lang['Your subscription has been validated, thanks you.'] = 'Your subscription has been validated, thanks you.';
 $lang['Already validated.'] = 'Already validated.';
 $lang['You are not subscribed to any comment.'] = 'You are not subscribed to any comment.';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Please check your email inbox to confirm your subscription.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Please check your email in-box to confirm your subscription.';
 $lang['You have been added to the list of subscribers.'] = 'You have been added to the list of subscribers.';
 $lang['the picture <a href="%s">%s</a>'] = 'the picture <a href="%s">%s</a>';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'all pictures of the album <a href="%s">%s</a>';
@@ -32,7 +32,7 @@ $lang['Confirm subscription'] = 'Confirm subscription';
 $lang['Stop receiving notifications'] = 'Stop receiving notifications';
 $lang['New subscription on %s'] = 'New subscription on %s';
 $lang['Subscribe to comments on %s'] = 'Subscribe to comments on %s';
-$lang['You requested to subscribe by email to comments on %s'] = 'You requested to subscribe by email to comments on %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'You requested to subscribe by email to comments on %s..';
 $lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'To activate, click the confirm button. If you believe this is an error, please just ignore this message.';
 $lang['Want to edit your notifications options?'] = 'Want to edit your notifications options?';
 $lang['New comment on %s'] = 'New comment on %s';
@@ -50,5 +50,8 @@ $lang['Last subscription'] = 'Last subscription';
 $lang['All album photos'] = 'All album photos';
 $lang['&#9733; : registered users'] = '&#9733; : registered users';
 $lang['No result'] = 'No result';
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> wrote on <i>%s</i>';
+$lang['Apply action'] = 'Apply action';
+$lang['Choose an action'] = 'Choose an action';
 
 ?>

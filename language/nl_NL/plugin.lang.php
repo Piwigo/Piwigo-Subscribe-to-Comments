@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Ongeldig emailadres, u bent niet geabonneerd op commentaar.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Ongeldig emailadres, u bent niet geabonneerd op commentaar.';
 $lang['Notify me of followup comments'] = 'Wilt u geïnformeerd worden over opvolgend commentaar ?';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Raadpleeg aub uw inbox om uw abonnement te bevestigen.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Raadpleeg aub uw inbox om uw abonnement te bevestigen.';
 $lang['Return to item page'] = 'Keer terug naar de itempagina';
 $lang['Subscribe'] = 'Abonneer';
 $lang['Subscriptions of'] = 'Abonnementen op';
@@ -30,13 +30,13 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['Unsubscribe from all email notifications'] = 'Schrijf uit van alle email-berichten';
 $lang['Unsubscribe'] = 'Uitschrijven';
 $lang['You are not subscribed to any comment.'] = 'U bent geabonneerd op geen enkel commentaar.';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Uw inschrijving is goedgekeurd, dank u wel.';
+$lang['Your subscription has been validated, thanks you.'] = 'Uw inschrijving is goedgekeurd, dank u wel.';
 $lang['%s has subscribed to comments on'] = '%s is geabonneerd op commentaar over';
 $lang['Allow users to subscribe to global notifications'] = 'Laat gebruikers zich abonneren op algemene berichten';
 $lang['Already validated.'] = 'Reeds goedgekeurd';
 $lang['Comments notifications'] = 'Commentaar-berichten';
 $lang['Confirm subscription'] = 'Bevestig abonnement';
-$lang['Confirm your subscribtion to comments'] = 'Bevestig uw abonnement op commentaar';
+$lang['Confirm your subscription to comments'] = 'Bevestig uw abonnement op commentaar';
 $lang['Followed on'] = 'Gevolgd op';
 $lang['Manage my subscriptions'] = 'Beheer mijn abonnementen';
 $lang['New comment on'] = 'Nieuw commentaar op';
@@ -76,5 +76,5 @@ $lang['Stop receiving notifications'] = 'Stop het ontvangen van meldingen';
 $lang['Subscribe to comments on %s'] = 'Registreer voor opmerkingen op %s ';
 $lang['Subscriptions of %s'] = 'Registreren van %s';
 $lang['You are currently subscribed to comments on %s.'] = 'U bent geregistreerd om opmerkingen te geven op %s';
-$lang['You requested to subscribe by email to comments on %s'] = 'U heeft zich via email geregistreerd om opmerkingen te geven op %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'U heeft zich via email geregistreerd om opmerkingen te geven op %s';
 ?>

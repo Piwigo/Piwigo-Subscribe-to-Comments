@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Adreça de correu electrònic no vàlida. No està inscrit als comentaris.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Adreça de correu electrònic no vàlida. No està inscrit als comentaris.';
 $lang['Notify me of followup comments'] = 'Notificar-me en cas d\'haver-hi nous comentaris';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Revisi el seu correu electrònic per confirmar la seva inscripció.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Revisi el seu correu electrònic per confirmar la seva inscripció.';
 $lang['Return to item page'] = 'Tornar a la pàgina anterior';
 $lang['Subscribe'] = 'Instriure\'s';
 $lang['Subscriptions of'] = 'Incripcions de';
@@ -30,5 +30,5 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['Unsubscribe from all email notifications'] = 'Donar-se de baixa de totes les notificacions per correu electrònic';
 $lang['Unsubscribe'] = 'Donar de baixa';
 $lang['You are not subscribed to any comment.'] = 'No està inscrit a cap comentari';
-$lang['Your subscribtion has been validated, thanks you.'] = 'La seva inscripció ha estat validada. Gràcies.';
+$lang['Your subscription has been validated, thanks you.'] = 'La seva inscripció ha estat validada. Gràcies.';
 ?>

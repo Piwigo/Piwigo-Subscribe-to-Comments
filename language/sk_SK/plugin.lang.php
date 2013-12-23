@@ -20,13 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Please check your email inbox to confirm your subscription.'] = 'Prosím skontrolujte si svoj mail na potvrdenie odberu.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Neplatná emailová adresa, neboli ste zapísaný do odberu komentárov.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Prosím skontrolujte si svoj mail na potvrdenie odberu.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Neplatná emailová adresa, neboli ste zapísaný do odberu komentárov.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Úspešné odhlásenie Vašej emailovej adresy z prijímania upozornení.';
 $lang['Unsubscribe'] = 'Odhlásiť';
 $lang['Subscribe'] = 'Prihlásiť';
 $lang['Notify me of followup comments'] = 'Upozorniť ma na nasledovné komentáre';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Vaše prihlásenie bolo potvrdené, ďakujeme.';
+$lang['Your subscription has been validated, thanks you.'] = 'Vaše prihlásenie bolo potvrdené, ďakujeme.';
 $lang['Subscriptions of'] = 'Prihlásený';
 $lang['Unsubscribe from all email notifications'] = 'Odhlásenie zo všetkých emailových notofikácií';
 $lang['You are not subscribed to any comment.'] = 'Nie ste prihlásený na odber žiadneho komentára.';
@@ -36,7 +36,7 @@ $lang['Allow users to subscribe to global notifications'] = 'Umožniť používa
 $lang['Already validated.'] = 'Už overené';
 $lang['Comments notifications'] = 'Komentáre sú oznámené';
 $lang['Confirm subscription'] = 'Potvrdiť odoberanie';
-$lang['Confirm your subscribtion to comments'] = 'Potvrdiť prihlásenie ku komentárom';
+$lang['Confirm your subscription to comments'] = 'Potvrdiť prihlásenie ku komentárom';
 $lang['Followed on'] = 'Nasledované na';
 $lang['Manage my subscriptions'] = 'Spravovať moje prihlásenia';
 $lang['New comment on'] = 'Nový komentár na';
@@ -67,7 +67,7 @@ $lang['Subscriptions of %s'] = 'Odbery na %s';
 $lang['New subscription on %s'] = 'Nové odbery na %s';
 $lang['Global subscriptions'] = 'Celkové odbery';
 $lang['%s has subscribed to comments on %s.'] = '%s bolo zapísaných has subscribed to comments on %s.';
-$lang['You requested to subscribe by email to comments on %s'] = 'Požiadali ste na odber komentárov mailom na %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Požiadali ste na odber komentárov mailom na %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Ste práve prihlásený na odber komentárov na %s';
 $lang['Subscribe to comments on %s'] = 'Prihlásiť sa na odber komentárov na %s';
 $lang['Stop receiving notifications'] = 'Zastaviť prijímanie upozornení';

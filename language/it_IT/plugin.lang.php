@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Indirizzo mail errato, non sei sottoscritto ai commenti';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Indirizzo mail errato, non sei sottoscritto ai commenti';
 $lang['Notify me of followup comments'] = 'Notificami sui commenti successivi';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Controlla la tua posta in arrivo per confermare la sottoscrizione';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Controlla la tua posta in arrivo per confermare la sottoscrizione';
 $lang['Return to item page'] = 'Ritorna alla pagina degli argomenti';
 $lang['Subscribe'] = 'Sottoscrivi';
 $lang['Subscriptions of'] = 'Sottoscrizione di';
@@ -30,13 +30,13 @@ $lang['Successfully unsubscribed your email address from receiving notifications
 $lang['Unsubscribe'] = 'Non sottoscrivere';
 $lang['Unsubscribe from all email notifications'] = 'Rimuovi la sottoscrizione da tutte le notifiche mail';
 $lang['You are not subscribed to any comment.'] = 'Non hai sottoscritto alcun commento';
-$lang['Your subscribtion has been validated, thanks you.'] = 'La tua sottoscrizione è stata confermata, grazie.';
+$lang['Your subscription has been validated, thanks you.'] = 'La tua sottoscrizione è stata confermata, grazie.';
 $lang['Allow users to subscribe to global notifications'] = 'Consenti agli utenti di iscriversi in forma aggregata';
 $lang['Already validated.'] = 'Già convalidato.';
 $lang['%s has subscribed to comments on'] = '%s si è iscritto ai commenti';
 $lang['Comments notifications'] = 'Notifiche commenti';
 $lang['Confirm subscription'] = 'Conferma l\'iscrizione';
-$lang['Confirm your subscribtion to comments'] = 'Conferma la tua iscrizione ai commenti';
+$lang['Confirm your subscription to comments'] = 'Conferma la tua iscrizione ai commenti';
 $lang['Followed on'] = 'Iscritto dal';
 $lang['Manage my subscriptions'] = 'Gestisci le mie iscrizioni';
 $lang['New comment on'] = 'Nuovo commento su';
@@ -63,7 +63,7 @@ $lang['the album <a href="%s">%s</a>'] = 'l\'album <a href="%s">%s</a>';
 $lang['the picture <a href="%s">%s</a>'] = 'l\'immagine <a href="%s">%s</a>';
 $lang['this album'] = 'questo album';
 $lang['this picture'] = 'questa immagine';
-$lang['You requested to subscribe by email to comments on %s'] = 'Hai richiesto di iscriverti via email ai commenti su %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Hai richiesto di iscriverti via email ai commenti su %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Sei attualmente iscritto a commenti su %s.';
 $lang['Subscriptions of %s'] = 'Sottoscrizioni di %s';
 $lang['Subscribe to comments on %s'] = 'Iscriviti ai commenti su %s';

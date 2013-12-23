@@ -1,12 +1,12 @@
 <?php
 
-$lang['Please check your email inbox to confirm your subscription.'] = 'Veillez consulter votre boite mail pour confirmer votre inscription.';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Adresse email invalide, vous n\'êtes pas inscrit.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Veillez consulter votre boite mail pour confirmer votre inscription.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Adresse email invalide, vous n\'êtes pas inscrit.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Inscription aux commentaires annulée avec succès.';
 $lang['Unsubscribe'] = 'Se désinscrire';
 $lang['Subscribe'] = 'S\'inscrire';
 $lang['Notify me of followup comments'] = 'Me notifier des nouveaux commentaires';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Votre inscription a été validée, merci.';
+$lang['Your subscription has been validated, thanks you.'] = 'Votre inscription a été validée, merci.';
 $lang['Subscriptions of'] = 'Suivis de';
 $lang['Unsubscribe from all email notifications'] = 'Ne plus recevoir aucune notification';
 $lang['You are not subscribed to any comment.'] = 'Vous n\'êtes inscrit à aucun commentaire.';
@@ -17,7 +17,7 @@ $lang['Allow users to subscribe to global notifications'] = 'Autoriser les utili
 $lang['Already validated.'] = 'Déjà validé.';
 $lang['Comments notifications'] = 'Suivis de commentaires';
 $lang['Confirm subscription'] = 'Confirmer l\'inscription';
-$lang['Confirm your subscribtion to comments'] = 'Confirmez votre inscription aux commentaires';
+$lang['Confirm your subscription to comments'] = 'Confirmez votre inscription aux commentaires';
 $lang['Followed on'] = 'Inscrit depuis';
 $lang['Manage my subscriptions'] = 'Gérer mes suivis';
 $lang['New subscription on'] = 'Nouveau suivi sur';
@@ -51,7 +51,7 @@ $lang['Stop receiving notifications'] = 'Arrêter de recevoir les notifications'
 $lang['Subscribe to comments on %s'] = 'Inscriptions aux commentaires de %s';
 $lang['Subscriptions of %s'] = 'Inscriptions de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Vous êtes inscrits aux commentaires sur %s.';
-$lang['You requested to subscribe by email to comments on %s'] = 'Vous avez demandez à vous inscrire aux commentaires sur %s.';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Vous avez demandez à vous inscrire aux commentaires sur %s.';
 $lang['First subscription'] = 'Premier abonnement';
 $lang['Last subscription'] = 'Dernier abonnement';
 $lang['All album photos'] = 'Toutes les images d\'un album';

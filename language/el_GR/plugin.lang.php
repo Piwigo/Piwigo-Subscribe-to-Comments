@@ -25,16 +25,16 @@ $lang['Allow users to subscribe to global notifications'] = 'Επιτρέπει 
 $lang['Already validated.'] = 'Έχουν ήδη επικυρωθεί.';
 $lang['Comments notifications'] = 'Κοινοποίηση σχολίων';
 $lang['Confirm subscription'] = 'Επιβεβαίωση εγγραφής';
-$lang['Confirm your subscribtion to comments'] = 'Επιβεβαιώστε την εγγραφή σας στα σχόλια';
+$lang['Confirm your subscription to comments'] = 'Επιβεβαιώστε την εγγραφή σας στα σχόλια';
 $lang['Followed on'] = 'Ακολούθησε το';
-$lang['Invalid email adress, your are not subscribed to comments.'] = 'Άκυρη η διεύθυνση σας e-mail, δεν εγγράφεστε σε σχόλια.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Άκυρη η διεύθυνση σας e-mail, δεν εγγράφεστε σε σχόλια.';
 $lang['Manage my subscriptions'] = 'Διαχείριση των εγγραφών μου';
 $lang['New comment on'] = 'Νέο σχόλιο σχετικά με';
 $lang['New subscription on'] = 'Νέα εγγραφή στο';
 $lang['Not found.'] = 'Δεν βρέθηκε.';
 $lang['Notify administrators when a user take a new subscription'] = 'Να ειδοποιούνται οι διαχειριστές όταν ένας χρήστης λαμβάνει μια νέα συνδρομή';
 $lang['Notify me of followup comments'] = 'Να ειδοποιούμαι για παρακολούθηση σχολίων';
-$lang['Please check your email inbox to confirm your subscription.'] = 'Παρακαλούμε ελέγξτε τα εισερχόμενα email σας για να επιβεβαιώσετε την εγγραφή σας.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Παρακαλούμε ελέγξτε τα εισερχόμενα email σας για να επιβεβαιώσετε την εγγραφή σας.';
 $lang['Return to item page'] = 'Επιστροφή στη σελίδα του στοιχείου';
 $lang['Subject'] = 'Θέμα';
 $lang['Subscribe to comments on'] = 'Εγγραφείτε σε σχόλια σχετικά με';
@@ -51,7 +51,7 @@ $lang['You are currently subscribed to comments on'] = 'Είστε εγγεγρ�
 $lang['You are not subscribed to any comment.'] = 'Δεν έχετε εγγραφεί σε οποιαδήποτε σχόλια.';
 $lang['You have been added to the list of subscribers.'] = 'Έχετε προστεθεί στον κατάλογο των συνδρομητών.';
 $lang['You requested to subscribe by email to comments on'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail σε σχόλια σχετικά με';
-$lang['Your subscribtion has been validated, thanks you.'] = 'Η εγγραφή σας έχει επικυρωθεί, σας ευχαριστούμαι.';
+$lang['Your subscription has been validated, thanks you.'] = 'Η εγγραφή σας έχει επικυρωθεί, σας ευχαριστούμαι.';
 $lang['all albums of the gallery'] = 'όλα τα λευκώματα της γκαλερί';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'όλες οι φωτογραφίες του λευκώματος <a href="%s">%s</a>';
 $lang['all pictures of the gallery'] = 'όλες οι φωτογραφίες της γκαλερί';
@@ -63,7 +63,7 @@ $lang['the album <a href="%s">%s</a>'] = 'το λεύκωμα <a href="%s">%s</a
 $lang['the picture <a href="%s">%s</a>'] = 'η εικάνα <a href="%s">%s</a>';
 $lang['this album'] = 'αυτό το λεύκωμα';
 $lang['this picture'] = 'αυτή η εικόνα';
-$lang['You requested to subscribe by email to comments on %s'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail για σχόλια σχετικά με το %s';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail για σχόλια σχετικά με το %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Αυτήν τη στιγμή είστε συνδρομητής σε σχόλια σχετικά με %s.';
 $lang['Subscriptions of %s'] = 'Συνδρομές του %s';
 $lang['Subscribe to comments on %s'] = 'Εγγραφείτε στα σχόλια σχετικά με %s';
