@@ -92,8 +92,8 @@ SELECT
     $comm['author'] = l10n('guest');
   }
 
-  $comm['author'] = trigger_event('render_comment_author', $comm['author']);
-  $comm['content'] = trigger_event('render_comment_content', $comm['content']);
+  $comm['author'] = trigger_change('render_comment_author', $comm['author']);
+  $comm['content'] = trigger_change('render_comment_content', $comm['content']);
 
   include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
@@ -451,7 +451,7 @@ SELECT
   {
     $element['name'] = get_name_from_file($element['file']);
   }
-  $element['name'] = trigger_event('render_element_name', $element['name']);
+  $element['name'] = trigger_change('render_element_name', $element['name']);
 
   $element['url'] = make_picture_url(array(
     'image_id'=>$element['id']
@@ -503,7 +503,7 @@ SELECT
     'category'=>$element,
     ));
 
-  $element['name'] = trigger_event('render_category_name', $element['name']);
+  $element['name'] = trigger_change('render_category_name', $element['name']);
 
   if ($with_thumb)
   {
@@ -522,41 +522,6 @@ SELECT
   }
 
   return $element;
-}
-
-/**
- * get list of admins email
- * @return: string
- */
-function get_admins_email()
-{
-  global $conf, $user;
-
-  $admins = array();
-
-  $query = '
-SELECT
-    u.'.$conf['user_fields']['username'].' AS username,
-    u.'.$conf['user_fields']['email'].' AS email
-  FROM '.USERS_TABLE.' AS u
-    JOIN '.USER_INFOS_TABLE.' AS i
-      ON i.user_id =  u.'.$conf['user_fields']['id'].'
-  WHERE i.status IN ("webmaster", "admin")
-    AND '.$conf['user_fields']['email'].' IS NOT NULL
-    AND i.user_id != '.$user['id'].'
-  ORDER BY username
-;';
-
-  $datas = pwg_query($query);
-  if (!empty($datas))
-  {
-    while ($admin = pwg_db_fetch_assoc($datas))
-    {
-      array_push($admins, format_email($admin['username'], $admin['email']));
-    }
-  }
-
-  return implode(',', $admins);
 }
 
 

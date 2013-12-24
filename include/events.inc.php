@@ -77,10 +77,8 @@ function stc_comment_insertion($comm)
             break;
         }
       }
-    }
-    else
-    {
-      $template->assign('STC_MODE', $_POST['stc_mode']);
+
+      unset($_POST['stc_mode']);
     }
   }
 }
@@ -159,6 +157,7 @@ function stc_on_picture()
         subscribe_to_comments(@$_POST['stc_mail'], 'image', $picture['current']['id']);
         break;
     }
+    unset($_POST['stc_mode']);
   }
   else if (isset($_GET['stc_unsubscribe']))
   {
@@ -166,6 +165,18 @@ function stc_on_picture()
     {
       $page['infos'][] = l10n('Successfully unsubscribed your email address from receiving notifications.');
     }
+  }
+
+  $tpl_vars = array(
+    'ASK_MAIL' => is_a_guest() or empty($user['email']),
+    'ON_PICTURE' => true,
+    'ALLOW_ALBUM_IMAGES' => !empty($page['category']['id']),
+    'ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
+    );
+
+  if (!empty($_POST['stc_mode']))
+  {
+    $tpl_vars['MODE'] = $_POST['stc_mode'];
   }
 
   // if registered user with mail we check if already subscribed
@@ -219,22 +230,14 @@ SELECT id
 
     if ($subscribed)
     {
-      $template->assign(array(
-        'SUBSCRIBED' => $subscribed,
-        'UNSUB_LINK' => add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id)),
-        ));
+      $tpl_vars['SUBSCRIBED'] = $subscribed;
+      $tpl_vars['U_UNSUB'] = add_url_params($picture['current']['url'], array('stc_unsubscribe'=>$stc_id));
     }
-  }
-  else
-  {
-    $template->assign('STC_ASK_MAIL', true);
   }
 
   $template->assign(array(
-    'STC_ON_PICTURE' => true,
-    'STC_ALLOW_ALBUM_IMAGES' => !empty($page['category']['id']),
-    'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
     'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
+    'STC' => $tpl_vars,
     ));
 
   $template->set_prefilter('picture', 'stc_main_prefilter');
@@ -248,15 +251,7 @@ function stc_on_album()
 {
   global $page, $template, $user, $conf;
 
-  if (
-      !defined('COA_ID') or script_basename() != 'index' or
-      @$page['section'] != 'categories' or !isset($page['category'])
-    )
-  {
-    return;
-  }
-
-	// standalone subscription
+  // standalone subscription
   if (isset($_POST['stc_submit']))
   {
     switch ($_POST['stc_mode'])
@@ -268,6 +263,7 @@ function stc_on_album()
         subscribe_to_comments(@$_POST['stc_mail'], 'album', $page['category']['id']);
         break;
     }
+    unset($_POST['stc_mode']);
   }
   else if (isset($_GET['stc_unsubscribe']))
   {
@@ -277,14 +273,20 @@ function stc_on_album()
     }
   }
 
-  // if registered user we check if already subscribed
-  if ( !is_a_guest() and !empty($user['email']) )
-  {
-    $element_url = make_index_url(array(
-      'section' => 'categories',
-      'category' => $page['category'],
-      ));
+  $tpl_vars = array(
+    'ASK_MAIL' => is_a_guest() or empty($user['email']),
+    'ON_ALBUM' => true,
+    'ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
+    );
 
+  if (!empty($_POST['stc_mode']))
+  {
+    $tpl_vars['MODE'] = $_POST['stc_mode'];
+  }
+
+  // if registered user we check if already subscribed
+  if (!is_a_guest() and !empty($user['email']))
+  {
     $subscribed = false;
 
     $base_query = '
@@ -321,20 +323,18 @@ SELECT id
 
     if ($subscribed)
     {
-      $template->assign(array(
-        'SUBSCRIBED' => $subscribed,
-        'UNSUB_LINK' => add_url_params($element_url, array('stc_unsubscribe'=>$stc_id)),
+      $element_url = make_index_url(array(
+        'section' => 'categories',
+        'category' => $page['category'],
         ));
+
+      $tpl_vars['SUBSCRIBED'] = $subscribed;
+      $tpl_vars['U_UNSUB'] = add_url_params($element_url, array('stc_unsubscribe'=>$stc_id));
     }
-  }
-  else
-  {
-    $template->assign('STC_ASK_MAIL', true);
   }
 
   $template->assign(array(
-    'STC_ON_ALBUM' => true,
-    'STC_ALLOW_GLOBAL' => $conf['Subscribe_to_Comments']['allow_global_subscriptions'] || is_admin(),
+    'STC' => $tpl_vars,
     'SUBSCRIBE_TO_PATH' => SUBSCRIBE_TO_PATH,
     ));
 
@@ -345,17 +345,17 @@ SELECT id
 /**
  * main prefilter
  */
-function stc_main_prefilter($content, &$smarty)
+function stc_main_prefilter($content)
 {
   ## subscribe at any moment ##
-  $search = '{if isset($comments)}';
-  $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_standalone.tpl');
-  $content = str_replace($search, $replace.$search, $content);
+  $search = '{if isset($comment_add)}';
+  $add = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_outside.tpl');
+  $content = str_replace($search, $search.$add, $content);
 
   ## subscribe while add a comment ##
   $search = '{$comment_add.CONTENT}</textarea></p>';
-  $replace = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_comment.tpl');
-  $content = str_replace($search, $search.$replace, $content);
+  $add = file_get_contents(SUBSCRIBE_TO_PATH.'template/form_inside.tpl');
+  $content = str_replace($search, $search.$add, $content);
 
   return $content;
 }

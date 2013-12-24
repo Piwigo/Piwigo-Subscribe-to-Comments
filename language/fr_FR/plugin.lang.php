@@ -41,7 +41,6 @@ $lang['%s has subscribed to comments on %s.'] = '%s s\'est inscrit aux commentai
 $lang['Global subscriptions'] = 'Inscriptions globales';
 $lang['New comment on %s'] = 'Nouveau commentaire sur %s';
 $lang['Stop receiving notifications'] = 'Arrêter de recevoir les notifications';
-$lang['Subscribe to comments on %s'] = 'Inscriptions aux commentaires de %s';
 $lang['Subscriptions of %s'] = 'Inscriptions de %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Vous êtes inscrits aux commentaires sur %s.';
 $lang['You requested to subscribe by email to comments on %s.'] = 'Vous avez demandez à vous inscrire aux commentaires sur %s.';
@@ -49,9 +48,10 @@ $lang['First subscription'] = 'Premier abonnement';
 $lang['Last subscription'] = 'Dernier abonnement';
 $lang['All album photos'] = 'Toutes les images d\'un album';
 $lang['&#9733; : registered users'] = '&#9733; : utilisateurs enregistrées';
-
+$lang['Subscribe without commenting'] = 'S\'inscrire sans commenter';
 $lang['No result'] = 'Aucun résultat';
 $lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> a écrit le <i>%s</i>';
 $lang['Apply action'] = 'Appliquer l\'action';
 $lang['Choose an action'] = 'Choisir une action';
+
 ?>

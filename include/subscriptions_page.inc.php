@@ -19,7 +19,6 @@ else
 }
 
 
-
 if (!empty($_GET['action']))
 {
   // unsubscribe all
@@ -72,7 +71,8 @@ DELETE FROM '.SUBSCRIBE_TO_TABLE.'
     }
   }
 
-  $template->assign('MANAGE_LINK', make_stc_url('manage', $_GET['email']));
+  $self_url = make_stc_url('manage', $_GET['email']);
+  $template->assign('U_MANAGE_SUBSCRIPTIONS', $self_url);
 }
 
 
@@ -121,7 +121,7 @@ SELECT type, element_id
           $element = null;
       }
 
-      $template->assign(array(
+      $template->assign('STC', array(
         'type' => $type,
         'element' => $element,
         ));
@@ -175,7 +175,7 @@ SELECT
           $element = null;
       }
 
-      $template->assign(array(
+      $template->assign('STC', array(
         'type' => $type,
         'element' => $element,
         ));
@@ -201,6 +201,11 @@ SELECT *
       while ($subscription = pwg_db_fetch_assoc($result))
       {
         $subscription['registration_date'] = format_date($subscription['registration_date'], true);
+        $subscription['U_UNSUB'] = add_url_params($self_url, array('unsubscribe'=>$subscription['id']));
+        if ($subscription['validated']=='false')
+        {
+          $subscription['U_VALIDATE'] = add_url_params($self_url, array('validate'=>$subscription['id']));
+        }
 
         switch ($subscription['type'])
         {

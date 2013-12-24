@@ -49,7 +49,7 @@ function stc_init()
   {
     // subscribe
     add_event_handler('loc_end_picture', 'stc_on_picture');
-    add_event_handler('loc_begin_coa', 'stc_on_album');
+    add_event_handler('loc_end_coa', 'stc_on_album');
 
     // management
     add_event_handler('loc_end_section_init', 'stc_detect_section');

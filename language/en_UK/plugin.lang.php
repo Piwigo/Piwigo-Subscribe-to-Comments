@@ -31,7 +31,6 @@ $lang['Validate'] = 'Validate';
 $lang['Confirm subscription'] = 'Confirm subscription';
 $lang['Stop receiving notifications'] = 'Stop receiving notifications';
 $lang['New subscription on %s'] = 'New subscription on %s';
-$lang['Subscribe to comments on %s'] = 'Subscribe to comments on %s';
 $lang['You requested to subscribe by email to comments on %s.'] = 'You requested to subscribe by email to comments on %s..';
 $lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'To activate, click the confirm button. If you believe this is an error, please just ignore this message.';
 $lang['Want to edit your notifications options?'] = 'Want to edit your notifications options?';
@@ -53,5 +52,6 @@ $lang['No result'] = 'No result';
 $lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> wrote on <i>%s</i>';
 $lang['Apply action'] = 'Apply action';
 $lang['Choose an action'] = 'Choose an action';
+$lang['Subscribe without commenting'] = 'Subscribe without commenting';
 
 ?>
