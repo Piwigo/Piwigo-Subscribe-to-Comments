@@ -20,22 +20,15 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['You requested to subscribe by email to comments on'] = 'Du har bedt om at blive tilmeldt mailkommentarer til';
-$lang['%s has subscribed to comments on'] = '%s er tilmeldt kommentarer til';
-$lang['New comment on'] = 'Ny kommentar til';
-$lang['New subscription on'] = 'Ny tilmelding til';
-$lang['Subscribe to comments on'] = 'Tilmeld til kommentarer til';
 $lang['the picture <a href="%s">%s</a>'] = 'billedet <a href="%s">%s</a>';
 $lang['this album'] = 'dette album';
 $lang['this picture'] = 'dette billede';
-$lang['Subscriptions of'] = 'Tilmeldinger til';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Din e-mail-adresse er frameldt modtagelse af notifikationer.';
 $lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'For at aktiver skal du klikke på bekræft-knappen. Hvis du mener, at dette er en fejl, så vær venlig at ignorere denne mail.';
 $lang['Unsubscribe'] = 'Frameld';
 $lang['Unsubscribe from all email notifications'] = 'Frameld alle e-mail-notifikationer';
 $lang['Validate'] = 'Godkend';
 $lang['Want to edit your notifications options?'] = 'Ønsker du at redigere dine notifikationsvalgmuligheder?';
-$lang['You are currently subscribed to comments on'] = 'Du er i øjeblikket tilmeldt kommentarer til';
 $lang['You are not subscribed to any comment.'] = 'Du er ikke tilmeldt nogen kommentarer.';
 $lang['You have been added to the list of subscribers.'] = 'Du er blevet føjet til listen over tilmeldte.';
 $lang['Your subscription has been validated, thanks you.'] = 'Tak, din tilmelding er godkendt.';
@@ -68,7 +61,6 @@ $lang['Global subscriptions'] = 'Globale abonnementer';
 $lang['New comment on %s'] = 'Nye kommentarer vedrørende %s';
 $lang['New subscription on %s'] = 'Nye abonnementer vedrørende %s';
 $lang['Stop receiving notifications'] = 'Modtag ikke flere notifikationer';
-$lang['Subscribe to comments on %s'] = 'Tegn abonnement på kommentarer vedrørende %s';
 $lang['Subscriptions of %s'] = 'Abonnementer hørende til %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Du har i øjeblikket abonnement på kommentarer vedrørende %s.';
 $lang['You requested to subscribe by email to comments on %s.'] = 'Du har bedt om at tegne abonnement via e-mail på kommentarer vedrørende %s';
@@ -77,4 +69,8 @@ $lang['All album photos'] = 'Alle albumfotografier';
 $lang['First subscription'] = 'Første abonnement';
 $lang['Last subscription'] = 'Sidste abonnement';
 $lang['No result'] = 'Ingen fundet';
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> skrev den <i>%s</i>';
+$lang['Apply action'] = 'Udfør handling';
+$lang['Choose an action'] = 'Vælg en handling';
+$lang['Subscribe without commenting'] = 'Tilmeld uden at kommentere';
 ?>
