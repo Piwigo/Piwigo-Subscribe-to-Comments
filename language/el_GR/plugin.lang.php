@@ -20,7 +20,6 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['%s has subscribed to comments on'] = '%s έχει εγγραφεί σε σχόλια σχετικά με';
 $lang['Allow users to subscribe to global notifications'] = 'Επιτρέπει στους χρήστες να εγγραφούν σε συνολικές ειδοποιήσεις';
 $lang['Already validated.'] = 'Έχουν ήδη επικυρωθεί.';
 $lang['Comments notifications'] = 'Κοινοποίηση σχολίων';
@@ -29,28 +28,22 @@ $lang['Confirm your subscription to comments'] = 'Επιβεβαιώστε τη�
 $lang['Followed on'] = 'Ακολούθησε το';
 $lang['Invalid email address, your are not subscribed to comments.'] = 'Άκυρη η διεύθυνση σας e-mail, δεν εγγράφεστε σε σχόλια.';
 $lang['Manage my subscriptions'] = 'Διαχείριση των εγγραφών μου';
-$lang['New comment on'] = 'Νέο σχόλιο σχετικά με';
-$lang['New subscription on'] = 'Νέα εγγραφή στο';
 $lang['Not found.'] = 'Δεν βρέθηκε.';
 $lang['Notify administrators when a user take a new subscription'] = 'Να ειδοποιούνται οι διαχειριστές όταν ένας χρήστης λαμβάνει μια νέα συνδρομή';
 $lang['Notify me of followup comments'] = 'Να ειδοποιούμαι για παρακολούθηση σχολίων';
 $lang['Please check your email in-box to confirm your subscription.'] = 'Παρακαλούμε ελέγξτε τα εισερχόμενα email σας για να επιβεβαιώσετε την εγγραφή σας.';
 $lang['Return to item page'] = 'Επιστροφή στη σελίδα του στοιχείου';
 $lang['Subject'] = 'Θέμα';
-$lang['Subscribe to comments on'] = 'Εγγραφείτε σε σχόλια σχετικά με';
 $lang['Subscribe to mail notifications'] = 'Εγγραφείτε για ειδοποιήσεις με email';
 $lang['Subscribe'] = 'Εγγραφή';
-$lang['Subscriptions of'] = 'Συνδρομές του';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Διαγραψατε με επιτυχία το e-mail σας από τις ανακοινώσεις ';
 $lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'Για να ενεργοποιήσετε, κάντε κλικ στο κουμπί επιβεβαίωσης. Αν πιστεύετε ότι αυτό είναι ένα λάθος, παρακαλώ απλά αγνοήστε αυτό το μήνυμα.';
 $lang['Unsubscribe from all email notifications'] = 'Διαγραφή από όλες τις ειδοποιήσεις μέσω ηλεκτρονικού ταχυδρομείου';
 $lang['Unsubscribe'] = 'Διαγραφή';
 $lang['Validate'] = 'Επικύρωση';
 $lang['Want to edit your notifications options?'] = 'Θέλετε να επεξεργαστείτε τις επιλογές ειδοποιήσεών σας;';
-$lang['You are currently subscribed to comments on'] = 'Είστε εγγεγραμμένος αυτήν τη στιγμή σε σχόλια σχετικά με';
 $lang['You are not subscribed to any comment.'] = 'Δεν έχετε εγγραφεί σε οποιαδήποτε σχόλια.';
 $lang['You have been added to the list of subscribers.'] = 'Έχετε προστεθεί στον κατάλογο των συνδρομητών.';
-$lang['You requested to subscribe by email to comments on'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail σε σχόλια σχετικά με';
 $lang['Your subscription has been validated, thanks you.'] = 'Η εγγραφή σας έχει επικυρωθεί, σας ευχαριστούμαι.';
 $lang['all albums of the gallery'] = 'όλα τα λευκώματα της γκαλερί';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'όλες οι φωτογραφίες του λευκώματος <a href="%s">%s</a>';
@@ -66,7 +59,6 @@ $lang['this picture'] = 'αυτή η εικόνα';
 $lang['You requested to subscribe by email to comments on %s.'] = 'Ζητήσατε να εγγραφείτε μέσω e-mail για σχόλια σχετικά με το %s';
 $lang['You are currently subscribed to comments on %s.'] = 'Αυτήν τη στιγμή είστε συνδρομητής σε σχόλια σχετικά με %s.';
 $lang['Subscriptions of %s'] = 'Συνδρομές του %s';
-$lang['Subscribe to comments on %s'] = 'Εγγραφείτε στα σχόλια σχετικά με %s';
 $lang['Stop receiving notifications'] = 'Διακοπή λήψης ειδοποιήσεων';
 $lang['New subscription on %s'] = 'Νέα συνδρομή για %s';
 $lang['New comment on %s'] = 'Νέο σχόλιο για %s';
@@ -77,4 +69,8 @@ $lang['Last subscription'] = 'Τελευταία εγγραφή';
 $lang['First subscription'] = 'Πρώτη εγγραφή';
 $lang['All album photos'] = 'Όλες οι φωτογραφίες του λευκώματος';
 $lang['&#9733; : registered users'] = '&#9733; : εγγεγραμμένοι χρήστες';
+$lang['Subscribe without commenting'] = 'Εγγραφείτε χωρίς σχολιασμό';
+$lang['Choose an action'] = 'Επιλέξτε μια ενέργεια';
+$lang['Apply action'] = 'Εφαρμόστε δράση';
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> έγγραψε στο <i>%s</i>';
 ?>
