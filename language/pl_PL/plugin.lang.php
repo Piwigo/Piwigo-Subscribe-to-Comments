@@ -71,4 +71,5 @@ $lang['Last subscription'] = 'Ostatnia subskrypcja';
 $lang['No result'] = 'Brak rezultatów';
 $lang['Apply action'] = 'Zastosuj akcję';
 $lang['Choose an action'] = 'Wybierz akcję';
+$lang['Subscribe without commenting'] = 'Zapisz bez komentowania';
 ?>
