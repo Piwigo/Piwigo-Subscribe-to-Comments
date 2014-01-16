@@ -151,7 +151,7 @@ SELECT
  * @param: int element_id
  * @return: bool
  */
-function subscribe_to_comments($email, $type, $element_id='NULL')
+function subscribe_to_comments($email, $type, $element_id=null, $spam_check=true)
 {
   if (empty($type))
   {
@@ -159,7 +159,7 @@ function subscribe_to_comments($email, $type, $element_id='NULL')
     return false;
   }
 
-  if (!in_array($type, array('all-images','all-albums')) and $element_id == 'NULL')
+  if (!in_array($type, array('all-images','all-albums')) and !isset($element_id))
   {
     trigger_error('subscribe_to_comment: missing element_id', E_USER_WARNING);
     return false;
@@ -182,6 +182,15 @@ function subscribe_to_comments($email, $type, $element_id='NULL')
   {
     $email = $user['email'];
   }
+  
+  // spam check
+  if ($spam_check)
+  {
+    if (!trigger_change('loc_before_subscribe_to_comments', true, $email, $type, $element_id))
+    {
+      return false;
+    }
+  }
 
   // search if already registered
   $query = '
@@ -189,7 +198,7 @@ SELECT id
   FROM '.SUBSCRIBE_TO_TABLE.'
   WHERE
     type = "'.$type.'"
-    AND element_id = '.$element_id.'
+    AND element_id = '. (isset($element_id) ? $element_id : 'NULL') .'
     AND email = "'.pwg_db_real_escape_string($email).'"
 ;';
   $result = pwg_query($query);
@@ -210,7 +219,7 @@ INSERT INTO '.SUBSCRIBE_TO_TABLE.'(
   )
   VALUES(
     "'.$type.'",
-    '.$element_id.',
+    '. (isset($element_id) ? $element_id : 'NULL') .',
     "'.$user['language'].'",
     "'.pwg_db_real_escape_string($email).'",
     NOW(),

@@ -52,16 +52,16 @@ function stc_comment_insertion($comm)
         switch ($_POST['stc_mode'])
         {
           case 'all-images':
-            subscribe_to_comments(@$_POST['email'], 'all-images');
+            subscribe_to_comments(@$_POST['email'], 'all-images', null, false);
             break;
           case 'album-images':
             if (!empty($page['category']['id']))
             {
-              subscribe_to_comments(@$_POST['email'], 'album-images', $page['category']['id']);
+              subscribe_to_comments(@$_POST['email'], 'album-images', $page['category']['id'], false);
             }
             break;
           case 'image':
-            subscribe_to_comments(@$_POST['email'], 'image', $comm['image_id']);
+            subscribe_to_comments(@$_POST['email'], 'image', $comm['image_id'], false);
             break;
         }
       }
@@ -70,10 +70,10 @@ function stc_comment_insertion($comm)
         switch ($_POST['stc_mode'])
         {
           case 'all-albums':
-            subscribe_to_comments(@$_POST['email'], 'all-albums');
+            subscribe_to_comments(@$_POST['email'], 'all-albums', null, false);
             break;
           case 'album':
-            subscribe_to_comments(@$_POST['email'], 'album', $comm['category_id']);
+            subscribe_to_comments(@$_POST['email'], 'album', $comm['category_id'], false);
             break;
         }
       }
