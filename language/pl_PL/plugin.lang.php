@@ -72,4 +72,5 @@ $lang['No result'] = 'Brak rezultatów';
 $lang['Apply action'] = 'Zastosuj akcję';
 $lang['Choose an action'] = 'Wybierz akcję';
 $lang['Subscribe without commenting'] = 'Zapisz bez komentowania';
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> napisał na <i>%s</i>';
 ?>
