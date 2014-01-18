@@ -92,8 +92,8 @@ SELECT
     $comm['author'] = l10n('guest');
   }
 
-  $comm['author'] = trigger_change('render_comment_author', $comm['author']);
-  $comm['content'] = trigger_change('render_comment_content', $comm['content']);
+  $comm['author'] = trigger_event('render_comment_author', $comm['author']);
+  $comm['content'] = trigger_event('render_comment_content', $comm['content']);
 
   include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
@@ -186,7 +186,7 @@ function subscribe_to_comments($email, $type, $element_id=null, $spam_check=true
   // spam check
   if ($spam_check)
   {
-    if (!trigger_change('loc_before_subscribe_to_comments', true, $email, $type, $element_id))
+    if (!trigger_event('loc_before_subscribe_to_comments', true, $email, $type, $element_id))
     {
       return false;
     }
@@ -460,7 +460,7 @@ SELECT
   {
     $element['name'] = get_name_from_file($element['file']);
   }
-  $element['name'] = trigger_change('render_element_name', $element['name']);
+  $element['name'] = trigger_event('render_element_name', $element['name']);
 
   $element['url'] = make_picture_url(array(
     'image_id'=>$element['id']
@@ -512,7 +512,7 @@ SELECT
     'category'=>$element,
     ));
 
-  $element['name'] = trigger_change('render_category_name', $element['name']);
+  $element['name'] = trigger_event('render_category_name', $element['name']);
 
   if ($with_thumb)
   {
