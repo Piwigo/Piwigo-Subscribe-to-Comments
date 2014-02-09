@@ -64,7 +64,7 @@ SELECT
       '.implode("\n      OR ", $where_clauses).'
     )
     AND validated = true
-    AND email != "'.$exclude.'"
+    '.(!empty($exclude) ? 'AND email != "'.$exclude.'"' : '').'
   GROUP BY email
 ';
   $subscriptions = query2array($query);
@@ -115,7 +115,7 @@ SELECT
       continue;
     }
 
-    switch_lang_to($language);
+    switch_lang_to($row['language']);
 
     $comm['date'] = format_date(date('Y-m-d H:i:s'));
 

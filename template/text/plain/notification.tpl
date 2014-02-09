@@ -1,4 +1,4 @@
-{$ELEMENT.name} ({$ELEMENT.url)
+{$ELEMENT.name} ({$ELEMENT.url})
 
 {'<b>%s</b> wrote on <i>%s</i>'|translate:$COMMENT.author:$COMMENT.date} :
 --------------------
