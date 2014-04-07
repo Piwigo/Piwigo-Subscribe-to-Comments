@@ -39,7 +39,6 @@ $lang['Return to item page'] = 'Visszatérés a elem oldalához';
 $lang['Stop receiving notifications'] = 'Értesítések fogadásának tiltása';
 $lang['Subject'] = 'Tárgy';
 $lang['Subscribe'] = 'Feliratkozás';
-$lang['Subscribe to comments on %s'] = 'Feliratkozás a hozzászólásokra ehhez %s';
 $lang['Subscribe to mail notifications'] = 'Feliratkozás email értesítésekre';
 $lang['Validate'] = 'Érvényesítés';
 $lang['You have been added to the list of subscribers.'] = 'Hozzál lettél adva a feliratkozottak listájához.';
@@ -70,4 +69,6 @@ $lang['Last subscription'] = 'Utolsó feliratkozás';
 $lang['Manage my subscriptions'] = 'Feliratkozásaim kezelése';
 $lang['New comment on %s'] = 'Új hozzászólás a képhez: %s ';
 $lang['Not found.'] = 'Nem található.';
-?>
+$lang['Apply action'] = 'Végrehajtás';
+$lang['Choose an action'] = 'Válassz egy műveletet';
+$lang['Subscribe without commenting'] = 'Feliratkozás hozzászólás nélkül';
