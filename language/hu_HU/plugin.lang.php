@@ -72,3 +72,4 @@ $lang['Not found.'] = 'Nem található.';
 $lang['Apply action'] = 'Végrehajtás';
 $lang['Choose an action'] = 'Válassz egy műveletet';
 $lang['Subscribe without commenting'] = 'Feliratkozás hozzászólás nélkül';
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> írt a(z) <i>%s</i> témában';
