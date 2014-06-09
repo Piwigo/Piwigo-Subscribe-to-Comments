@@ -72,4 +72,4 @@ $lang['No result'] = '没有结果';
 $lang['Subscribe without commenting'] = '无评论订阅';
 $lang['Choose an action'] = '选择一项命令';
 $lang['Apply action'] = '执行命令';
-?>
+$lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> 写在 <i>%s</i>';
