@@ -3,8 +3,6 @@ defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
 class Subscribe_to_Comments_maintain extends PluginMaintain
 {
-  private $installed = false;
-
   private $default_conf = array(
     'notify_admin_on_subscribe' => false,
     'allow_global_subscriptions' => true,
@@ -27,8 +25,7 @@ class Subscribe_to_Comments_maintain extends PluginMaintain
     // config parameter
     if (empty($conf['Subscribe_to_Comments']))
     {
-      $conf['Subscribe_to_Comments'] = serialize($this->default_config);
-      conf_update_param('Subscribe_to_Comments', $conf['Subscribe_to_Comments']);
+      conf_update_param('Subscribe_to_Comments', $this->default_config, true);
     }
 
     // subscriptions table
@@ -101,20 +98,11 @@ ALTER TABLE `'. $this->table .'`
         mass_inserts($this->table, $dbfields, $inserts);
       }
     }
-
-    $this->installed = true;
   }
 
-  function activate($plugin_version, &$errors=array())
+  function update($old_version, $new_version, &$errors=array())
   {
-    if (!$this->installed)
-    {
-      $this->install($plugin_version, $errors);
-    }
-  }
-
-  function deactivate()
-  {
+    $this->install($new_version, $errors);
   }
 
   function uninstall()

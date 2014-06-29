@@ -8,7 +8,7 @@ if (isset($_POST['config_submit']))
     'allow_global_subscriptions' => isset($_POST['allow_global_subscriptions']),
     );
 
-  conf_update_param('Subscribe_to_Comments', serialize($conf['Subscribe_to_Comments']));
+  conf_update_param('Subscribe_to_Comments', $conf['Subscribe_to_Comments']);
   $page['infos'][] = l10n('Information data registered in database');
 }
 

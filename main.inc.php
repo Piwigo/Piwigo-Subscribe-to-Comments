@@ -16,7 +16,6 @@ define('SUBSCRIBE_TO_ID',      basename(dirname(__FILE__)));
 define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . SUBSCRIBE_TO_ID . '/');
 define('SUBSCRIBE_TO_TABLE',   $prefixeTable . 'subscribe_to_comments');
 define('SUBSCRIBE_TO_ADMIN',   get_root_url() . 'admin.php?page=plugin-' . SUBSCRIBE_TO_ID);
-define('SUBSCRIBE_TO_VERSION', 'auto');
 
 
 add_event_handler('init', 'stc_init');
@@ -32,14 +31,8 @@ function stc_init()
     return;
   }
 
-  include_once(SUBSCRIBE_TO_PATH . 'maintain.inc.php');
-  $maintain = new Subscribe_to_Comments_maintain(SUBSCRIBE_TO_ID);
-  $maintain->autoUpdate(SUBSCRIBE_TO_VERSION, 'install');
-
-
   load_language('plugin.lang', SUBSCRIBE_TO_PATH);
-  $conf['Subscribe_to_Comments'] = unserialize($conf['Subscribe_to_Comments']);
-
+  $conf['Subscribe_to_Comments'] = safe_unserialize($conf['Subscribe_to_Comments']);
 
   include_once(SUBSCRIBE_TO_PATH.'include/functions.inc.php');
   include_once(SUBSCRIBE_TO_PATH.'include/events.inc.php');
