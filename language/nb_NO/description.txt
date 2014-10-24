@@ -1,0 +1,1 @@
+Dette programtillegget gjør det mulig å abonnere på kommentarer via e-post.
