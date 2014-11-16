@@ -10,12 +10,22 @@ Author URI: http://www.strangeplanet.fr
 
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
+if (basename(dirname(__FILE__)) != 'Subscribe_to_Comments')
+{
+  add_event_handler('init', 'stc_error');
+  function stc_error()
+  {
+    global $page;
+    $page['errors'][] = 'Subscribe to Comments folder name is incorrect, uninstall the plugin and rename it to "Subscribe_to_Comments"';
+  }
+  return;
+}
+
 global $prefixeTable;
 
-define('SUBSCRIBE_TO_ID',      basename(dirname(__FILE__)));
-define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . SUBSCRIBE_TO_ID . '/');
+define('SUBSCRIBE_TO_PATH' ,   PHPWG_PLUGINS_PATH . 'Subscribe_to_Comments/');
 define('SUBSCRIBE_TO_TABLE',   $prefixeTable . 'subscribe_to_comments');
-define('SUBSCRIBE_TO_ADMIN',   get_root_url() . 'admin.php?page=plugin-' . SUBSCRIBE_TO_ID);
+define('SUBSCRIBE_TO_ADMIN',   get_root_url() . 'admin.php?page=plugin-Subscribe_to_Comments');
 
 
 add_event_handler('init', 'stc_init');
