@@ -1,0 +1,1 @@
+Denna plugin möjliggör prenumeration på kommenterar via e-post.
