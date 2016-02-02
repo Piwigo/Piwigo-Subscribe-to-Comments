@@ -1,31 +1,31 @@
 <?php
 
-$lang['Please check your email in-box to confirm your subscription.'] = 'Bitte überprüfen Sie Ihren Posteingang, um Ihre Abonnementanfrage zu bestätigen.';
-$lang['Invalid email address, your are not subscribed to comments.'] = 'Ungültige E-mailadresse, Sie haben Kommentare nicht abonniert.';
+$lang['Please check your email in-box to confirm your subscription.'] = 'Bitte überprüfen Sie Ihren E-Mail-Posteingang, um Ihre Abonnement zu bestätigen.';
+$lang['Invalid email address, your are not subscribed to comments.'] = 'Ungültige E-Mail-Adresse, Sie haben keine Kommentare abonniert.';
 $lang['Successfully unsubscribed your email address from receiving notifications.'] = 'Ihr Abonnement wurde erfolgreich deaktiviert. Sie erhalten keine weiteren Benachrichtigungen.';
 $lang['Unsubscribe'] = 'Abmelden';
 $lang['Subscribe'] = 'Anmelden';
 $lang['Notify me of followup comments'] = 'Bei weiteren Kommentaren benachrichtigen';
-$lang['Your subscription has been validated, thanks you.'] = 'Danke, ihr Abonnement wurde bestätigt.';
-$lang['Unsubscribe from all email notifications'] = 'Alle E-mailbenachrichtigungen deaktivieren';
+$lang['Your subscription has been validated, thanks you.'] = 'Vielen Dank. Ihr Abonnement wurde bestätigt.';
+$lang['Unsubscribe from all email notifications'] = 'Alle E-Mail-Benachrichtigungen deaktivieren';
 $lang['You are not subscribed to any comment.'] = 'Sie haben im Moment keine Benachrichtigungen abonniert.';
 $lang['Return to item page'] = 'Zurück zur Übersichtsseite der Einträge';
 
 $lang['Allow users to subscribe to global notifications'] = 'Benutzern erlauben, die globale Benachrichtigung zu abonnieren';
-$lang['Already validated.'] = 'Bereits validiert';
+$lang['Already validated.'] = 'Bereits bestätigt';
 $lang['Comments notifications'] = 'Benachrichtigungen für Kommentare';
 $lang['Confirm subscription'] = 'Abonnement bestätigen';
 $lang['Confirm your subscription to comments'] = 'Bestätigen Sie Ihr Abo für Kommentare';
 $lang['Followed on'] = 'Nachverfolgung an';
 $lang['Manage my subscriptions'] = 'Meine Abonnements verwalten';
 $lang['Not found.'] = 'Nicht gefunden';
-$lang['Notify administrators when a user take a new subscription'] = 'Benachrichtigen Sie den Administrator, wenn ein Benutzer ein neues Abo anmeldet';
+$lang['Notify administrators when a user take a new subscription'] = 'Administrator benachrichtigen, wenn sich ein Benutzer für ein neues Abonnement anmeldet.';
 $lang['Subject'] = 'Thema';
-$lang['Subscribe to mail notifications'] = 'Abonnieren Sie Mail-Benachrichtigungen';
-$lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'Zum aktivieren, klicken Sie auf die Bestätigungstaste. Wenn Sie glauben, dies sei ein Fehler, bitte einfach diese Meldung ignorieren';
+$lang['Subscribe to mail notifications'] = 'E-Mail-Benachrichtigungen abonnieren';
+$lang['To activate, click the confirm button. If you believe this is an error, please just ignore this message.'] = 'Zum aktivieren, die Bestätigungstaste klicken. Wenn Sie glauben, dies sei ein Fehler, diese Meldung bitte einfach ignorieren.';
 $lang['Validate'] = 'Bestätigen';
-$lang['Want to edit your notifications options?'] = 'Möchten Sie Ihre Mitteilungen Optionen bearbeiten?';
-$lang['You have been added to the list of subscribers.'] = 'Sie sind der Liste für Abonnenten hinzugefügt';
+$lang['Want to edit your notifications options?'] = 'Mitteilungsoptionen bearbeiten?';
+$lang['You have been added to the list of subscribers.'] = 'Sie wurden der Abonnenten-Liste hinzugefügt.';
 $lang['all albums of the gallery'] = 'alle Alben der Galerie ';
 $lang['all pictures of the album <a href="%s">%s</a>'] = 'alle Bilder des Albums <a href="%s">%s</a>';
 $lang['all pictures of the gallery'] = 'alle Bilder der Galerie ';
@@ -41,17 +41,16 @@ $lang['%s has subscribed to comments on %s.'] = '%s hat sich für Kommentare auf
 $lang['Global subscriptions'] = 'Globale Einschreibungen';
 $lang['New comment on %s'] = 'Neuer Kommentar auf %s';
 $lang['New subscription on %s'] = 'Neue Einschreibung auf %s';
-$lang['Stop receiving notifications'] = 'Stoppe den Erhalt von Benachrichtigungen';
-$lang['Subscriptions of %s'] = 'Einschreibungen auf %s';
-$lang['You are currently subscribed to comments on %s.'] = 'Du bist eingeschrieben für Kommentare auf %s';
-$lang['You requested to subscribe by email to comments on %s.'] = 'Du hast eine Einschreibung via E-mail für Kommentare auf %s angefragt. ';
+$lang['Stop receiving notifications'] = 'Den Erhalt von Benachrichtigungen stoppen';
+$lang['Subscriptions of %s'] = 'Einschreibungen zu %s';
+$lang['You are currently subscribed to comments on %s.'] = 'Sie werden derzeit über Kommentare zu %s benachrichtigt.';
+$lang['You requested to subscribe by email to comments on %s.'] = 'Sie haben angefragt, via E-Mail über Kommentare zu %s benachrichtigt zu werden. ';
 $lang['&#9733; : registered users'] = '#9733; : registrierte Benutzer';
-$lang['All album photos'] = 'Alle Album Fotos';
+$lang['All album photos'] = 'Alle Album-Fotos';
 $lang['First subscription'] = 'Erstes Abonnement';
 $lang['Last subscription'] = 'Letztes Abonnement';
-$lang['No result'] = 'kein Ergebnis';
-$lang['Apply action'] = 'Aktion aktivieren';
+$lang['No result'] = 'Kein Ergebnis';
+$lang['Apply action'] = 'Aktion anwenden';
 $lang['<b>%s</b> wrote on <i>%s</i>'] = '<b>%s</b> schrieb am <i>%s</i>';
-$lang['Subscribe without commenting'] = 'Unterschreiben ohne einen Kommentar hinzuzufügen';
+$lang['Subscribe without commenting'] = 'Abonnieren, ohne einen Kommentar zu hinterlassen';
 $lang['Choose an action'] = 'Eine Aktion auswählen';
-?>
