@@ -6,6 +6,7 @@ Description: This plugin allows to subscribe to comments by email.
 Plugin URI: auto
 Author: Mistic
 Author URI: http://www.strangeplanet.fr
+Has Settings: false
 */
 
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
