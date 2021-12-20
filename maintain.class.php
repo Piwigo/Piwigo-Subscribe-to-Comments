@@ -25,7 +25,7 @@ class Subscribe_to_Comments_maintain extends PluginMaintain
     // config parameter
     if (empty($conf['Subscribe_to_Comments']))
     {
-      conf_update_param('Subscribe_to_Comments', $this->default_config, true);
+      conf_update_param('Subscribe_to_Comments', $this->default_conf, true);
     }
 
     // subscriptions table
