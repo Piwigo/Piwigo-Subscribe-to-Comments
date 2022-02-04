@@ -399,7 +399,7 @@ function stc_profile_link()
     $template->set_prefilter('profile_content', 'stc_profile_link_prefilter');
   }
 }
-function stc_profile_link_prefilter($content, &$smarty)
+function stc_profile_link_prefilter($content)
 {
   $search = '<p class="bottomButtons">';
   $replace = '<p style="font-size:1.1em;text-decoration:underline;"><a href="{$MANAGE_LINK}" rel="nofollow">{\'Manage my subscriptions\'|@translate}</a></p>';
