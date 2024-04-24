@@ -20,21 +20,21 @@
 {else}
 <p id="stc_comment">
   {'Notify me of followup comments'|translate} :<br>
-  <label><input type="radio" name="stc_mode" value="-1" {if !$STC.MODE}checked{/if}> {'No'|translate}</label><br>
-  {if $STC.ON_PICTURE}
+  <label><input type="radio" name="stc_mode" value="-1" {if !isset($STC.MODE) or $STC.MODE=='no'}checked{/if}> {'No'|translate}</label><br>
+  {if isset($STC.ON_PICTURE) and $STC.ON_PICTURE}
     {if $STC.ALLOW_GLOBAL}
-      <label><input type="radio" name="stc_mode" value="image" {if $STC.MODE=="image"}checked{/if}> {'this picture'|translate|ucfirst}</label><br>
+      <label><input type="radio" name="stc_mode" value="image" {if isset($STC.MODE) and $STC.MODE=="image"}checked{/if}> {'this picture'|translate|ucfirst}</label><br>
       {if $STC.ALLOW_ALBUM_IMAGES}<label><input type="radio" name="stc_mode" value="album-images" {if $STC.MODE=="album-images"}checked{/if}> {'all pictures of this album'|translate|ucfirst}</label><br>{/if}
-      <label><input type="radio" name="stc_mode" value="all-images" {if $STC.MODE=="all-images"}checked{/if}> {'all pictures of the gallery'|translate|ucfirst}</label><br>
+      <label><input type="radio" name="stc_mode" value="all-images" {if isset($STC.MODE) and $STC.MODE=="all-images"}checked{/if}> {'all pictures of the gallery'|translate|ucfirst}</label><br>
     {else}
-      <label><input type="radio" name="stc_mode" value="image" {if $STC.MODE=="image"}checked{/if}> {'Yes'|translate}</label>
+      <label><input type="radio" name="stc_mode" value="image" {if isset($STC.MODE) and $STC.MODE=="image"}checked{/if}> {'Yes'|translate}</label>
     {/if}
   {else if $STC.ON_ALBUM}
     {if $STC.ALLOW_GLOBAL}
-      <label><input type="radio" name="stc_mode" value="album" {if $STC.MODE=="album"}checked{/if}> {'this album'|translate|ucfirst}</label><br>
-      <label><input type="radio" name="stc_mode" value="all-albums" {if $STC.MODE=="all-albums"}checked{/if}> {'all albums of the gallery'|translate|ucfirst}</label><br>
+      <label><input type="radio" name="stc_mode" value="album" {if isset($STC.MODE) and $STC.MODE=="album"}checked{/if}> {'this album'|translate|ucfirst}</label><br>
+      <label><input type="radio" name="stc_mode" value="all-albums" {if isset($STC.MODE) and $STC.MODE=="all-albums"}checked{/if}> {'all albums of the gallery'|translate|ucfirst}</label><br>
     {else}
-      <label><input type="radio" name="stc_mode" value="album" {if $STC.MODE=="album"}checked{/if}> {'Yes'|translate}</label>
+      <label><input type="radio" name="stc_mode" value="album" {if isset($STC.MODE) and $STC.MODE=="album"}checked{/if}> {'Yes'|translate}</label>
     {/if}
   {/if}
 </p>

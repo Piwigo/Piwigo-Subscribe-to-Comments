@@ -48,7 +48,7 @@
 
 <div style="display:none">
   <form method="post" action="{$comment_add.F_ACTION}" id="stc_standalone" style="padding:10px;min-width:350px;">
-  {if $STC.ON_PICTURE}
+  {if isset($STC.ON_PICTURE) and $STC.ON_PICTURE}
     {if $STC.ALLOW_GLOBAL}
       <label><input type="radio" name="stc_mode" value="image"> {'this picture'|translate|ucfirst}</label><br>
       {if $STC.ALLOW_ALBUM_IMAGES}<label><input type="radio" name="stc_mode" value="album-images"> {'all pictures of this album'|translate|ucfirst}</label><br>{/if}
