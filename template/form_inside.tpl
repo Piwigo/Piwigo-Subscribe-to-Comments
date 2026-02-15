@@ -24,7 +24,7 @@
   {if isset($STC.ON_PICTURE) and $STC.ON_PICTURE}
     {if $STC.ALLOW_GLOBAL}
       <label><input type="radio" name="stc_mode" value="image" {if isset($STC.MODE) and $STC.MODE=="image"}checked{/if}> {'this picture'|translate|ucfirst}</label><br>
-      {if $STC.ALLOW_ALBUM_IMAGES}<label><input type="radio" name="stc_mode" value="album-images" {if $STC.MODE=="album-images"}checked{/if}> {'all pictures of this album'|translate|ucfirst}</label><br>{/if}
+      {if $STC.ALLOW_ALBUM_IMAGES}<label><input type="radio" name="stc_mode" value="album-images" {if isset($STC.MODE) && $STC.MODE=="album-images"}checked{/if}> {'all pictures of this album'|translate|ucfirst}</label><br>{/if}
       <label><input type="radio" name="stc_mode" value="all-images" {if isset($STC.MODE) and $STC.MODE=="all-images"}checked{/if}> {'all pictures of the gallery'|translate|ucfirst}</label><br>
     {else}
       <label><input type="radio" name="stc_mode" value="image" {if isset($STC.MODE) and $STC.MODE=="image"}checked{/if}> {'Yes'|translate}</label>
